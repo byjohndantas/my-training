@@ -1,0 +1,401 @@
+[
+  {
+    "id": "segunda",
+    "day": "Segunda-feira",
+    "name": "Costas & Bíceps",
+    "focus": "Largura, espessura e bíceps",
+    "exercises": [
+      {
+        "name": "Puxada alta na polia",
+        "sets": "4",
+        "reps": "8–12",
+        "rest": "90 s",
+        "muscle": "Costas",
+        "how": "Puxe a barra em direção à parte alta do peito, mantendo o tronco estável e os cotovelos apontando para baixo.",
+        "avoid": "Não balance o corpo nem puxe atrás da nuca."
+      },
+      {
+        "name": "Remada curvada com barra",
+        "sets": "4",
+        "reps": "8–10",
+        "rest": "120 s",
+        "muscle": "Costas",
+        "how": "Incline o tronco com coluna neutra e traga a barra em direção ao abdômen.",
+        "avoid": "Evite arredondar a lombar ou usar impulso."
+      },
+      {
+        "name": "Remada unilateral com halter",
+        "sets": "3",
+        "reps": "10–12",
+        "rest": "90 s",
+        "muscle": "Costas",
+        "how": "Apoie uma mão, mantenha o tronco firme e conduza o cotovelo em direção ao quadril.",
+        "avoid": "Não gire o tronco para levantar mais peso."
+      },
+      {
+        "name": "Pullover na polia",
+        "sets": "3",
+        "reps": "12–15",
+        "rest": "60 s",
+        "muscle": "Costas",
+        "how": "Com braços levemente flexionados, leve a barra de cima para baixo em arco controlado.",
+        "avoid": "Não transforme o movimento em uma extensão de tríceps."
+      },
+      {
+        "name": "Rosca direta barra EZ",
+        "sets": "3",
+        "reps": "8–12",
+        "rest": "90 s",
+        "muscle": "Bíceps",
+        "how": "Flexione os cotovelos mantendo-os próximos ao tronco.",
+        "avoid": "Evite balançar o quadril."
+      },
+      {
+        "name": "Rosca inclinada com halteres",
+        "sets": "3",
+        "reps": "10–12",
+        "rest": "60 s",
+        "muscle": "Bíceps",
+        "how": "Com os braços atrás do tronco, faça a flexão sem mover os ombros.",
+        "avoid": "Use amplitude confortável, sem forçar a articulação."
+      },
+      {
+        "name": "Rosca martelo",
+        "sets": "3",
+        "reps": "10–12",
+        "rest": "60 s",
+        "muscle": "Bíceps",
+        "how": "Mantenha as palmas voltadas uma para a outra e flexione os cotovelos.",
+        "avoid": "Evite embalar os halteres."
+      }
+    ]
+  },
+  {
+    "id": "terca",
+    "day": "Terça-feira",
+    "name": "Peito & Ombros",
+    "focus": "Peitoral e deltoides",
+    "exercises": [
+      {
+        "name": "Supino inclinado no Smith",
+        "sets": "4",
+        "reps": "8–10",
+        "rest": "120 s",
+        "muscle": "Peito",
+        "how": "Ajuste o banco em inclinação moderada e desça a barra controladamente até a parte alta do peito.",
+        "avoid": "Não exagere na inclinação nem arqueie excessivamente a lombar."
+      },
+      {
+        "name": "Supino reto com halteres",
+        "sets": "3",
+        "reps": "8–12",
+        "rest": "120 s",
+        "muscle": "Peito",
+        "how": "Desça os halteres ao lado do tórax e empurre mantendo os punhos alinhados.",
+        "avoid": "Não deixe os halteres baterem no topo."
+      },
+      {
+        "name": "Crucifixo na polia",
+        "sets": "3",
+        "reps": "12–15",
+        "rest": "60 s",
+        "muscle": "Peito",
+        "how": "Una as mãos à frente do peito com cotovelos suavemente flexionados.",
+        "avoid": "Não use carga que force os ombros."
+      },
+      {
+        "name": "Desenvolvimento com halteres",
+        "sets": "3",
+        "reps": "8–10",
+        "rest": "120 s",
+        "muscle": "Ombros",
+        "how": "Empurre os halteres acima da cabeça sem perder o controle do tronco.",
+        "avoid": "Não force amplitude dolorosa."
+      },
+      {
+        "name": "Elevação lateral",
+        "sets": "4",
+        "reps": "12–15",
+        "rest": "60 s",
+        "muscle": "Ombros",
+        "how": "Eleve os braços lateralmente até próximo da linha dos ombros.",
+        "avoid": "Evite impulso e encolher os ombros."
+      },
+      {
+        "name": "Crucifixo inverso na máquina",
+        "sets": "3",
+        "reps": "12–15",
+        "rest": "60 s",
+        "muscle": "Deltoide posterior",
+        "how": "Abra os braços controladamente, conduzindo o movimento com os cotovelos.",
+        "avoid": "Não projete a cabeça para frente."
+      }
+    ]
+  },
+  {
+    "id": "quarta",
+    "day": "Quarta-feira",
+    "name": "Pernas",
+    "focus": "Quadríceps, posteriores, glúteos e panturrilhas",
+    "exercises": [
+      {
+        "name": "Leg press",
+        "sets": "3",
+        "reps": "10–12",
+        "rest": "120 s",
+        "muscle": "Quadríceps/Glúteos",
+        "how": "Desça até uma amplitude que preserve a posição da pelve e empurre pelo pé inteiro.",
+        "avoid": "Não trave os joelhos nem deixe a lombar arredondar."
+      },
+      {
+        "name": "Cadeira extensora",
+        "sets": "3",
+        "reps": "12–15",
+        "rest": "60 s",
+        "muscle": "Quadríceps",
+        "how": "Estenda os joelhos de forma controlada e pause brevemente no alto.",
+        "avoid": "Evite chutar ou soltar o peso."
+      },
+      {
+        "name": "Hack squat",
+        "sets": "3",
+        "reps": "8–12",
+        "rest": "120 s",
+        "muscle": "Quadríceps",
+        "how": "Desça com controle mantendo costas apoiadas e joelhos acompanhando os pés.",
+        "avoid": "Não force profundidade que cause desconforto."
+      },
+      {
+        "name": "Mesa flexora",
+        "sets": "3",
+        "reps": "10–12",
+        "rest": "90 s",
+        "muscle": "Posteriores",
+        "how": "Flexione os joelhos sem levantar o quadril do apoio.",
+        "avoid": "Evite movimentos bruscos."
+      },
+      {
+        "name": "Stiff com barra ou halteres",
+        "sets": "3",
+        "reps": "8–10",
+        "rest": "120 s",
+        "muscle": "Posteriores/Glúteos",
+        "how": "Leve o quadril para trás com coluna neutra e joelhos levemente flexionados.",
+        "avoid": "Não transforme em agachamento nem arredonde a coluna."
+      },
+      {
+        "name": "Hip thrust",
+        "sets": "3",
+        "reps": "10–12",
+        "rest": "90 s",
+        "muscle": "Glúteos",
+        "how": "Estenda o quadril e faça uma pausa no topo mantendo costelas alinhadas.",
+        "avoid": "Não hiperestenda a lombar."
+      },
+      {
+        "name": "Panturrilha em pé",
+        "sets": "3",
+        "reps": "12–15",
+        "rest": "60 s",
+        "muscle": "Panturrilhas",
+        "how": "Desça o calcanhar com controle e suba até a contração completa.",
+        "avoid": "Evite quicar."
+      },
+      {
+        "name": "Panturrilha sentado",
+        "sets": "3",
+        "reps": "12–15",
+        "rest": "60 s",
+        "muscle": "Sóleo/Panturrilhas",
+        "how": "Faça flexão plantar completa com joelhos apoiados.",
+        "avoid": "Não encurte o movimento."
+      }
+    ]
+  },
+  {
+    "id": "quinta",
+    "day": "Quinta-feira",
+    "name": "Costas — Região Média",
+    "focus": "Espessura, romboides e trapézio médio",
+    "exercises": [
+      {
+        "name": "Remada cavalinho com apoio",
+        "sets": "4",
+        "reps": "8–12",
+        "rest": "120 s",
+        "muscle": "Costas médias",
+        "how": "Puxe em direção ao tronco mantendo o peito apoiado e as escápulas controladas.",
+        "avoid": "Não tire o peito do apoio."
+      },
+      {
+        "name": "Remada baixa pegada aberta",
+        "sets": "3",
+        "reps": "10–12",
+        "rest": "90 s",
+        "muscle": "Costas médias",
+        "how": "Puxe em direção ao abdômen alto, aproximando as escápulas sem elevar os ombros.",
+        "avoid": "Não incline o tronco para trás."
+      },
+      {
+        "name": "Remada articulada",
+        "sets": "3",
+        "reps": "10–12",
+        "rest": "90 s",
+        "muscle": "Costas médias",
+        "how": "Ajuste o assento e conduza os cotovelos para trás com controle.",
+        "avoid": "Não encurte a amplitude."
+      },
+      {
+        "name": "Crucifixo inverso",
+        "sets": "3",
+        "reps": "12–15",
+        "rest": "60 s",
+        "muscle": "Deltoide posterior",
+        "how": "Abra os braços mantendo o peito apoiado ou o tronco estável.",
+        "avoid": "Evite impulso."
+      },
+      {
+        "name": "Face pull",
+        "sets": "3",
+        "reps": "12–15",
+        "rest": "60 s",
+        "muscle": "Deltoide posterior/Trapézio",
+        "how": "Puxe a corda em direção ao rosto, separando as mãos no final.",
+        "avoid": "Não arqueie a lombar."
+      }
+    ]
+  },
+  {
+    "id": "sexta",
+    "day": "Sexta-feira",
+    "name": "Superiores Completo",
+    "focus": "Complemento de peito, costas e braços",
+    "exercises": [
+      {
+        "name": "Supino inclinado máquina",
+        "sets": "3",
+        "reps": "10–12",
+        "rest": "90 s",
+        "muscle": "Peito",
+        "how": "Empurre as alças mantendo escápulas apoiadas e punhos alinhados.",
+        "avoid": "Não deixe os ombros avançarem."
+      },
+      {
+        "name": "Crucifixo máquina",
+        "sets": "2",
+        "reps": "12–15",
+        "rest": "60 s",
+        "muscle": "Peito",
+        "how": "Aproxime os braços com movimento controlado.",
+        "avoid": "Não force alongamento excessivo."
+      },
+      {
+        "name": "Puxada alta",
+        "sets": "3",
+        "reps": "10–12",
+        "rest": "90 s",
+        "muscle": "Costas",
+        "how": "Puxe à frente até a altura do peito, sem balançar.",
+        "avoid": "Não puxe atrás da nuca."
+      },
+      {
+        "name": "Remada baixa",
+        "sets": "2",
+        "reps": "12",
+        "rest": "90 s",
+        "muscle": "Costas",
+        "how": "Puxe a alça ao abdômen com tronco firme.",
+        "avoid": "Evite embalo."
+      },
+      {
+        "name": "Rosca EZ",
+        "sets": "2",
+        "reps": "10–12",
+        "rest": "60 s",
+        "muscle": "Bíceps",
+        "how": "Flexione os cotovelos sem mover os braços para frente.",
+        "avoid": "Evite impulso."
+      },
+      {
+        "name": "Rosca alternada",
+        "sets": "2",
+        "reps": "10–12",
+        "rest": "60 s",
+        "muscle": "Bíceps",
+        "how": "Alterne os braços com controle e supinação confortável.",
+        "avoid": "Não gire o tronco."
+      },
+      {
+        "name": "Tríceps corda",
+        "sets": "3",
+        "reps": "10–12",
+        "rest": "60 s",
+        "muscle": "Tríceps",
+        "how": "Estenda os cotovelos e separe levemente as pontas da corda no final.",
+        "avoid": "Mantenha os cotovelos estáveis."
+      },
+      {
+        "name": "Tríceps acima da cabeça",
+        "sets": "2",
+        "reps": "12",
+        "rest": "60 s",
+        "muscle": "Tríceps",
+        "how": "Estenda os cotovelos acima da cabeça mantendo o abdômen firme.",
+        "avoid": "Não arqueie a lombar."
+      }
+    ]
+  },
+  {
+    "id": "sabado",
+    "day": "Sábado",
+    "name": "Core & Recuperação",
+    "focus": "Abdômen e atividade leve",
+    "exercises": [
+      {
+        "name": "Abdominal na polia com corda",
+        "sets": "3",
+        "reps": "12–15",
+        "rest": "60 s",
+        "muscle": "Abdômen",
+        "how": "Flexione o tronco aproximando as costelas da pelve.",
+        "avoid": "Não puxe apenas com os braços."
+      },
+      {
+        "name": "Elevação de pernas suspenso",
+        "sets": "3",
+        "reps": "8–15",
+        "rest": "60 s",
+        "muscle": "Abdômen",
+        "how": "Eleve os joelhos ou pernas sem balançar o corpo.",
+        "avoid": "Comece com joelhos flexionados se necessário."
+      },
+      {
+        "name": "Prancha",
+        "sets": "3",
+        "reps": "30–60 s",
+        "rest": "45 s",
+        "muscle": "Core",
+        "how": "Mantenha corpo alinhado, contraindo abdômen e glúteos.",
+        "avoid": "Não deixe o quadril cair."
+      },
+      {
+        "name": "Prancha lateral",
+        "sets": "3",
+        "reps": "30–45 s",
+        "rest": "45 s",
+        "muscle": "Core/Oblíquos",
+        "how": "Mantenha ombro, quadril e tornozelo alinhados.",
+        "avoid": "Reduza o tempo se perder alinhamento."
+      },
+      {
+        "name": "Bike ou caminhada leve",
+        "sets": "1",
+        "reps": "20–30 min",
+        "rest": "—",
+        "muscle": "Condicionamento",
+        "how": "Mantenha ritmo confortável, que permita conversar.",
+        "avoid": "Sábado é opcional; priorize recuperação."
+      }
+    ]
+  }
+]
