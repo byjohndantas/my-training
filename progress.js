@@ -432,4 +432,124 @@ if(calCompleteButton){
 }
 
 renderCalendar();
+ 
+// PREMIUM FUTURISTIC MY PROGRESS
+const premium=document.createElement('style');
+premium.textContent=`
+#myProgressPanel {
+  border-radius:22px;
+  border:1px solid rgba(216,201,168,.34);
+  background:
+    radial-gradient(ellipse at 90% 0%,rgba(216,201,168,.13),transparent 40%),
+    linear-gradient(145deg,#30271f,#1a1511,#100d0b);
+  box-shadow:0 22px 55px #0007,inset 0 1px #ffffff12;
+  overflow:hidden;
+}
+#myProgressPanel .sectionhead {
+  font-family:ui-sans-serif,sans-serif!important;
+  font-size:32px!important;
+  font-weight:650!important;
+  letter-spacing:-1.3px!important;
+}
+#myProgressPanel .mp-heading {
+  display:flex;
+  align-items:center;
+  gap:10px;
+  color:#d8c9a8;
+  letter-spacing:.24em;
+}
+#myProgressPanel .mp-heading:after {
+  content:"";
+  height:1px;
+  flex:1;
+  background:linear-gradient(90deg,#d8c9a866,transparent);
+}
+#myProgressPanel .mp-stat {
+  min-height:90px;
+  border-radius:15px;
+  border:1px solid #d8c9a833;
+  background:linear-gradient(145deg,#3b3025,#17120e);
+  box-shadow:inset 0 1px #ffffff12,0 10px 24px #0004;
+  padding:14px 10px;
+}
+#myProgressPanel .mp-number {
+  font:600 27px ui-sans-serif,sans-serif;
+  color:#e7d8b9;
+  letter-spacing:-1px;
+}
+#myProgressPanel .mp-label {
+  font-size:8px;
+  letter-spacing:1.3px;
+  color:#bdae98;
+}
+#myProgressPanel .mp-record {
+  border:1px solid #d8c9a833;
+  border-radius:15px;
+  background:linear-gradient(135deg,#352b21,#14100d);
+  padding:14px;
+  box-shadow:0 9px 22px #0003;
+}
+#myProgressPanel .mp-title {
+  color:#f1e9dc;
+  font-size:13px;
+}
+#myProgressPanel .mp-value {
+  font:600 24px ui-sans-serif,sans-serif;
+  color:#e0cda8;
+}
+#myProgressPanel .mp-item {
+  border-bottom:1px solid #d8c9a822;
+  padding:13px 4px;
+}
+#myProgressPanel .mp-empty {
+  border-radius:14px;
+  border-color:#d8c9a844;
+  background:#17120e;
+}
+#myProgressPanel select {
+  border:1px solid #d8c9a855!important;
+  border-radius:12px!important;
+  background:#211a15!important;
+  color:#f1e9dc!important;
+}
+#mpCalendarBox .cal-stat {
+  border-radius:14px;
+  border:1px solid #d8c9a833;
+  background:linear-gradient(145deg,#30271f,#17120e);
+}
+#mpCalendarBox .cal-stat strong {
+  font:600 25px ui-sans-serif,sans-serif;
+  color:#e0cda8;
+}
+#mpCalendarBox .mp-calendar {
+  border-radius:16px;
+  border:1px solid #d8c9a833;
+  background:linear-gradient(145deg,#211a15,#15110e);
+}
+#mpCalendarBox .cal-day.trained {
+  background:linear-gradient(145deg,#e2d2b1,#a99576);
+  color:#17110b;
+  box-shadow:0 0 14px #d8c9a833;
+}
+#mpCalendarBox .mp-calendar-head button {
+  border-radius:10px;
+  color:#e0cda8;
+  border-color:#d8c9a844;
+}
+#myProgressPanel .mp-note {
+  color:#aa9a84;
+}
+@media(prefers-reduced-motion:no-preference) {
+  #myProgressPanel .mp-stat,
+  #myProgressPanel .mp-record {
+    transition:transform .2s,border-color .2s;
+  }
+  #myProgressPanel .mp-stat:active,
+  #myProgressPanel .mp-record:active {
+    transform:translateY(-2px);
+  }
+}
+`;
+document.head.appendChild(premium);
+
   drawChart();})();
