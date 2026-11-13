@@ -114,6 +114,89 @@ input:focus, textarea:focus {
   border-color: #c5b38f;
 }
 
+
+/* PREMIUM INTERACTIONS — SOFT & REFINED */
+
+.panel,
+.exercise,
+.daybtn,
+button,
+.exercise-visual img {
+  transition:
+    background .25s ease,
+    border-color .25s ease,
+    box-shadow .25s ease,
+    transform .25s ease,
+    filter .25s ease;
+}
+
+.progressline {
+  background: #40362c;
+  overflow: hidden;
+}
+
+.progressline span {
+  background: linear-gradient(
+    90deg,
+    #a99576,
+    #e3d3b5,
+    #b8a17c
+  );
+  background-size: 200% 100%;
+  animation: champagneFlow 4s ease-in-out infinite alternate;
+  transition: width .6s cubic-bezier(.22,.61,.36,1);
+}
+
+@keyframes champagneFlow {
+  from { background-position: 0% 50%; }
+  to { background-position: 100% 50%; }
+}
+
+.exercise {
+  box-shadow: 0 8px 22px rgba(0,0,0,.16);
+}
+
+.daybtn:active,
+button:active {
+  transform: scale(.97);
+}
+
+button:focus-visible,
+.daybtn:focus-visible {
+  outline: 2px solid #d8c9a8;
+  outline-offset: 3px;
+}
+
+@media (hover: hover) {
+  .exercise:hover {
+    border-color: rgba(216,201,168,.38);
+    box-shadow: 0 12px 28px rgba(0,0,0,.25);
+    transform: translateY(-2px);
+  }
+
+  .daybtn:hover,
+  button:hover {
+    border-color: #bba989;
+    filter: brightness(1.08);
+  }
+
+  .exercise-visual img:hover {
+    filter: saturate(1.04) contrast(1.04);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .panel,
+  .exercise,
+  .daybtn,
+  button,
+  .exercise-visual img,
+  .progressline span {
+    animation: none !important;
+    transition: none !important;
+  }
+}
+
 </style></head><body><main class="wrap"><header class="hero"><div class="eyebrow">PERSONAL TRAINING JOURNAL</div><div class="brand">MY TRAINING</div><div class="sub">Treino, consistência e evolução — um dia de cada vez.</div></header>
 <section class="panel"><div class="toolbar"><b>PROGRESSO DA SEMANA</b><strong id="progressText" style="color:var(--gold)">0 exercícios</strong></div><div class="progressline"><span id="progressBar"></span></div><nav class="days" id="days"></nav><div class="actions" style="margin-top:12px"><button type="button" class="primary" onclick="document.getElementById('myProgressPanel').scrollIntoView({behavior:'smooth'})">VER MINHA EVOLUÇÃO</button></div></section>
 <section class="panel"><div class="muted" id="dayLabel">SEGUNDA-FEIRA</div><h1 class="sectionhead" id="dayTitle">Costas & Bíceps</h1><p class="muted" id="dayFocus"></p><div id="exerciseList"></div><label for="notes" style="margin-top:18px">ANOTAÇÕES DO TREINO</label><textarea id="notes" class="note" placeholder="Energia, observações, evolução..."></textarea><div class="actions"><button class="primary" id="completeDay">Marcar dia como concluído</button><button id="resetDay">Limpar marcações do dia</button></div></section>
