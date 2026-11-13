@@ -235,4 +235,185 @@
   document.addEventListener('change',e=>{
     if(e.target.matches('[data-field="weight"][data-key]')) drawChart();
   });
+  // CALENDÁRIO E CONSISTÊNCIA DE TREINO
+const calBox=document.createElement('div');
+calBox.id='mpCalendarBox';
+calBox.innerHTML=`
+  <div class="mp-heading" style="margin-top:24px">TRAINING CALENDAR</div>
+  <div class="mp-calendar-stats" id="calStats"></div>
+  <div class="mp-calendar">
+    <div class="mp-calendar-head">
+      <button type="button" id="calPrev">‹</button>
+      <strong id="calMonth"></strong>
+      <button type="button" id="calNext">›</button>
+    </div>
+    <div class="mp-weekdays">
+      <span>SEG</span><span>TER</span><span>QUA</span>
+      <span>QUI</span><span>SEX</span><span>SÁB</span><span>DOM</span>
+    </div>
+    <div class="mp-calendar-days" id="calDays"></div>
+    <div class="mp-calendar-legend"><i></i> Dia de treino registrado</div>
+  </div>
+  <p class="mp-calendar-note">
+    Seu histórico começa a ser registrado a partir desta atualização.
+  </p>
+`;
+const calStatsAnchor=document.getElementById('mpStats');
+if(calStatsAnchor) calStatsAnchor.insertAdjacentElement('afterend',calBox);
+else panel.appendChild(calBox);
+
+const calStyle=document.createElement('style');
+calStyle.textContent=`
+#mpCalendarBox{margin-top:20px;color:#e8dfd3}
+#mpCalendarBox .mp-calendar-stats{
+ display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:14px 0
+}
+#mpCalendarBox .cal-stat{
+ background:#211914;border:1px solid #493626;border-radius:10px;
+ padding:12px 5px;text-align:center
+}
+#mpCalendarBox .cal-stat strong{
+ display:block;color:#d5b17a;font-size:22px;margin-bottom:4px
+}
+#mpCalendarBox .cal-stat span{font-size:9px;letter-spacing:1px;color:#b8a28b}
+#mpCalendarBox .mp-calendar{
+ background:#191512;border:1px solid #493626;border-radius:12px;padding:14px
+}
+#mpCalendarBox .mp-calendar-head{
+ display:flex;align-items:center;justify-content:space-between;margin-bottom:16px
+}
+#mpCalendarBox .mp-calendar-head strong{color:#d9bd91;font-size:14px}
+#mpCalendarBox .mp-calendar-head button{
+ background:#302319;color:#e4c18b;border:1px solid #634a32;
+ border-radius:7px;width:34px;height:32px;font-size:22px
+}
+#mpCalendarBox .mp-weekdays,#mpCalendarBox .mp-calendar-days{
+ display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:5px
+}
+#mpCalendarBox .mp-weekdays span{
+ text-align:center;color:#9e8b76;font-size:9px;padding-bottom:8px
+}
+#mpCalendarBox .cal-day{
+ min-width:0;aspect-ratio:1;border-radius:7px;display:flex;
+ align-items:center;justify-content:center;font-size:12px;
+ color:#c9b9a7;background:#28221d
+}
+#mpCalendarBox .cal-day.empty{background:transparent}
+#mpCalendarBox .cal-day.trained{
+ background:#b18a55;color:#17110b;font-weight:800;
+ box-shadow:inset 0 0 0 1px #e0bd85
+}
+#mpCalendarBox .cal-day.today{border:1px solid #e2c18f}
+#mpCalendarBox .mp-calendar-legend{
+ display:flex;align-items:center;gap:8px;margin-top:14px;
+ color:#b8a28b;font-size:10px
+}
+#mpCalendarBox .mp-calendar-legend i{
+ width:10px;height:10px;border-radius:3px;background:#b18a55
+}
+#mpCalendarBox .mp-calendar-note{
+ color:#9e8b76;font-size:10px;line-height:1.5;margin-top:10px
+}
+@media(max-width:360px){
+ #mpCalendarBox .mp-calendar{padding:9px}
+ #mpCalendarBox .mp-calendar-days{gap:3px}
+}
+`;
+document.head.appendChild(calStyle);
+
+let calDate=new Date();
+calDate.setDate(1);
+
+function calDateKey(date){
+ const y=date.getFullYear();
+ const m=String(date.getMonth()+1).padStart(2,'0');
+ const d=String(date.getDate()).padStart(2,'0');
+ return `${y}-${m}-${d}`;
+}
+
+function calRegister(){
+ const today=calDateKey(new Date());
+ if(!state.trainingSessions) state.trainingSessions=[];
+ if(!state.trainingSessions.some(s=>s.date===today)){
+  state.trainingSessions.push({date:today});
+  save();
+ }
+ renderCalendar();
+}
+
+function renderCalendar(){
+ if(!state.trainingSessions) state.trainingSessions=[];
+ const sessions=state.trainingSessions;
+ const dates=[...new Set(sessions.map(s=>s.date))];
+ const today=calDateKey(new Date());
+
+ const month=calDate.getMonth();
+ const year=calDate.getFullYear();
+ const first=new Date(year,month,1);
+ const offset=(first.getDay()+6)%7;
+ const total=new Date(year,month+1,0).getDate();
+
+ document.getElementById('calMonth').textContent=
+  calDate.toLocaleDateString('en-US',{month:'long',year:'numeric'});
+
+ const monthCount=dates.filter(d=>d.startsWith(
+  `${year}-${String(month+1).padStart(2,'0')}`
+ )).length;
+
+ const now=new Date();
+ const monday=new Date(now);
+ monday.setHours(0,0,0,0);
+ monday.setDate(now.getDate()-((now.getDay()+6)%7));
+ const weekCount=dates.filter(d=>{
+  const x=new Date(d+'T00:00:00');
+  return x>=monday && x<=now;
+ }).length;
+
+ let streak=0;
+ const cursor=new Date();
+ cursor.setHours(0,0,0,0);
+ if(!dates.includes(calDateKey(cursor))) cursor.setDate(cursor.getDate()-1);
+ while(dates.includes(calDateKey(cursor))){
+  streak++;
+  cursor.setDate(cursor.getDate()-1);
+ }
+
+ document.getElementById('calStats').innerHTML=`
+  <div class="cal-stat"><strong>${monthCount}</strong><span>TREINOS NO MÊS</span></div>
+  <div class="cal-stat"><strong>${weekCount}</strong><span>ESTA SEMANA</span></div>
+  <div class="cal-stat"><strong>${streak}</strong><span>DIAS SEGUIDOS</span></div>
+ `;
+
+ let html='';
+ for(let i=0;i<offset;i++) html+='<div class="cal-day empty"></div>';
+ for(let day=1;day<=total;day++){
+  const date=calDateKey(new Date(year,month,day));
+  const trained=dates.includes(date);
+  const isToday=date===today;
+  html+=`<div class="cal-day ${trained?'trained':''} ${isToday?'today':''}">${day}</div>`;
+ }
+ document.getElementById('calDays').innerHTML=html;
+}
+
+document.getElementById('calPrev').addEventListener('click',()=>{
+ calDate.setMonth(calDate.getMonth()-1);
+ renderCalendar();
+});
+document.getElementById('calNext').addEventListener('click',()=>{
+ calDate.setMonth(calDate.getMonth()+1);
+ renderCalendar();
+});
+
+document.addEventListener('change',e=>{
+ if(e.target.matches('[data-key].check') && e.target.checked){
+  calRegister();
+ }
+});
+
+const calCompleteButton=document.getElementById('completeDay');
+if(calCompleteButton){
+ calCompleteButton.addEventListener('click',calRegister);
+}
+
+renderCalendar();
   drawChart();})();
