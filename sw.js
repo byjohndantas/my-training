@@ -5,6 +5,7 @@ const FILES=[
   './index.html',
   './workouts.json',
   './manifest.webmanifest',
+    './assets/luxury-gym-bg.png',
   ...Array.from({length:39},(_,i)=>
     './assets/exercise-'+String(i+1).padStart(2,'0')+'.webp'
   )
