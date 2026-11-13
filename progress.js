@@ -332,6 +332,29 @@ function calDateKey(date){
 }
 
 function calRegister(){
+  const title=document.getElementById('dayTitle').textContent;
+  const workout=WORKOUTS.find(w=>w.name===title);
+  if(!workout) return;
+
+  const index=WORKOUTS.indexOf(workout);
+  const now=new Date();
+  const monday=new Date(now);
+  monday.setHours(0,0,0,0);
+  monday.setDate(now.getDate()-((now.getDay()+6)%7));
+
+  const trainingDate=new Date(monday);
+  trainingDate.setDate(monday.getDate()+index);
+
+  const date=calDateKey(trainingDate);
+
+  if(!state.trainingSessions) state.trainingSessions=[];
+  if(!state.trainingSessions.some(s=>s.date===date)){
+    state.trainingSessions.push({date:date,day:workout.name});
+    save();
+  }
+
+  renderCalendar();
+}
  const today=calDateKey(new Date());
  if(!state.trainingSessions) state.trainingSessions=[];
  if(!state.trainingSessions.some(s=>s.date===today)){
