@@ -144,4 +144,95 @@
     save();
     render();
   });
-})();
+  // MY PROGRESS — GRÁFICO DE EVOLUÇÃO
+  const chartBox = document.createElement('div');
+  chartBox.innerHTML = `
+    <div class="mp-heading" style="margin-top:24px">STRENGTH EVOLUTION</div>
+    <select id="mpExercise" style="width:100%;padding:12px;background:#17100b;color:#f5eee4;border:1px solid #57412e;border-radius:10px"></select>
+    <div id="mpChart" style="margin-top:14px"></div>
+  `;
+  panel.insertBefore(chartBox, panel.querySelector('.mp-note'));
+
+  function drawChart() {
+    const selector = document.getElementById('mpExercise');
+    const chart = document.getElementById('mpChart');
+    if (!selector || !chart) return;
+
+    const dated = (state.history || []).filter(x =>
+      x.field === 'weight' && x.source !== 'starting' &&
+      /^\d+(?:[.,]\d+)?/.test(String(x.value))
+    );
+
+    const names = [...new Set(dated.map(x => x.exercise))];
+
+    if (!names.length) {
+      selector.innerHTML = '<option>Sem registros datados</option>';
+      chart.innerHTML = '<div class="mp-empty">Atualize a carga de um exercício para começar a visualizar sua evolução.</div>';
+      return;
+    }
+
+    const previous = selector.value;
+    selector.innerHTML = names.map(name =>
+      `<option value="${safe(name)}">${safe(name)}</option>`
+    ).join('');
+    if (names.includes(previous)) selector.value = previous;
+
+    const selected = selector.value;
+    const entries = dated
+      .filter(x => x.exercise === selected)
+      .sort((a,b) => new Date(a.at)-new Date(b.at));
+
+    const points = entries.map(x => ({
+      value: Number(String(x.value).match(/^\d+(?:[.,]\d+)?/)[0].replace(',','.')),
+      date: new Date(x.at)
+    })).filter(x => Number.isFinite(x.value));
+
+    if (!points.length) {
+      chart.innerHTML = '<div class="mp-empty">Não há cargas numéricas para este exercício.</div>';
+      return;
+    }
+
+    if (points.length === 1) {
+      chart.innerHTML = `
+        <div class="mp-record">
+          <div class="mp-value">${points[0].value}</div>
+          <div class="mp-date">Primeiro registro datado · ${points[0].date.toLocaleDateString('pt-BR')}</div>
+          <div class="mp-date">Adicione outra carga para comparar sua evolução.</div>
+        </div>`;
+      return;
+    }
+
+    const W=320,H=170,L=35,R=12,T=12,B=28;
+    const min=Math.min(...points.map(p=>p.value));
+    const max=Math.max(...points.map(p=>p.value));
+    const range=max-min || 1;
+    const coords=points.map((p,i)=>({
+      x:L+i*(W-L-R)/(points.length-1),
+      y:T+(max-p.value)*(H-T-B)/range,
+      value:p.value
+    }));
+    const line=coords.map((p,i)=>(i?'L':'M')+p.x.toFixed(1)+' '+p.y.toFixed(1)).join(' ');
+    const circles=coords.map(p=>
+      `<circle cx="${p.x}" cy="${p.y}" r="4" fill="#e1bf82"/>`
+    ).join('');
+
+    chart.innerHTML=`
+      <div class="mp-record">
+        <div style="display:flex;justify-content:space-between;color:#b8a28b;font-size:10px;margin-bottom:8px">
+          <span>${points.length} REGISTROS</span>
+          <span>ÚLTIMA CARGA: ${points[points.length-1].value}</span>
+        </div>
+        <svg viewBox="0 0 ${W} ${H}" width="100%" role="img" aria-label="Gráfico de evolução da carga">
+          <path d="${line}" fill="none" stroke="#d6ad75" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+          ${circles}
+          <text x="${L}" y="${H-5}" fill="#b8a28b" font-size="9">${points[0].date.toLocaleDateString('pt-BR')}</text>
+          <text x="${W-R}" y="${H-5}" text-anchor="end" fill="#b8a28b" font-size="9">${points[points.length-1].date.toLocaleDateString('pt-BR')}</text>
+        </svg>
+      </div>`;
+  }
+
+  document.getElementById('mpExercise').addEventListener('change',drawChart);
+  document.addEventListener('change',e=>{
+    if(e.target.matches('[data-field="weight"][data-key]')) drawChart();
+  });
+  drawChart();})();
