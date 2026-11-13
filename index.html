@@ -500,6 +500,130 @@ body{
   body{background-attachment:fixed;background-position:center top}
 }
 
+/* LUXURY PERFORMANCE — NEW VISUAL IDENTITY */
+
+:root {
+  --lux-bronze: #b58a5a;
+  --lux-champagne: #e3d0ad;
+  --lux-cream: #f2e8d8;
+  --lux-dark: #100b08;
+}
+
+html, body {
+  background-color: var(--lux-dark);
+}
+
+body {
+  background-image:
+    linear-gradient(
+      180deg,
+      rgba(12,8,5,.12),
+      rgba(12,8,5,.48) 55%,
+      rgba(12,8,5,.78)
+    ),
+    url("./assets/luxury-gym-bg.png");
+  background-size: cover;
+  background-position: center top;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+}
+
+.wrap {
+  max-width: 760px;
+}
+
+.hero {
+  padding: 48px 22px 34px;
+  text-align: center;
+  background: linear-gradient(
+    180deg,
+    rgba(12,8,5,.18),
+    rgba(12,8,5,.05)
+  );
+  border-bottom: 1px solid rgba(181,138,90,.32);
+}
+
+.profile-avatar {
+  width: 112px;
+  height: 112px;
+  border: 2px solid var(--lux-champagne);
+  background: var(--lux-bronze);
+  box-shadow:
+    0 0 0 5px rgba(181,138,90,.13),
+    0 12px 35px rgba(0,0,0,.55);
+}
+
+.eyebrow {
+  color: var(--lux-bronze);
+  letter-spacing: .36em;
+}
+
+.brand {
+  color: var(--lux-cream);
+  text-shadow: 0 5px 28px rgba(0,0,0,.7);
+  letter-spacing: .13em;
+}
+
+.sub {
+  color: #d0bda5;
+}
+
+.wrap > .panel {
+  background:
+    linear-gradient(
+      145deg,
+      rgba(39,28,20,.84),
+      rgba(15,11,8,.90)
+    );
+  border: 1px solid rgba(181,138,90,.34);
+  border-radius: 22px;
+  box-shadow:
+    0 22px 55px rgba(0,0,0,.42),
+    inset 0 1px rgba(255,230,195,.07);
+  backdrop-filter: blur(8px);
+}
+
+.wrap > .panel:first-of-type .daybtn {
+  min-height: 108px;
+  border-radius: 17px;
+  background: linear-gradient(
+    145deg,
+    rgba(58,43,30,.92),
+    rgba(24,17,12,.96)
+  );
+  border: 1px solid rgba(181,138,90,.32);
+  color: var(--lux-cream);
+}
+
+.wrap > .panel:first-of-type .daybtn.active {
+  background: linear-gradient(
+    145deg,
+    #dfc9a3,
+    #a9875d
+  );
+  color: #1a120c;
+  border-color: var(--lux-champagne);
+  box-shadow: 0 10px 28px rgba(181,138,90,.25);
+}
+
+.wrap > .panel:first-of-type .daybtn:before {
+  color: var(--lux-bronze);
+}
+
+.wrap > .panel:first-of-type .daybtn.active:before {
+  color: #49331f;
+}
+
+@media(max-width:600px) {
+  .hero {
+    padding-top: 38px;
+  }
+
+  .wrap > .panel {
+    margin: 15px 12px;
+  }
+}
+
 </style></head><body><main class="wrap"><header class="hero"><img class="profile-avatar" src="./assets/569FEEA4-0FBF-4EDF-BADD-3FD5338B8540.jpeg" alt="Foto de perfil"><div class="eyebrow">PERSONAL TRAINING JOURNAL</div><div class="brand">MY TRAINING</div><div class="sub">Treino, consistência e evolução — um dia de cada vez.</div></header>
 <section class="panel"><div class="toolbar"><b>PROGRESSO DA SEMANA</b><strong id="progressText" style="color:var(--gold)">0 exercícios</strong></div><div class="progressline"><span id="progressBar"></span></div><nav class="days" id="days"></nav><div class="actions" style="margin-top:12px"><button type="button" class="primary" onclick="document.getElementById('myProgressPanel').scrollIntoView({behavior:'smooth'})">VER MINHA EVOLUÇÃO</button></div></section>
 <section class="panel"><div class="muted" id="dayLabel">SEGUNDA-FEIRA</div><h1 class="sectionhead" id="dayTitle">Costas & Bíceps</h1><p class="muted" id="dayFocus"></p><div id="exerciseList"></div><label for="notes" style="margin-top:18px">ANOTAÇÕES DO TREINO</label><textarea id="notes" class="note" placeholder="Energia, observações, evolução..."></textarea><div class="actions"><button class="primary" id="completeDay">Marcar dia como concluído</button><button id="resetDay">Limpar marcações do dia</button></div></section>
