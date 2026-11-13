@@ -624,6 +624,56 @@ body {
   }
 }
 
+/* LUXURY PERFORMANCE — BRONZE FITNESS ICONS */
+
+.wrap > .panel:first-of-type .daybtn:before {
+  content: "";
+  display: block;
+  width: 30px;
+  height: 30px;
+  margin: 0 auto 9px;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
+  color: transparent;
+}
+
+/* MONDAY — DUMBBELL */
+.wrap > .panel:first-of-type .daybtn:nth-child(1):before {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 48' fill='none' stroke='%23b58a5a' stroke-width='2.3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M14 18v12M9 21v6M19 21v6M29 21v6M34 18v12M39 21v6M19 24h10'/%3E%3C/svg%3E");
+}
+
+/* TUESDAY — BARBELL */
+.wrap > .panel:first-of-type .daybtn:nth-child(2):before {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 48' fill='none' stroke='%23b58a5a' stroke-width='2.3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M7 24h34M11 17v14M16 19v10M32 19v10M37 17v14'/%3E%3C/svg%3E");
+}
+
+/* WEDNESDAY — LEGS */
+.wrap > .panel:first-of-type .daybtn:nth-child(3):before {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 48' fill='none' stroke='%23b58a5a' stroke-width='2.3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M18 8c-1 8 1 13 3 18l-5 14M30 8c1 8-1 13-3 18l5 14M17 40h-5M31 40h5'/%3E%3C/svg%3E");
+}
+
+/* THURSDAY — BACK */
+.wrap > .panel:first-of-type .daybtn:nth-child(4):before {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 48' fill='none' stroke='%23b58a5a' stroke-width='2.3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M24 8v31M15 12c-4 5-5 12-4 19M33 12c4 5 5 12 4 19M15 12l9 6 9-6M15 31l9-6 9 6'/%3E%3C/svg%3E");
+}
+
+/* FRIDAY — UPPER BODY */
+.wrap > .panel:first-of-type .daybtn:nth-child(5):before {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 48' fill='none' stroke='%23b58a5a' stroke-width='2.3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M24 8l5 7 9 3-5 8 1 12-10-5-10 5 1-12-5-8 9-3z'/%3E%3C/svg%3E");
+}
+
+/* SATURDAY — CORE */
+.wrap > .panel:first-of-type .daybtn:nth-child(6):before {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 48' fill='none' stroke='%23b58a5a' stroke-width='2.3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M24 7c8 0 14 7 14 17s-6 17-14 17S10 34 10 24 16 7 24 7zM24 14v20M16 24h16'/%3E%3C/svg%3E");
+}
+
+/* ACTIVE DAY — DARKER BRONZE ICON */
+.wrap > .panel:first-of-type .daybtn.active:before {
+  filter: brightness(.55) saturate(.8);
+}
+
+
 </style></head><body><main class="wrap"><header class="hero"><img class="profile-avatar" src="./assets/569FEEA4-0FBF-4EDF-BADD-3FD5338B8540.jpeg" alt="Foto de perfil"><div class="eyebrow">PERSONAL TRAINING JOURNAL</div><div class="brand">MY TRAINING</div><div class="sub">Treino, consistência e evolução — um dia de cada vez.</div></header>
 <section class="panel"><div class="toolbar"><b>PROGRESSO DA SEMANA</b><strong id="progressText" style="color:var(--gold)">0 exercícios</strong></div><div class="progressline"><span id="progressBar"></span></div><nav class="days" id="days"></nav><div class="actions" style="margin-top:12px"><button type="button" class="primary" onclick="document.getElementById('myProgressPanel').scrollIntoView({behavior:'smooth'})">VER MINHA EVOLUÇÃO</button></div></section>
 <section class="panel"><div class="muted" id="dayLabel">SEGUNDA-FEIRA</div><h1 class="sectionhead" id="dayTitle">Costas & Bíceps</h1><p class="muted" id="dayFocus"></p><div id="exerciseList"></div><label for="notes" style="margin-top:18px">ANOTAÇÕES DO TREINO</label><textarea id="notes" class="note" placeholder="Energia, observações, evolução..."></textarea><div class="actions"><button class="primary" id="completeDay">Marcar dia como concluído</button><button id="resetDay">Limpar marcações do dia</button></div></section>
