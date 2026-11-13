@@ -297,6 +297,155 @@ button:focus-visible,
   .wrap > .panel:first-of-type .daybtn small{font-size:8px}
 }
 
+/* EXERCISE CARDS — PREMIUM FITNESS EDITION */
+
+#exerciseList {
+  display:grid;
+  gap:15px;
+}
+
+#exerciseList .exercise {
+  position:relative;
+  padding:15px;
+  margin:0;
+  border:1px solid rgba(216,201,168,.28);
+  border-radius:19px;
+  background:
+    radial-gradient(ellipse at 100% 0%,rgba(216,201,168,.07),transparent 42%),
+    linear-gradient(145deg,#30271f,#211a15 65%,#17120f);
+  box-shadow:0 14px 32px rgba(0,0,0,.25),
+    inset 0 1px rgba(255,255,255,.045);
+}
+
+#exerciseList .exercise-visual {
+  grid-template-columns:minmax(0,1fr) 105px;
+  gap:12px;
+  padding:9px;
+  border-radius:15px;
+  border-color:rgba(216,201,168,.23);
+  background:linear-gradient(135deg,#382c20,#1a1511);
+}
+
+#exerciseList .exercise-visual img {
+  height:155px;
+  border-radius:11px;
+  border-color:rgba(216,201,168,.3);
+  filter:saturate(.88) contrast(1.06);
+}
+
+#exerciseList .visual-copy strong {
+  font-size:9px;
+  letter-spacing:.15em;
+  line-height:1.5;
+}
+
+#exerciseList .visual-copy span {
+  font-size:10px;
+  line-height:1.5;
+}
+
+#exerciseList .exrow {
+  align-items:center;
+  gap:13px;
+  padding:7px 2px 2px;
+}
+
+#exerciseList .check {
+  flex:0 0 22px;
+  width:22px;
+  height:22px;
+  accent-color:#d8c9a8;
+}
+
+#exerciseList .exname {
+  font-size:15px;
+  line-height:1.4;
+  letter-spacing:-.02em;
+  color:#f3eadc;
+}
+
+#exerciseList .meta {
+  margin-top:6px;
+  font-size:11px;
+  line-height:1.6;
+  color:#dfcba9;
+}
+
+#exerciseList .muscle {
+  margin-top:6px;
+  font-size:9px;
+  letter-spacing:.2em;
+  color:#bdae98;
+}
+
+#exerciseList .details {
+  margin-top:13px;
+  padding:14px;
+  border:1px solid rgba(216,201,168,.14);
+  border-radius:14px;
+  background:linear-gradient(145deg,#19130f,#120e0b);
+  color:#d4c5b2;
+  font-size:12px;
+  line-height:1.7;
+}
+
+#exerciseList .details b {
+  color:#dfcba9;
+  letter-spacing:.02em;
+}
+
+#exerciseList .fields {
+  gap:10px;
+  margin-top:14px;
+}
+
+#exerciseList .fields label {
+  font-size:8px;
+  letter-spacing:.14em;
+  line-height:1.5;
+  min-height:24px;
+  color:#bdae98;
+}
+
+#exerciseList .fields input {
+  min-height:49px;
+  padding:12px;
+  border-radius:12px;
+  border:1px solid rgba(216,201,168,.27);
+  background:linear-gradient(145deg,#17120f,#211a15);
+  color:#f3eadc;
+  font-size:14px;
+  font-weight:550;
+}
+
+#exerciseList .fields input:focus {
+  border-color:#d8c9a8;
+  box-shadow:0 0 0 3px rgba(216,201,168,.1);
+}
+
+@media(max-width:380px) {
+  #exerciseList .exercise {
+    padding:11px;
+  }
+  #exerciseList .exercise-visual {
+    grid-template-columns:minmax(0,1fr) 88px;
+    gap:8px;
+  }
+  #exerciseList .exercise-visual img {
+    height:125px;
+  }
+  #exerciseList .exname {
+    font-size:14px;
+  }
+  #exerciseList .fields {
+    gap:7px;
+  }
+  #exerciseList .fields input {
+    padding:10px 8px;
+    font-size:13px;
+  }
+}
+
 </style></head><body><main class="wrap"><header class="hero"><div class="eyebrow">PERSONAL TRAINING JOURNAL</div><div class="brand">MY TRAINING</div><div class="sub">Treino, consistência e evolução — um dia de cada vez.</div></header>
 <section class="panel"><div class="toolbar"><b>PROGRESSO DA SEMANA</b><strong id="progressText" style="color:var(--gold)">0 exercícios</strong></div><div class="progressline"><span id="progressBar"></span></div><nav class="days" id="days"></nav><div class="actions" style="margin-top:12px"><button type="button" class="primary" onclick="document.getElementById('myProgressPanel').scrollIntoView({behavior:'smooth'})">VER MINHA EVOLUÇÃO</button></div></section>
 <section class="panel"><div class="muted" id="dayLabel">SEGUNDA-FEIRA</div><h1 class="sectionhead" id="dayTitle">Costas & Bíceps</h1><p class="muted" id="dayFocus"></p><div id="exerciseList"></div><label for="notes" style="margin-top:18px">ANOTAÇÕES DO TREINO</label><textarea id="notes" class="note" placeholder="Energia, observações, evolução..."></textarea><div class="actions"><button class="primary" id="completeDay">Marcar dia como concluído</button><button id="resetDay">Limpar marcações do dia</button></div></section>
