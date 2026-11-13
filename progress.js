@@ -355,13 +355,7 @@ function calRegister(){
 
   renderCalendar();
 }
- const today=calDateKey(new Date());
- if(!state.trainingSessions) state.trainingSessions=[];
- if(!state.trainingSessions.some(s=>s.date===today)){
-  state.trainingSessions.push({date:today});
-  save();
- }
- renderCalendar();
+ 
 }
 
 function renderCalendar(){
