@@ -1,7 +1,7 @@
 const CACHE='my-training-v11';
 
 const FILES=[
-  const FILES=[
+
   './',
   './index.html',
   './workouts.json',
@@ -16,7 +16,6 @@ const FILES=[
   './assets/04-quinta-costas-regiao-media.png',
   './assets/05-sexta-superiores.png',
   './assets/06-sabado-core-recuperacao.png'
-];
 ];
 
 self.addEventListener('install',e=>{
