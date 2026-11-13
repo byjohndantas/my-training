@@ -296,7 +296,29 @@ button:focus-visible,
   .wrap > .panel:first-of-type .daybtn{min-height:84px;padding:10px 4px 8px}
   .wrap > .panel:first-of-type .daybtn small{font-size:8px}
 }
-
+/* JOHN'S PROFILE AVATAR */
+.profile-avatar{
+  display:block;
+  width:104px;
+  height:104px;
+  margin:0 auto 18px;
+  object-fit:cover;
+  object-position:center 34%;
+  border-radius:50%;
+  border:2px solid #d8c9a8;
+  padding:3px;
+  background:linear-gradient(145deg,#e8d9b9,#9e8056);
+  box-shadow:0 0 0 5px rgba(216,201,168,.08),
+    0 12px 30px rgba(0,0,0,.38),
+    0 0 24px rgba(216,201,168,.16);
+}
+@media(max-width:380px){
+  .profile-avatar{
+    width:88px;
+    height:88px;
+    margin-bottom:15px;
+  }
+}
 /* EXERCISE CARDS — PREMIUM FITNESS EDITION */
 
 #exerciseList {
@@ -308,7 +330,7 @@ button:focus-visible,
   position:relative;
   padding:15px;
   margin:0;
-  border:1px solid rgba(216,201,168,.28);
+  border:1px solid rgba(t216,201,168,.28);
   border-radius:19px;
   background:
     radial-gradient(ellipse at 100% 0%,rgba(216,201,168,.07),transparent 42%),
