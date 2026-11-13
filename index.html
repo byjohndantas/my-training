@@ -55,6 +55,65 @@ input:focus,textarea:focus{outline:none;border-color:#c59a62;box-shadow:0 0 0 2p
 .foot{font-size:9px;letter-spacing:.25em;color:#92795e}
 @media(max-width:380px){.panel{margin:13px 10px;padding:14px}.exercise{padding:10px}.exercise-visual{grid-template-columns:minmax(0,1fr) 88px;gap:8px;padding:7px}.exercise-visual img{height:116px}.exercise-visual .visual-copy strong{font-size:8px}.exercise-visual .visual-copy span{font-size:9px}.sectionhead{font-size:26px}.daybtn{font-size:11px}}
 @media(min-width:600px){.hero{padding:48px 22px 30px}.panel{padding:22px}.exercise-visual{grid-template-columns:minmax(0,1fr) 125px}.exercise-visual img{height:170px}}
+
+/* MY TRAINING — CHOCOLATE & CHAMPAGNE */
+:root {
+  --bg: #100d0b;
+  --panel: #211a15;
+  --panel2: #2b221b;
+  --gold: #d8c9a8;
+  --gold2: #a99576;
+  --cream: #f1e9dc;
+  --muted: #b7aa99;
+  --line: rgba(190,169,137,.22);
+  --green: #a9b69a;
+}
+
+body {
+  background: radial-gradient(ellipse at top, #30271f, #100d0b 65%);
+  color: var(--cream);
+}
+
+.hero {
+  background: linear-gradient(180deg, #292119, transparent);
+}
+
+.panel {
+  background: linear-gradient(145deg, #30271f, #1a1511);
+  border-color: var(--line);
+  box-shadow: 0 18px 44px rgba(0,0,0,.3);
+}
+
+.daybtn, button {
+  background: linear-gradient(145deg, #302820, #211a15);
+  border-color: var(--line);
+  color: var(--cream);
+}
+
+.daybtn.active, button.primary {
+  background: linear-gradient(135deg, #d8c9a8, #a99576);
+  color: #19140f;
+  border-color: #d8c9a8;
+}
+
+.exercise {
+  background: linear-gradient(145deg, #30271f, #1b1612);
+  border-color: var(--line);
+}
+
+.meta, .details b {
+  color: #d8c9a8;
+}
+
+input, textarea {
+  background: #15110e;
+  border-color: var(--line);
+}
+
+input:focus, textarea:focus {
+  border-color: #c5b38f;
+}
+
 </style></head><body><main class="wrap"><header class="hero"><div class="eyebrow">PERSONAL TRAINING JOURNAL</div><div class="brand">MY TRAINING</div><div class="sub">Treino, consistência e evolução — um dia de cada vez.</div></header>
 <section class="panel"><div class="toolbar"><b>PROGRESSO DA SEMANA</b><strong id="progressText" style="color:var(--gold)">0 exercícios</strong></div><div class="progressline"><span id="progressBar"></span></div><nav class="days" id="days"></nav><div class="actions" style="margin-top:12px"><button type="button" class="primary" onclick="document.getElementById('myProgressPanel').scrollIntoView({behavior:'smooth'})">VER MINHA EVOLUÇÃO</button></div></section>
 <section class="panel"><div class="muted" id="dayLabel">SEGUNDA-FEIRA</div><h1 class="sectionhead" id="dayTitle">Costas & Bíceps</h1><p class="muted" id="dayFocus"></p><div id="exerciseList"></div><label for="notes" style="margin-top:18px">ANOTAÇÕES DO TREINO</label><textarea id="notes" class="note" placeholder="Energia, observações, evolução..."></textarea><div class="actions"><button class="primary" id="completeDay">Marcar dia como concluído</button><button id="resetDay">Limpar marcações do dia</button></div></section>
