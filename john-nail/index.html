@@ -1,0 +1,162 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#100c09">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<title>John Nail — My Training</title>
+<style>
+:root{--bg:#100c09;--panel:#211a15;--gold:#d8c9a8;--gold2:#a99576;--cream:#f1e9dc;--muted:#b7aa99;--line:rgba(190,169,137,.22)}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(ellipse at top,#30271f,#100c09 65%);color:var(--cream);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;padding-bottom:36px}
+.wrap{max-width:720px;margin:auto}.hero{text-align:center;padding:32px 20px 24px;border-bottom:1px solid var(--line);background:linear-gradient(180deg,#292119,transparent)}
+.profile{width:156px;height:156px;object-fit:cover;border-radius:50%;border:4px solid #c9a66e;box-shadow:0 0 0 7px #6c4a2d,0 0 0 11px #d8c9a8,0 12px 34px #0009;margin:12px auto 24px;display:block}
+.eyebrow{font-size:9px;letter-spacing:.34em;color:#d4ad75}.brand{font:500 clamp(32px,8vw,44px) Georgia,serif;letter-spacing:.11em;margin:13px 0 7px;color:#f2e4d1}.sub{font-size:13px;color:#bda78f}
+.panel{margin:16px 12px;padding:17px;border:1px solid var(--line);border-radius:20px;background:linear-gradient(145deg,#30271f,#1a1511);box-shadow:0 18px 44px #0005}
+.toolbar{display:flex;justify-content:space-between;gap:10px;align-items:center}.toolbar b{font-size:10px;letter-spacing:.17em;color:var(--gold)}.toolbar strong{font-size:clamp(16px,4.5vw,21px)}
+.progressline{height:6px;background:#17120f;border:1px solid #ffffff18;border-radius:99px;overflow:hidden;margin-top:14px}.progressline span{display:block;height:100%;width:0;background:linear-gradient(90deg,#8e7959,#e8d9b9 55%,#b9a681)}
+.days{display:grid;grid-template-columns:repeat(3,1fr);gap:9px;margin-top:18px}.daybtn,button{border:1px solid var(--line);border-radius:13px;background:linear-gradient(145deg,#302820,#211a15);color:var(--cream);padding:11px 6px;font-weight:650;cursor:pointer}
+.daybtn{min-height:92px;font-size:12px;letter-spacing:.12em}.daybtn img{width:42px;height:42px;object-fit:contain;display:block;margin:0 auto 7px}.daybtn small{display:block;font-size:9px;line-height:1.35;color:#c1b19b;letter-spacing:.03em;font-weight:400;margin-top:4px}
+.daybtn.active,button.primary{background:linear-gradient(135deg,#d8c9a8,#a99576);color:#19140f;border-color:#d8c9a8}.daybtn.active small{color:#493a27}
+.sectionhead{font:500 27px Georgia,serif;color:#f2e5d5;margin:4px 0}.muted{color:var(--muted);font-size:12px;letter-spacing:.04em}
+.exercise{border:1px solid #ffffff1b;border-radius:16px;padding:12px;margin:14px 0;background:linear-gradient(145deg,#30271f,#1b1612)}
+.exrow{display:flex;gap:10px;align-items:flex-start}.exname{font-size:14px;font-weight:700;flex:1;line-height:1.4}.meta{font-size:11px;color:#dfbd83;margin-top:5px}.muscle{font-size:9px;color:#bda68d;letter-spacing:.14em;text-transform:uppercase;margin-top:5px}
+.exercise-visual{display:grid;grid-template-columns:minmax(0,1fr) 96px;gap:10px;align-items:center;margin-bottom:10px}.exercise-visual img{width:100%;height:120px;object-fit:cover;border-radius:10px;border:1px solid var(--line)}.visual-copy{font-size:9px;line-height:1.45;color:#c4ae94;text-transform:uppercase}.visual-copy strong{display:block;color:#dfbd83;letter-spacing:.12em;margin-bottom:5px}
+.details{background:#0c09078c;border:1px solid #ffffff12;border-radius:11px;padding:11px;margin-top:10px;font-size:12px;line-height:1.5;color:#d7c8b7}.details b{color:#dfbd83}
+.fields{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:11px}label{font-size:9px;letter-spacing:.12em;color:#bba58d;display:block;margin-bottom:5px}
+input,textarea{width:100%;min-width:0;border:1px solid var(--line);border-radius:10px;background:#15110e;color:var(--cream);padding:11px;font:inherit;font-size:13px}
+.check{width:20px;height:20px;accent-color:#caa16b}.actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:14px}.actions button{flex:1;min-height:42px;font-size:11px}
+.note{min-height:78px}.warning{background:#4a34206b;border:1px solid var(--line);border-radius:12px;padding:12px;font-size:11px;line-height:1.5;color:#dfcba9;margin-top:12px}
+.foot{text-align:center;color:#92795e;font-size:9px;letter-spacing:.25em;padding:22px}.hidden{display:none}
+@media(max-width:380px){.panel{margin:13px 10px;padding:14px}.daybtn{font-size:10px}.daybtn img{width:36px;height:36px}.exercise-visual{grid-template-columns:minmax(0,1fr) 82px}.exercise-visual img{height:105px}}
+</style>
+</head>
+<body><main class="wrap">
+<header class="hero">
+<img class="profile" src="./john-nail-profile.png" alt="John Nail profile photo">
+<div class="eyebrow">PERSONAL TRAINING JOURNAL</div>
+<div class="brand">MY TRAINING</div>
+<div class="sub">Training, consistency and progress — one day at a time.</div>
+</header>
+<section class="panel">
+<div class="toolbar"><b>WEEKLY OVERVIEW</b><strong id="progressText">0 of 39 exercises</strong></div>
+<div class="progressline"><span id="progressBar"></span></div>
+<nav class="days" id="days"></nav>
+<div class="actions"><button class="primary" type="button" onclick="document.getElementById('historyPanel').scrollIntoView({behavior:'smooth'})">VIEW MY PROGRESS</button></div>
+</section>
+<section class="panel">
+<div class="muted" id="dayLabel">MONDAY</div><h1 class="sectionhead" id="dayTitle">Back & Biceps</h1><p class="muted" id="dayFocus"></p>
+<div id="exerciseList"></div>
+<label for="notes" style="margin-top:18px">WORKOUT NOTES</label><textarea id="notes" class="note" placeholder="Energy, observations, progress..."></textarea>
+<div class="actions"><button class="primary" id="completeDay">MARK DAY AS COMPLETE</button><button id="resetDay">RESET THIS DAY</button></div>
+</section>
+<section class="panel" id="historyPanel">
+<h2 class="sectionhead" style="font-size:22px">My Training History</h2>
+<p class="muted">Your weights and workout records are saved on this device and in this browser.</p>
+<div class="actions"><button id="export">EXPORT BACKUP</button><button id="importBtn">IMPORT BACKUP</button><input id="importFile" type="file" accept="application/json" class="hidden"></div>
+<div class="warning">Important: clearing Safari website data, changing devices, or removing this website's data may erase local records. Export a backup regularly.</div>
+</section>
+<footer class="foot">DISCIPLINE · PROGRESSION · CONSISTENCY</footer>
+</main>
+<script>
+const KEY='jd_my_training_john_nail_v1';
+const dayNames=['MONDAY','TUESDAY','WEDNESDAY','THURSDAY','FRIDAY','SATURDAY'];
+const dayShort=['MON','TUE','WED','THU','FRI','SAT'];
+const dayTitles=['Back & Biceps','Chest & Shoulders','Legs','Mid-Back','Complete Upper Body','Core & Recovery'];
+const dayFocus=['Back width, thickness and biceps','Chest and deltoids','Quadriceps, hamstrings, glutes and calves','Thickness, rhomboids and middle trapezius','Additional chest, back and arm work','Abs and light activity'];
+const names=[
+['Lat Pulldown','Bent-Over Barbell Row','Single-Arm Dumbbell Row','Cable Pullover','EZ-Bar Curl','Incline Dumbbell Curl','Hammer Curl'],
+['Smith Machine Incline Press','Flat Dumbbell Bench Press','Cable Chest Fly','Dumbbell Shoulder Press','Lateral Raise','Reverse Pec Deck'],
+['Leg Press','Leg Extension','Hack Squat','Lying Leg Curl','Barbell or Dumbbell Romanian Deadlift','Hip Thrust','Standing Calf Raise','Seated Calf Raise'],
+['Chest-Supported T-Bar Row','Wide-Grip Seated Cable Row','Plate-Loaded Row','Reverse Fly','Face Pull'],
+['Machine Incline Chest Press','Pec Deck Fly','Lat Pulldown','Seated Cable Row','EZ-Bar Curl','Alternating Dumbbell Curl','Rope Triceps Pushdown','Overhead Triceps Extension'],
+['Cable Crunch','Hanging Leg Raise','Plank','Side Plank','Bike or Easy Walk']
+];
+const muscles=[
+['BACK','BACK','BACK','BACK','BICEPS','BICEPS','BICEPS'],
+['CHEST','CHEST','CHEST','SHOULDERS','SHOULDERS','REAR DELTS'],
+['QUADRICEPS / GLUTES','QUADRICEPS','QUADRICEPS','HAMSTRINGS','HAMSTRINGS / GLUTES','GLUTES','CALVES','SOLEUS / CALVES'],
+['MID-BACK','MID-BACK','MID-BACK','REAR DELTS','REAR DELTS / TRAPS'],
+['CHEST','CHEST','BACK','BACK','BICEPS','BICEPS','TRICEPS','TRICEPS'],
+['ABS','ABS','CORE','CORE / OBLIQUES','CONDITIONING']
+];
+const instructions=[
+[
+['Pull the bar toward your upper chest while keeping your torso steady and elbows pointing down.','Do not swing your body or pull the bar behind your neck.'],
+['Hinge at the hips with a neutral spine and pull the bar toward your abdomen.','Avoid rounding your lower back or using momentum.'],
+['Support one hand, brace your torso and drive your elbow toward your hip.','Do not rotate your torso to lift the weight.'],
+['With a slight bend in your elbows, sweep the cable down in a controlled arc.','Do not turn the movement into a triceps extension.'],
+['Curl the bar by bending your elbows while keeping them close to your sides.','Avoid swinging your hips.'],
+['Keep your upper arms slightly behind your torso and curl without moving your shoulders.','Use a comfortable range of motion; do not force the joint.'],
+['Keep your palms facing each other and bend your elbows.','Avoid swinging the dumbbells.']
+],
+[
+['Set the bench to a moderate incline and lower the bar under control to your upper chest.','Do not use an excessive incline or overarch your lower back.'],
+['Lower the dumbbells beside your chest and press while keeping your wrists aligned.','Do not let the dumbbells collide at the top.'],
+['Bring your hands together in front of your chest with a soft bend in your elbows.','Do not use a load that strains your shoulders.'],
+['Press the dumbbells overhead while keeping your torso controlled.','Do not force a painful range of motion.'],
+['Raise your arms out to the sides to approximately shoulder height.','Avoid momentum and shrugging your shoulders.'],
+['Open your arms under control, leading with your elbows.','Do not push your head forward.']
+],
+[
+['Lower until your pelvis stays stable, then press through your entire foot.','Do not lock your knees or let your lower back round.'],
+['Straighten your knees under control and briefly pause at the top.','Avoid kicking the weight or letting it drop.'],
+['Lower with control, keeping your back against the pad and knees tracking over your feet.','Do not force a depth that causes discomfort.'],
+['Bend your knees without lifting your hips from the pad.','Avoid jerky movements.'],
+['Push your hips back with a neutral spine and slightly bent knees.','Do not turn it into a squat or round your back.'],
+['Extend your hips and pause at the top while keeping your ribs aligned.','Do not hyperextend your lower back.'],
+['Lower your heels with control, then rise into a full calf contraction.','Avoid bouncing.'],
+['Perform a full ankle extension with your knees supported.','Do not shorten the range of motion.']
+],
+[
+['Pull toward your torso with your chest supported and shoulder blades controlled.','Do not lift your chest off the pad.'],
+['Pull toward your upper abdomen, bringing your shoulder blades together without shrugging.','Do not lean your torso backward.'],
+['Adjust the seat and drive your elbows back under control.','Do not shorten the range of motion.'],
+['Open your arms while keeping your chest supported or torso stable.','Avoid using momentum.'],
+['Pull the rope toward your face and separate your hands at the end.','Do not arch your lower back.']
+],
+[
+['Press the handles while keeping your shoulder blades supported and wrists aligned.','Do not let your shoulders roll forward.'],
+['Bring your arms together with a controlled movement.','Do not force an excessive stretch.'],
+['Pull the bar in front of you toward chest height without swinging.','Do not pull behind your neck.'],
+['Pull the handle toward your abdomen with a steady torso.','Avoid using momentum.'],
+['Curl your elbows without moving your upper arms forward.','Avoid swinging.'],
+['Alternate arms with control and a comfortable palm rotation.','Do not rotate your torso.'],
+['Extend your elbows and slightly separate the rope ends at the bottom.','Keep your elbows steady.'],
+['Extend your elbows overhead while keeping your core braced.','Do not arch your lower back.']
+],
+[
+['Curl your torso, bringing your ribs toward your pelvis.','Do not pull only with your arms.'],
+['Raise your knees or legs without swinging your body.','Start with bent knees if needed.'],
+['Keep your body aligned while bracing your abs and glutes.','Do not let your hips sag.'],
+['Keep your shoulder, hip and ankle aligned.','Shorten the hold if you lose alignment.'],
+['Maintain a comfortable pace that still allows you to talk.','Saturday is optional; prioritize recovery.']
+]
+];
+const sets=[['4','4','3','3','3','3','3'],['4','3','3','3','4','3'],['3','3','3','3','3','3','3','3'],['4','3','3','3','3'],['3','2','3','2','2','2','3','2'],['3','3','3','3','1']];
+const reps=[['8–12','8–10','10–12','12–15','8–12','10–12','10–12'],['8–10','8–12','12–15','8–10','12–15','12–15'],['10–12','12–15','8–12','10–12','8–10','10–12','12–15','12–15'],['8–12','10–12','10–12','12–15','12–15'],['10–12','12–15','10–12','12','10–12','10–12','10–12','12'],['12–15','8–15','30–60 sec','30–45 sec','20–30 min']];
+const rests=[['90 sec','120 sec','90 sec','60 sec','90 sec','60 sec','60 sec'],['120 sec','120 sec','60 sec','120 sec','60 sec','60 sec'],['120 sec','60 sec','120 sec','90 sec','120 sec','90 sec','60 sec','60 sec'],['120 sec','90 sec','90 sec','60 sec','60 sec'],['90 sec','60 sec','90 sec','90 sec','60 sec','60 sec','60 sec','60 sec'],['60 sec','60 sec','45 sec','45 sec','—']];
+const iconFiles=['01-segunda-costas-biceps.png','02-terca-peito-ombros.png','03-quarta-pernas.png','04-quinta-costas-regiao-media.png','05-sexta-superiores.png','06-sabado-core-recuperacao.png'];
+const workout=dayNames.map((day,d)=>({id:['mon','tue','wed','thu','fri','sat'][d],day,name:dayTitles[d],focus:dayFocus[d],exercises:names[d].map((name,i)=>({name,muscle:muscles[d][i],how:instructions[d][i][0],avoid:instructions[d][i][1],sets:sets[d][i],reps:reps[d][i],rest:rests[d][i]}))}));
+let state;try{state=JSON.parse(localStorage.getItem(KEY)||'{"logs":{},"notes":{},"completedDays":[]}')}catch{state={logs:{},notes:{},completedDays:[]}}
+let selected=0;
+const save=()=>{localStorage.setItem(KEY,JSON.stringify(state));renderProgress()};
+function renderProgress(){let total=workout.reduce((n,d)=>n+d.exercises.length,0),done=workout.reduce((n,d)=>n+d.exercises.reduce((m,e,i)=>{let l=state.logs[d.id+'_'+i]||{};return m+(state.completedDays.includes(d.id)||l.done?1:0)},0),0);document.getElementById('progressText').textContent=done+' of '+total+' exercises';document.getElementById('progressBar').style.width=(done/total*100)+'%'}
+function render(){
+ const d=workout[selected];let offset=workout.slice(0,selected).reduce((n,x)=>n+x.exercises.length,0);
+ document.getElementById('dayLabel').textContent=d.day;document.getElementById('dayTitle').textContent=d.name;document.getElementById('dayFocus').textContent=d.focus;document.getElementById('notes').value=state.notes[d.id]||'';
+ document.getElementById('days').innerHTML=workout.map((x,i)=>`<button class="daybtn ${i===selected?'active':''}" data-i="${i}"><img src="../assets/${iconFiles[i]}" alt="">${dayShort[i]}<small>${x.name}</small></button>`).join('');
+ document.querySelectorAll('.daybtn').forEach(b=>b.onclick=()=>{selected=+b.dataset.i;render()});
+ document.getElementById('exerciseList').innerHTML=d.exercises.map((e,i)=>{let k=d.id+'_'+i,l=state.logs[k]||{};return `<article class="exercise"><div class="exercise-visual"><img src="../assets/exercise-${String(offset+i+1).padStart(2,'0')}.webp" alt="${e.name}" loading="lazy"><div class="visual-copy"><strong>EXERCISE GUIDE</strong>${e.muscle}</div></div><div class="exrow"><input class="check" type="checkbox" aria-label="Completed" data-key="${k}" ${l.done?'checked':''}><div class="exname">${i+1}. ${e.name}<div class="meta">${e.sets} sets × ${e.reps} reps · rest ${e.rest}</div><div class="muscle">${e.muscle}</div></div></div><div class="details"><b>How to:</b> ${e.how}<br><b>Avoid:</b> ${e.avoid}</div><div class="fields"><div><label>WEIGHT USED</label><input data-field="weight" data-key="${k}" placeholder="e.g. 40 lb" value="${l.weight||''}"></div><div><label>REPS COMPLETED</label><input data-field="reps" data-key="${k}" placeholder="e.g. 12, 11, 10" value="${l.reps||''}"></div></div></article>`}).join('');
+ document.querySelectorAll('[data-key].check').forEach(el=>el.onchange=()=>{let l=state.logs[el.dataset.key]||{};l.done=el.checked;state.logs[el.dataset.key]=l;save()});
+ document.querySelectorAll('[data-field]').forEach(el=>el.onchange=()=>{let l=state.logs[el.dataset.key]||{};l[el.dataset.field]=el.value;state.logs[el.dataset.key]=l;save()});renderProgress();
+}
+document.getElementById('notes').onchange=e=>{state.notes[workout[selected].id]=e.target.value;save()};
+document.getElementById('completeDay').onclick=()=>{let d=workout[selected];if(!state.completedDays.includes(d.id))state.completedDays.push(d.id);d.exercises.forEach((e,i)=>{let k=d.id+'_'+i;state.logs[k]=state.logs[k]||{};state.logs[k].done=true});save();render()};
+document.getElementById('resetDay').onclick=()=>{if(confirm('Clear this day’s weights and completion marks?')){let d=workout[selected];state.completedDays=state.completedDays.filter(x=>x!==d.id);d.exercises.forEach((e,i)=>delete state.logs[d.id+'_'+i]);save();render()}};
+document.getElementById('export').onclick=()=>{let a=document.createElement('a'),u=URL.createObjectURL(new Blob([JSON.stringify(state,null,2)],{type:'application/json'}));a.href=u;a.download='john-nail-training-backup.json';a.click();URL.revokeObjectURL(u)};
+document.getElementById('importBtn').onclick=()=>document.getElementById('importFile').click();
+document.getElementById('importFile').onchange=async e=>{try{state=JSON.parse(await e.target.files[0].text());save();render();alert('Backup imported.')}catch{alert('Could not read this backup file.')}};
+render();
+</script></body></html>
