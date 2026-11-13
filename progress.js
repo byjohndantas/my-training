@@ -355,8 +355,8 @@ function calRegister(){
 
   renderCalendar();
 }
- 
-}
+
+  
 
 function renderCalendar(){
  if(!state.trainingSessions) state.trainingSessions=[];
