@@ -197,6 +197,106 @@ button:focus-visible,
   }
 }
 
+/* WEEKLY DASHBOARD — CHOCOLATE / CHAMPAGNE */
+.wrap > .panel:first-of-type{
+  position:relative;
+  overflow:hidden;
+  border-color:rgba(216,201,168,.32);
+  background:
+    radial-gradient(ellipse at 100% 0%,rgba(216,201,168,.12),transparent 43%),
+    linear-gradient(145deg,#30271f,#211a15 58%,#17120f);
+  box-shadow:0 22px 48px rgba(0,0,0,.34),inset 0 1px rgba(255,255,255,.06);
+}
+.wrap > .panel:first-of-type:before{
+  content:"WEEKLY OVERVIEW";
+  display:block;
+  margin:-2px 0 13px;
+  color:#bdae98;
+  font-size:8px;
+  letter-spacing:.28em;
+}
+.wrap > .panel:first-of-type .toolbar b{
+  font-size:10px;
+  letter-spacing:.19em;
+  color:#d8c9a8;
+}
+.wrap > .panel:first-of-type .toolbar strong{
+  font-size:clamp(16px,4.5vw,21px);
+  letter-spacing:-.035em;
+  color:#f1e9dc!important;
+  font-weight:650;
+  font-variant-numeric:tabular-nums;
+}
+.wrap > .panel:first-of-type .progressline{
+  height:6px;
+  margin-top:15px;
+  background:#17120f;
+  border:1px solid rgba(216,201,168,.16);
+}
+.wrap > .panel:first-of-type .progressline span{
+  background:linear-gradient(90deg,#8e7959,#e8d9b9 55%,#b9a681);
+  box-shadow:0 0 16px rgba(216,201,168,.34);
+}
+.wrap > .panel:first-of-type .days{
+  gap:9px;
+  margin-top:18px;
+}
+.wrap > .panel:first-of-type .daybtn{
+  position:relative;
+  min-height:91px;
+  padding:12px 6px 10px;
+  border-radius:15px;
+  border:1px solid rgba(216,201,168,.22);
+  background:linear-gradient(150deg,rgba(58,47,37,.92),rgba(27,21,17,.98));
+  box-shadow:inset 0 1px rgba(255,255,255,.055),0 8px 18px rgba(0,0,0,.18);
+  color:#eee5d8;
+  font-size:12px;
+  letter-spacing:.13em;
+}
+.wrap > .panel:first-of-type .daybtn:before{
+  display:block;
+  margin:0 auto 7px;
+  color:#d8c9a8;
+  font-size:15px;
+  line-height:1;
+  font-weight:400;
+  letter-spacing:0;
+}
+.wrap > .panel:first-of-type .daybtn:nth-child(1):before{content:"↟"}
+.wrap > .panel:first-of-type .daybtn:nth-child(2):before{content:"◇"}
+.wrap > .panel:first-of-type .daybtn:nth-child(3):before{content:"⬡"}
+.wrap > .panel:first-of-type .daybtn:nth-child(4):before{content:"⌁"}
+.wrap > .panel:first-of-type .daybtn:nth-child(5):before{content:"✧"}
+.wrap > .panel:first-of-type .daybtn:nth-child(6):before{content:"◎"}
+.wrap > .panel:first-of-type .daybtn small{
+  font-size:9px;
+  line-height:1.35;
+  letter-spacing:.045em;
+  color:#c1b19b;
+}
+.wrap > .panel:first-of-type .daybtn.active{
+  background:linear-gradient(145deg,#e4d5b7,#b9a681);
+  border-color:#eadbbd;
+  color:#211911;
+  box-shadow:0 8px 22px rgba(185,166,129,.22),inset 0 1px rgba(255,255,255,.45);
+}
+.wrap > .panel:first-of-type .daybtn.active:before{color:#493a27}
+.wrap > .panel:first-of-type .daybtn.active small{color:#493a27}
+.wrap > .panel:first-of-type .actions{margin-top:16px!important}
+.wrap > .panel:first-of-type .actions button.primary{
+  min-height:48px;
+  border-radius:13px;
+  background:linear-gradient(110deg,#e3d4b5,#b9a681);
+  border-color:#e0d0af;
+  color:#211911;
+  letter-spacing:.07em;
+  box-shadow:0 8px 22px rgba(185,166,129,.16),inset 0 1px rgba(255,255,255,.4);
+}
+@media(max-width:380px){
+  .wrap > .panel:first-of-type .daybtn{min-height:84px;padding:10px 4px 8px}
+  .wrap > .panel:first-of-type .daybtn small{font-size:8px}
+}
+
 </style></head><body><main class="wrap"><header class="hero"><div class="eyebrow">PERSONAL TRAINING JOURNAL</div><div class="brand">MY TRAINING</div><div class="sub">Treino, consistência e evolução — um dia de cada vez.</div></header>
 <section class="panel"><div class="toolbar"><b>PROGRESSO DA SEMANA</b><strong id="progressText" style="color:var(--gold)">0 exercícios</strong></div><div class="progressline"><span id="progressBar"></span></div><nav class="days" id="days"></nav><div class="actions" style="margin-top:12px"><button type="button" class="primary" onclick="document.getElementById('myProgressPanel').scrollIntoView({behavior:'smooth'})">VER MINHA EVOLUÇÃO</button></div></section>
 <section class="panel"><div class="muted" id="dayLabel">SEGUNDA-FEIRA</div><h1 class="sectionhead" id="dayTitle">Costas & Bíceps</h1><p class="muted" id="dayFocus"></p><div id="exerciseList"></div><label for="notes" style="margin-top:18px">ANOTAÇÕES DO TREINO</label><textarea id="notes" class="note" placeholder="Energia, observações, evolução..."></textarea><div class="actions"><button class="primary" id="completeDay">Marcar dia como concluído</button><button id="resetDay">Limpar marcações do dia</button></div></section>
