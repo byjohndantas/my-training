@@ -624,7 +624,53 @@ body {
   }
 }
 
-/* LUXURY PERFORMANCE — BRONZE FITNESS ICONS */
+/* LUXURY PERFORMANCE — CUSTOM DAY IMAGES */
+
+.wrap > .panel:first-of-type .daybtn:before {
+  content: "";
+  display: block;
+  width: 58px;
+  height: 58px;
+  margin: 0 auto 7px;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
+}
+
+.wrap > .panel:first-of-type .daybtn:nth-child(1):before {
+  background-image: url("./assets/01-segunda-costas-biceps.png");
+}
+
+.wrap > .panel:first-of-type .daybtn:nth-child(2):before {
+  background-image: url("./assets/02-terca-peito-ombros.png");
+}
+
+.wrap > .panel:first-of-type .daybtn:nth-child(3):before {
+  background-image: url("./assets/03-quarta-pernas.png");
+}
+
+.wrap > .panel:first-of-type .daybtn:nth-child(4):before {
+  background-image: url("./assets/04-quinta-costas-regiao-media.png");
+}
+
+.wrap > .panel:first-of-type .daybtn:nth-child(5):before {
+  background-image: url("./assets/05-sexta-superiores.png");
+}
+
+.wrap > .panel:first-of-type .daybtn:nth-child(6):before {
+  background-image: url("./assets/06-sabado-core-recuperacao.png");
+}
+
+.wrap > .panel:first-of-type .daybtn.active:before {
+  filter: brightness(1.08);
+}
+
+@media(max-width:380px) {
+  .wrap > .panel:first-of-type .daybtn:before {
+    width: 46px;
+    height: 46px;
+  }
+}
 
 .wrap > .panel:first-of-type .daybtn:before {
   content: "";
