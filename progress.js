@@ -363,7 +363,6 @@ function renderCalendar(){
  const sessions=state.trainingSessions;
  const dates=[...new Set(sessions.map(s=>s.date))];
  const today=calDateKey(new Date());
-
  const month=calDate.getMonth();
  const year=calDate.getFullYear();
  const first=new Date(year,month,1);
