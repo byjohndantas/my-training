@@ -807,6 +807,76 @@ body::before{
 #myProgressPanel .weight-card{position:relative;z-index:1}
 @media(max-width:430px){#myProgressPanel:before{right:-22px;top:0;width:76%;height:290px;opacity:.29;filter:blur(1.5px)}}
 </style>
+<style>
+/* FUTURISTIC APP CHROME — restrained, premium, usable */
+.app-nav{
+  padding:11px 14px calc(11px + env(safe-area-inset-bottom));
+  gap:10px;
+  background:linear-gradient(180deg,rgba(25,19,15,.88),rgba(10,8,7,.97));
+  border-top:1px solid rgba(220,195,155,.24);
+  box-shadow:0 -12px 34px rgba(0,0,0,.34),inset 0 1px rgba(255,255,255,.035);
+  backdrop-filter:blur(24px) saturate(135%);
+  -webkit-backdrop-filter:blur(24px) saturate(135%);
+}
+.app-nav button{
+  min-height:58px;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  gap:5px;
+  border:1px solid rgba(220,195,155,.12);
+  border-radius:15px;
+  padding:7px 4px 8px;
+  background:linear-gradient(145deg,rgba(58,43,30,.55),rgba(22,16,12,.78));
+  color:#aa9a83;
+  font-size:8px;
+  font-weight:650;
+  letter-spacing:.16em;
+  box-shadow:inset 0 1px rgba(255,255,255,.045);
+}
+.app-nav button svg{width:19px;height:19px;display:block;fill:none;stroke:currentColor;stroke-width:1.55;stroke-linecap:round;stroke-linejoin:round;opacity:.92}
+.app-nav button[aria-current="page"]{
+  color:#f0dfc1;
+  background:linear-gradient(145deg,rgba(180,139,88,.32),rgba(72,52,33,.58));
+  border-color:rgba(225,197,151,.52);
+  box-shadow:0 0 0 1px rgba(225,197,151,.07),0 0 24px rgba(188,143,85,.13),inset 0 1px rgba(255,255,255,.12);
+}
+.app-nav button[aria-current="page"] svg{color:#e5c99a;filter:drop-shadow(0 0 5px rgba(221,184,125,.35))}
+.app-nav button:active{transform:scale(.97)}
+/* Day selector: replace decorative glyphs with restrained training pictograms */
+.wrap > .panel:first-of-type .daybtn:before{
+  content:"";
+  display:block;
+  width:23px;height:23px;
+  margin:0 auto 8px;
+  border-radius:8px;
+  background-color:rgba(225,201,160,.92);
+  -webkit-mask-repeat:no-repeat;mask-repeat:no-repeat;
+  -webkit-mask-position:center;mask-position:center;
+  -webkit-mask-size:contain;mask-size:contain;
+}
+.wrap > .panel:first-of-type .daybtn:nth-child(1):before,
+.wrap > .panel:first-of-type .daybtn:nth-child(4):before{
+  -webkit-mask-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M3 9v6m3-9v12m12-12v12m3-9v6M6 12h12'/%3E%3C/svg%3E");
+  mask-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M3 9v6m3-9v12m12-12v12m3-9v6M6 12h12'/%3E%3C/svg%3E");
+}
+.wrap > .panel:first-of-type .daybtn:nth-child(2):before,
+.wrap > .panel:first-of-type .daybtn:nth-child(5):before{
+  -webkit-mask-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M4 7h16M6 7v10m12-10v10M6 12h12M9 17h6'/%3E%3C/svg%3E");
+  mask-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M4 7h16M6 7v10m12-10v10M6 12h12M9 17h6'/%3E%3C/svg%3E");
+}
+.wrap > .panel:first-of-type .daybtn:nth-child(3):before{
+  -webkit-mask-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M7 3l-3 7 4 2-1 9m10-18 3 7-4 2 1 9M8 12h8'/%3E%3C/svg%3E");
+  mask-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M7 3l-3 7 4 2-1 9m10-18 3 7-4 2 1 9M8 12h8'/%3E%3C/svg%3E");
+}
+.wrap > .panel:first-of-type .daybtn:nth-child(6):before{
+  -webkit-mask-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M12 3v3m0 12v3M3 12h3m12 0h3M5.6 5.6l2.1 2.1m8.6 8.6 2.1 2.1m0-12.8-2.1 2.1m-8.6 8.6-2.1 2.1'/%3E%3Ccircle cx='12' cy='12' r='4'/%3E%3C/svg%3E");
+  mask-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M12 3v3m0 12v3M3 12h3m12 0h3M5.6 5.6l2.1 2.1m8.6 8.6 2.1 2.1m0-12.8-2.1 2.1m-8.6 8.6-2.1 2.1'/%3E%3Ccircle cx='12' cy='12' r='4'/%3E%3C/svg%3E");
+}
+.wrap > .panel:first-of-type .daybtn.active:before{background-color:#4a3825}
+@media(min-width:700px){.app-nav{border-radius:20px 20px 0 0}}
+</style>
 </head><body><main class="wrap"><header class="hero"><img class="profile-avatar" src="./assets/569FEEA4-0FBF-4EDF-BADD-3FD5338B8540.jpeg" alt="Foto de perfil"><div class="eyebrow">PERSONAL TRAINING JOURNAL</div><div class="brand">MY TRAINING</div><div class="sub">Treino, consistência e evolução — um dia de cada vez.</div></header>
 <section class="panel"><div class="toolbar"><b>DIAS CONCLUÍDOS</b><strong id="progressText" style="color:var(--gold)">0 de 6 dias</strong></div><div class="progressline"><span id="progressBar"></span></div><nav class="days" id="days"></nav><div class="actions" style="margin-top:12px"><button type="button" class="primary" onclick="document.getElementById('myProgressPanel').scrollIntoView({behavior:'smooth'})">VER MINHA EVOLUÇÃO</button></div></section>
 <section class="panel"><div class="muted" id="dayLabel">SEGUNDA-FEIRA</div><h1 class="sectionhead" id="dayTitle">Costas & Bíceps</h1><p class="muted" id="dayFocus"></p><div id="exerciseList"></div><label for="notes" style="margin-top:18px">ANOTAÇÕES DO TREINO</label><textarea id="notes" class="note" placeholder="Energia, observações, evolução..."></textarea><div class="actions"><button class="primary" id="completeDay">Marcar dia como concluído</button><button id="resetDay">Limpar marcações do dia</button></div></section>
@@ -1016,7 +1086,12 @@ document.getElementById('notes').onchange=e=>{state.notes[WORKOUTS[selected].id]
  const nav=document.createElement('nav');
  nav.className='app-nav';
  nav.setAttribute('aria-label','Navegação principal');
- nav.innerHTML=pages.map((p,i)=>'<button type="button" data-page="'+p.id+'" aria-current="'+(i===0?'page':'false')+'">'+p.label+'</button>').join('');
+ const navIcons={
+  home:'<svg viewBox="0 0 24 24" aria-hidden="true"><path d="m3.5 10 8.5-7 8.5 7v10a1 1 0 0 1-1 1h-5.2v-6.2H9.7V21H4.5a1 1 0 0 1-1-1z"/></svg>',
+  progress:'<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 19V5m0 14h16"/><path d="m7 15 4-4 3 2 5-6"/><path d="M16 7h3v3"/></svg>',
+  history:'<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3.5 11a8.5 8.5 0 1 1 2.4 6"/><path d="M3.5 5.5V11h5.5"/><path d="M12 7v5l3.5 2"/></svg>'
+};
+nav.innerHTML=pages.map((p,i)=>'<button type="button" data-page="'+p.id+'" aria-current="'+(i===0?'page':'false')+'">'+navIcons[p.id]+'<span>'+p.label+'</span></button>').join('');
  main.appendChild(nav);
  nav.addEventListener('click',e=>{
   const button=e.target.closest('button[data-page]');
