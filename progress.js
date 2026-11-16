@@ -428,17 +428,17 @@ function renderCalendar(){
   <div class="cal-stat"><strong>${weekCount}</strong><span>ESTA SEMANA</span></div>
   <div class="cal-stat"><strong>${streak}</strong><span>DIAS SEGUIDOS</span></div>
  `;
- const monthlyTarget=12;
+ const monthlyTarget=Array.from({length:total},(_,i)=>new Date(year,month,i+1).getDay()).filter(day=>day!==0).length;
  const monthlyPercent=Math.min(100,Math.round(monthCount/monthlyTarget*100));
  document.getElementById('mpMonthGoal').innerHTML=`
   <div class="mp-month-goal-head">
-   <span class="mp-month-goal-label">META MENSAL</span>
+   <span class="mp-month-goal-label">META MENSAL · DOMINGOS OFF</span>
    <strong class="mp-month-goal-value">${monthCount} / ${monthlyTarget} treinos</strong>
   </div>
   <div class="mp-month-goal-track" role="progressbar" aria-label="Progresso da meta mensal" aria-valuemin="0" aria-valuemax="${monthlyTarget}" aria-valuenow="${Math.min(monthCount,monthlyTarget)}">
    <span style="width:${monthlyPercent}%"></span>
   </div>
-  <div class="mp-month-goal-caption">${monthlyPercent}% da meta concluída neste mês</div>
+  <div class="mp-month-goal-caption">${monthlyPercent}% da meta concluída neste mês · domingos reservados para descanso</div>
  `;
 
  let html='';
