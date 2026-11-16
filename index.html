@@ -715,8 +715,64 @@ function exerciseGraphic(name,muscle,photoIndex){
 
 function renderProgress(){const now=new Date();now.setHours(0,0,0,0);const monday=new Date(now);monday.setDate(now.getDate()-((now.getDay()+6)%7));const dates=Array.isArray(state.completedDayDates)?state.completedDayDates:[];const done=new Set(dates.filter(x=>{const d=new Date(x.date+'T00:00:00');return d>=monday&&d<=now;}).map(x=>x.date)).size;document.getElementById('progressText').textContent=`${done} de 6 dias concluídos`;document.getElementById('progressBar').style.width=(Math.min(done,6)/6*100)+'%'}
 
-function render(){let d=WORKOUTS[selected];let photoOffset=WORKOUTS.slice(0,selected).reduce((n,day)=>n+day.exercises.length,0);document.getElementById('dayLabel').textContent=d.day.toUpperCase();document.getElementById('dayTitle').textContent=d.name;document.getElementById('dayFocus').textContent=d.focus;document.getElementById('notes').value=state.notes[d.id]||'';document.getElementById('days').innerHTML=WORKOUTS.map((x,i)=>`<button class="daybtn ${i===selected?'active':''}" data-i="${i}">${['SEG','TER','QUA','QUI','SEX','SÁB'][i]}<small>${x.name}</small></button>`).join('');document.querySelectorAll('.daybtn').forEach(b=>b.onclick=()=>{selected=+b.dataset.i;render()});document.getElementById('exerciseList').innerHTML=d.exercises.map((e,i)=>{let k=d.id+'_'+i,l=state.logs[k]||{};return `<article class="exercise">${exerciseGraphic(e.name,e.muscle,photoOffset+i+1)}<div class="exrow"><input class="check" type="checkbox" aria-label="Concluído" data-key="${k}" ${l.done?'checked':''}><div class="exname">${i+1}. ${e.name}<div class="meta">${e.sets} séries × ${e.reps} repetições · descanso ${e.rest}</div><div class="muscle">${e.muscle}</div></div></div><div class="details"><b>Execução:</b> ${e.how}<br><b>Atenção:</b> ${e.avoid}</div><div class="fields"><div><label>CARGA UTILIZADA</label><input data-field="weight" data-key="${k}" placeholder="Ex.: 40 lb" value="${l.weight||''}"></div><div><label>REPETIÇÕES REALIZADAS</label><input data-field="reps" data-key="${k}" placeholder="Ex.: 12, 11, 10" value="${l.reps||''}"></div><div class="rest-timer" data-rest="${e.rest}" data-index="${i}"><div class="rest-top"><span>TEMPO DE DESCANSO</span><strong class="rest-count">${Math.max(1,parseInt(e.rest,10)||60)}</strong></div><div class="rest-actions"><button type="button" class="rest-play">▶ INICIAR</button><button type="button" class="rest-pause">Ⅱ PAUSAR</button><button type="button" class="rest-next">PRÓXIMO EXERCÍCIO →</button></div><div class="rest-status" aria-live="polite">Descanso recomendado: ${e.rest}</div></div></article>`}).join('');document.querySelectorAll('[data-key].check').forEach(el=>el.onchange=()=>{let l=state.logs[el.dataset.key]||{};l.done=el.checked;state.logs[el.dataset.key]=l;save()});document.querySelectorAll('[data-field]').forEach(el=>el.onchange=()=>{let l=state.logs[el.dataset.key]||{};l[el.dataset.field]=el.value;state.logs[el.dataset.key]=l;save()});renderProgress()}
-
+function render(){
+ let d=WORKOUTS[selected];
+ let photoOffset=WORKOUTS.slice(0,selected).reduce((n,day)=>n+day.exercises.length,0);
+ document.getElementById('dayLabel').textContent=d.day.toUpperCase();
+ document.getElementById('dayTitle').textContent=d.name;
+ document.getElementById('dayFocus').textContent=d.focus;
+ document.getElementById('notes').value=state.notes[d.id]||'';
+ document.getElementById('days').innerHTML=WORKOUTS.map((x,i)=>`<button class="daybtn ${i===selected?'active':''}" data-i="${i}">${['SEG','TER','QUA','QUI','SEX','SÁB'][i]}<small>${x.name}</small></button>`).join('');
+ document.querySelectorAll('.daybtn').forEach(b=>b.onclick=()=>{selected=+b.dataset.i;render()});
+ document.getElementById('exerciseList').innerHTML=d.exercises.map((e,i)=>{
+  const k=d.id+'_'+i;
+  const l=state.logs[k]||{};
+  const setCount=Math.max(1,parseInt(e.sets,10)||1);
+  if(!Array.isArray(l.sets)){
+   l.sets=Array.from({length:setCount},(_,n)=>({weight:n===0?(l.weight||''):'',reps:n===0?(l.reps||'') :''}));
+   state.logs[k]=l;
+  }else if(l.sets.length<setCount){
+   while(l.sets.length<setCount)l.sets.push({weight:'',reps:''});
+  }
+  const today=new Date();today.setHours(0,0,0,0);
+  const previous=(state.exerciseHistory||[])
+   .filter(x=>x.key===k && x.date && new Date(x.date+'T00:00:00')<today)
+   .sort((a,b)=>b.date.localeCompare(a.date))[0];
+  const previousText=previous
+   ? previous.sets.map((x,n)=>'S'+(n+1)+': '+(x.weight||'—')+' × '+(x.reps||'—')).join('  ·  ')
+   : 'Ainda não há um treino anterior registrado para comparação.';
+  return `<article class="exercise">${exerciseGraphic(e.name,e.muscle,photoOffset+i+1)}
+   <div class="exrow"><input class="check" type="checkbox" aria-label="Concluído" data-key="${k}" ${l.done?'checked':''}><div class="exname">${i+1}. ${e.name}<div class="meta">${e.sets} séries × ${e.reps} repetições · descanso ${e.rest}</div><div class="muscle">${e.muscle}</div></div></div>
+   <div class="details"><b>Execução:</b> ${e.how}<br><b>Atenção:</b> ${e.avoid}</div>
+   <div class="details set-history"><b>ÚLTIMO TREINO:</b><br>${previousText}</div>
+   <div class="set-entry"><div class="set-entry-title">REGISTRO DE SÉRIES</div>
+   ${Array.from({length:setCount},(_,n)=>{const set=l.sets[n]||{};return `<div class="set-row"><strong>SÉRIE ${n+1}</strong><div class="fields"><div><label>CARGA (LB)</label><input inputmode="decimal" data-field="weight" data-set="${n}" data-key="${k}" placeholder="Ex.: 40" value="${set.weight||''}"></div><div><label>REPETIÇÕES</label><input inputmode="numeric" data-field="reps" data-set="${n}" data-key="${k}" placeholder="Ex.: 12" value="${set.reps||''}"></div></div></div>`}).join('')}
+   </div>
+   <div class="rest-timer" data-rest="${e.rest}" data-index="${i}"><div class="rest-top"><span>TEMPO DE DESCANSO</span><strong class="rest-count">${Math.max(1,parseInt(e.rest,10)||60)}</strong></div><div class="rest-actions"><button type="button" class="rest-play">▶ INICIAR</button><button type="button" class="rest-pause">Ⅱ PAUSAR</button><button type="button" class="rest-next">PRÓXIMO EXERCÍCIO →</button></div><div class="rest-status" aria-live="polite">Descanso recomendado: ${e.rest}</div></div>
+  </article>`;
+ }).join('');
+ document.querySelectorAll('[data-key].check').forEach(el=>el.onchange=()=>{let l=state.logs[el.dataset.key]||{};l.done=el.checked;state.logs[el.dataset.key]=l;save()});
+ document.querySelectorAll('[data-field][data-key]').forEach(el=>el.onchange=()=>{
+  const key=el.dataset.key,field=el.dataset.field,setIndex=Number(el.dataset.set);
+  const l=state.logs[key]||{};
+  if(!Array.isArray(l.sets))l.sets=[];
+  while(l.sets.length<=setIndex)l.sets.push({weight:'',reps:''});
+  l.sets[setIndex][field]=el.value.trim();
+  l.weight=l.sets.map(x=>x.weight).filter(Boolean).join(' / ');
+  l.reps=l.sets.map(x=>x.reps).filter(Boolean).join(' / ');
+  state.logs[key]=l;
+  const now=new Date(),date=[now.getFullYear(),String(now.getMonth()+1).padStart(2,'0'),String(now.getDate()).padStart(2,'0')].join('-');
+  if(!Array.isArray(state.exerciseHistory))state.exerciseHistory=[];
+  let session=state.exerciseHistory.find(x=>x.key===key&&x.date===date);
+  if(!session){session={key,date,exercise:d.exercises[Number(key.split('_').pop())]?.name||key,sets:[]};state.exerciseHistory.push(session)}
+  session.sets=JSON.parse(JSON.stringify(l.sets));
+  save();
+  const card=el.closest('.exercise');
+  const old=card.querySelector('.set-history');
+  if(old)old.innerHTML='<b>ÚLTIMO TREINO:</b><br>'+session.sets.map((x,n)=>'S'+(n+1)+': '+(x.weight||'—')+' × '+(x.reps||'—')).join('  ·  ')+' <span style="color:#bdae98">(sessão atual)</span>';
+ });
+ renderProgress();
+}
 document.getElementById('notes').onchange=e=>{state.notes[WORKOUTS[selected].id]=e.target.value;save()};document.getElementById('completeDay').onclick=()=>{let day=WORKOUTS[selected];if(!Array.isArray(state.completedDays))state.completedDays=[];if(!state.completedDays.includes(day.id))state.completedDays.push(day.id);const now=new Date();const date=[now.getFullYear(),String(now.getMonth()+1).padStart(2,'0'),String(now.getDate()).padStart(2,'0')].join('-');if(!Array.isArray(state.completedDayDates))state.completedDayDates=[];if(!state.completedDayDates.some(x=>x.date===date&&x.dayId===day.id))state.completedDayDates.push({date,dayId:day.id,day:day.name});day.exercises.forEach((e,i)=>{let k=day.id+'_'+i;state.logs[k]=state.logs[k]||{};state.logs[k].done=true});save();render()};document.getElementById('resetDay').onclick=()=>{if(confirm('Limpar as marcações e cargas deste dia?')){let day=WORKOUTS[selected];if(Array.isArray(state.completedDays))state.completedDays=state.completedDays.filter(id=>id!==day.id);day.exercises.forEach((e,i)=>delete state.logs[day.id+'_'+i]);save();render()}};document.getElementById('export').onclick=()=>{let a=document.createElement('a'),u=URL.createObjectURL(new Blob([JSON.stringify(state,null,2)],{type:'application/json'}));a.href=u;a.download='my-training-backup.json';a.click();URL.revokeObjectURL(u)};document.getElementById('importBtn').onclick=()=>document.getElementById('importFile').click();document.getElementById('importFile').onchange=async e=>{try{state=JSON.parse(await e.target.files[0].text());save();render();alert('Backup importado.')}catch{alert('Não foi possível ler esse backup.')}};if('serviceWorker'in navigator&&location.protocol.startsWith('http'))navigator.serviceWorker.register('./sw.js').catch(()=>{});render();
 
 </script>
@@ -777,5 +833,5 @@ document.getElementById('notes').onchange=e=>{state.notes[WORKOUTS[selected].id]
  document.getElementById('days').addEventListener('click',()=>{stop();activeCard=null;remaining=0});
 })();
 </script>
-<script src="./progress.js?v=8"></script>
+<script src="./progress.js?v=9"></script>
 </body></html>
