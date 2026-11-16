@@ -724,7 +724,7 @@ document.getElementById('notes').onchange=e=>{state.notes[WORKOUTS[selected].id]
 (()=>{
  let interval=null,activeCard=null,remaining=0,endAt=0;
  const cards=()=>[...document.querySelectorAll('#exerciseList .exercise')];
- const fmt=s=>String(Math.floor(s/60)).padStart(2,'0')+':'+String(s%60).padStart(2,'0');
+ const fmt=s=>String(s);
  const stop=()=>{if(interval){clearInterval(interval);interval=null}};
  const display=(card,seconds,status)=>{
   if(!card)return;
