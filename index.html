@@ -712,6 +712,32 @@ body {
 .set-row .fields label{min-height:16px}
 .set-row .fields input{min-height:43px}
 .set-history{font-size:11px;line-height:1.8}
+
+/* EXERCISE SEPARATION — ALTERNATING CHOCOLATE TONES */
+#exerciseList .exercise:nth-child(odd) {
+  background:
+    radial-gradient(ellipse at 100% 0%, rgba(216,201,168,.095), transparent 46%),
+    linear-gradient(145deg, rgba(66,51,38,.92), rgba(35,27,21,.96) 68%, rgba(25,19,15,.98));
+  border-color: rgba(216,201,168,.34);
+}
+#exerciseList .exercise:nth-child(even) {
+  background:
+    radial-gradient(ellipse at 0% 0%, rgba(190,145,88,.055), transparent 48%),
+    linear-gradient(145deg, rgba(43,34,27,.96), rgba(24,19,15,.98) 72%, rgba(17,13,10,.99));
+  border-color: rgba(190,169,137,.23);
+}
+#exerciseList .exercise:nth-child(odd) .exercise-visual {
+  background: linear-gradient(135deg, rgba(77,59,43,.78), rgba(27,21,16,.88));
+}
+#exerciseList .exercise:nth-child(even) .exercise-visual {
+  background: linear-gradient(135deg, rgba(47,37,29,.88), rgba(19,15,12,.94));
+}
+#exerciseList .exercise:nth-child(odd) .set-row {
+  background: rgba(216,201,168,.035);
+}
+#exerciseList .exercise:nth-child(even) .set-row {
+  background: rgba(0,0,0,.12);
+}
 </style>
 </head><body><main class="wrap"><header class="hero"><img class="profile-avatar" src="./assets/569FEEA4-0FBF-4EDF-BADD-3FD5338B8540.jpeg" alt="Foto de perfil"><div class="eyebrow">PERSONAL TRAINING JOURNAL</div><div class="brand">MY TRAINING</div><div class="sub">Treino, consistência e evolução — um dia de cada vez.</div></header>
 <section class="panel"><div class="toolbar"><b>DIAS CONCLUÍDOS</b><strong id="progressText" style="color:var(--gold)">0 de 6 dias</strong></div><div class="progressline"><span id="progressBar"></span></div><nav class="days" id="days"></nav><div class="actions" style="margin-top:12px"><button type="button" class="primary" onclick="document.getElementById('myProgressPanel').scrollIntoView({behavior:'smooth'})">VER MINHA EVOLUÇÃO</button></div></section>
