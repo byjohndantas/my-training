@@ -738,6 +738,18 @@ body {
 #exerciseList .exercise:nth-child(even) .set-row {
   background: rgba(0,0,0,.12);
 }
+
+/* PREMIUM GYM BACKGROUND */
+body {
+ background-color:#100b08;
+ background-image:linear-gradient(rgba(12,8,5,.42),rgba(12,8,5,.72)),url('./assets/gym-background.svg');
+ background-size:cover;
+ background-position:center top;
+ background-attachment:fixed;
+}
+#app, main, .app-shell, .container {
+ background-color:transparent;
+}
 </style>
 </head><body><main class="wrap"><header class="hero"><img class="profile-avatar" src="./assets/569FEEA4-0FBF-4EDF-BADD-3FD5338B8540.jpeg" alt="Foto de perfil"><div class="eyebrow">PERSONAL TRAINING JOURNAL</div><div class="brand">MY TRAINING</div><div class="sub">Treino, consistência e evolução — um dia de cada vez.</div></header>
 <section class="panel"><div class="toolbar"><b>DIAS CONCLUÍDOS</b><strong id="progressText" style="color:var(--gold)">0 de 6 dias</strong></div><div class="progressline"><span id="progressBar"></span></div><nav class="days" id="days"></nav><div class="actions" style="margin-top:12px"><button type="button" class="primary" onclick="document.getElementById('myProgressPanel').scrollIntoView({behavior:'smooth'})">VER MINHA EVOLUÇÃO</button></div></section>
