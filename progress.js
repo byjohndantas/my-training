@@ -11,6 +11,23 @@
     localStorage.setItem(KEY, JSON.stringify(state));
   };
 
+  // SESSÕES CONFIRMADAS PELO USUÁRIO: semana completa de 09 a 14/11/2026.
+  // Mescla apenas datas ausentes; não substitui nem apaga registros existentes.
+  if (!Array.isArray(state.trainingSessions)) state.trainingSessions = [];
+  [
+    ['2026-11-09','Costas & Bíceps'],
+    ['2026-11-10','Peito & Ombros'],
+    ['2026-11-11','Pernas'],
+    ['2026-11-12','Costas — Região Média'],
+    ['2026-11-13','Superiores Completo'],
+    ['2026-11-14','Core & Recuperação']
+  ].forEach(([date, day]) => {
+    if (!state.trainingSessions.some(session => session.date === date)) {
+      state.trainingSessions.push({date, day, source:'user-confirmed'});
+    }
+  });
+  save();
+
   const exerciseName = key => {
     const [day, index] = key.split('_');
     const workout = WORKOUTS.find(w => w.id === day);
