@@ -135,6 +135,29 @@ label{color:#d2ad86}
  .daybtn.active img{filter:drop-shadow(0 0 10px rgba(217,135,78,.5));transform:translateY(-1px)}
 }
 
+
+/* Matching three-tab layout */
+html{scroll-behavior:smooth;background:#100d0b}body{padding-bottom:100px}
+.app-page{display:none;min-height:55vh;padding-bottom:90px}.app-page.active{display:block}
+.app-nav{position:fixed;z-index:9999;left:0;right:0;bottom:0;padding:10px 12px calc(10px + env(safe-area-inset-bottom));display:grid;grid-template-columns:repeat(3,1fr);gap:8px;background:rgba(15,11,8,.96);border-top:1px solid rgba(216,201,168,.28);backdrop-filter:blur(18px);box-shadow:0 -10px 30px #0005}
+.app-nav button{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:5px;min-height:53px;padding:9px 5px;font-size:9px;letter-spacing:.12em}
+.app-nav svg{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
+.app-nav button[aria-current="page"]{color:#17110b;background:linear-gradient(145deg,#e3d2b2,#a99576);border-color:#e3d2b2}
+.progress-eyebrow,.progress-subhead,.history-eyebrow{font-size:9px;letter-spacing:.22em;color:#d8c9a8}
+.progress-subhead{margin:22px 0 10px}
+.evolution-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:16px 0}
+.evolution-card{border:1px solid var(--line);border-radius:15px;padding:15px;background:linear-gradient(145deg,#30271f,#17120f);display:flex;flex-direction:column;gap:5px}
+.evolution-card span{font-size:8px;letter-spacing:.16em;color:#bdae98}.evolution-card strong{font:500 29px Georgia,serif;color:#f1e9dc}.evolution-card small{font-size:10px;color:#bdae98}
+.progress-form{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-top:14px}.progress-form input{min-height:46px}
+.weight-history{display:grid;gap:8px}.weight-row{display:flex;justify-content:space-between;gap:12px;padding:12px;border:1px solid var(--line);border-radius:12px;background:#0c090780;font-size:12px;color:#cbbba6}.weight-row strong{color:#f1e9dc}
+.photo-upload-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}.photo-upload{display:grid;place-items:center;min-height:58px;border:1px dashed rgba(216,201,168,.38);border-radius:12px;color:#d8c9a8;font-size:9px;letter-spacing:.13em}.photo-upload input{display:none}
+.photo-history{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;margin-top:12px}.photo-history figure{margin:0}.photo-history img{width:100%;aspect-ratio:3/4;object-fit:cover;border-radius:11px;border:1px solid var(--line)}.photo-history figcaption{font-size:9px;color:#bdae98;margin-top:5px}
+.history-hero h2{font:500 28px Georgia,serif;margin:8px 0;color:#f1e9dc}.history-hero p{font-size:12px;color:#bdae98}
+.history-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:15px}.history-stats div{padding:12px 7px;border:1px solid var(--line);border-radius:13px;background:linear-gradient(145deg,#30271f,#17120f);display:flex;flex-direction:column;gap:5px}.history-stats strong{font:500 23px Georgia,serif}.history-stats span{font-size:8px;line-height:1.4;letter-spacing:.08em;color:#bdae98}
+.history-card{margin-top:13px;padding:15px;border:1px solid var(--line);border-radius:16px;background:linear-gradient(145deg,#30271f,#1a1511)}.history-card h3{font:500 21px Georgia,serif;margin:5px 0 0}
+.history-week{display:grid;grid-template-columns:repeat(7,1fr);gap:6px;margin-top:15px}.history-weekday{display:flex;flex-direction:column;align-items:center;gap:6px;color:#a99576;font-size:8px}.history-weekday i{width:25px;height:25px;border:1px solid var(--line);border-radius:50%;display:grid;place-items:center;font-style:normal}.history-weekday.done i{background:linear-gradient(145deg,#e3d2b2,#a99576);color:#17110b}
+.history-session{padding:12px 0;border-top:1px solid rgba(216,201,168,.13)}.history-date{display:flex;justify-content:space-between;gap:8px;font-size:11px}.history-date span{color:#a99576}.history-session-items{display:grid;gap:7px;margin-top:10px}.history-session-items div{display:flex;justify-content:space-between;gap:8px;font-size:11px;color:#d9cbb9}.history-session-items small{color:#a99576}
+@media(min-width:700px){.app-nav{left:50%;right:auto;transform:translateX(-50%);width:min(100%,720px);border:1px solid rgba(216,201,168,.2);border-bottom:0;border-radius:18px 18px 0 0}}
 </style>
 </head>
 <body><main class="wrap">
@@ -156,9 +179,18 @@ label{color:#d2ad86}
 <label for="notes" style="margin-top:18px">WORKOUT NOTES</label><textarea id="notes" class="note" placeholder="Energy, observations, progress..."></textarea>
 <div class="actions"><button class="primary" id="completeDay">MARK DAY AS COMPLETE</button><button id="resetDay">RESET THIS DAY</button></div>
 </section>
-<section class="panel" id="historyPanel">
-<h2 class="sectionhead" style="font-size:22px">My Training History</h2>
-<p class="muted">Your weights and workout records are saved on this device and in this browser.</p>
+<section class="panel" id="myProgressPanel">
+<div class="progress-eyebrow">PERSONAL EVOLUTION</div><h2 class="sectionhead">My Progress</h2>
+<p class="muted">Track your body weight and save progress photos over time.</p>
+<div class="evolution-grid"><div class="evolution-card"><span>CURRENT WEIGHT</span><strong id="currentWeight">—</strong><small id="currentWeightKg">—</small><small id="weightDate">—</small></div><div class="evolution-card"><span>WEIGHT ENTRIES</span><strong id="weightCount">0</strong><small>Saved records</small></div></div>
+<div class="progress-form"><div><label for="weightInput">WEIGHT (LB)</label><input id="weightInput" type="number" min="1" step="0.1" placeholder="e.g. 165"></div><div><label for="weightDateInput">DATE</label><input id="weightDateInput" type="date"></div></div>
+<div class="actions"><button class="primary" type="button" id="saveWeight">SAVE WEIGHT</button></div>
+<div class="progress-subhead">WEIGHT HISTORY</div><div id="weightHistory" class="weight-history"></div>
+<div class="progress-subhead">PROGRESS PHOTOS</div><p class="muted">Save front, side and back photos to compare your progress.</p>
+<div class="photo-upload-grid"><label class="photo-upload">FRONT<input type="file" accept="image/*" data-photo="Front"></label><label class="photo-upload">SIDE<input type="file" accept="image/*" data-photo="Side"></label><label class="photo-upload">BACK<input type="file" accept="image/*" data-photo="Back"></label></div><div id="photoHistory" class="photo-history"></div>
+</section><section class="panel" id="historyPanel">
+<h2 class="sectionhead" style="font-size:22px">Training Data & Backup</h2>
+<p class="muted">Your workout records are saved in this browser. Export a backup regularly to keep a copy safe.</p>
 <div class="actions"><button id="export">EXPORT BACKUP</button><button id="importBtn">IMPORT BACKUP</button><input id="importFile" type="file" accept="application/json" class="hidden"></div>
 <div class="warning">Important: clearing Safari website data, changing devices, or removing this website's data may erase local records. Export a backup regularly.</div>
 </section>
@@ -245,6 +277,7 @@ const rests=[['90 sec','120 sec','90 sec','60 sec','90 sec','60 sec','60 sec'],[
 const iconFiles=['01-segunda-costas-biceps.png','02-terca-peito-ombros.png','03-quarta-pernas.png','04-quinta-costas-regiao-media.png','05-sexta-superiores.png','06-sabado-core-recuperacao.png'];
 const workout=dayNames.map((day,d)=>({id:['mon','tue','wed','thu','fri','sat'][d],day,name:dayTitles[d],focus:dayFocus[d],exercises:names[d].map((name,i)=>({name,muscle:muscles[d][i],how:instructions[d][i][0],avoid:instructions[d][i][1],sets:sets[d][i],reps:reps[d][i],rest:rests[d][i]}))}));
 let state;try{state=JSON.parse(localStorage.getItem(KEY)||'{"logs":{},"notes":{},"completedDays":[]}')}catch{state={logs:{},notes:{},completedDays:[]}}
+if(!Array.isArray(state.weightHistory))state.weightHistory=[];if(!Array.isArray(state.progressPhotos))state.progressPhotos=[];if(!Array.isArray(state.completedDayDates))state.completedDayDates=[];
 let selected=0;
 const save=()=>{localStorage.setItem(KEY,JSON.stringify(state));renderProgress()};
 function renderProgress(){let total=workout.reduce((n,d)=>n+d.exercises.length,0),done=workout.reduce((n,d)=>n+d.exercises.reduce((m,e,i)=>{let l=state.logs[d.id+'_'+i]||{};return m+(state.completedDays.includes(d.id)||l.done?1:0)},0),0);document.getElementById('progressText').textContent=done+' of '+total+' exercises';document.getElementById('progressBar').style.width=(done/total*100)+'%'}
@@ -263,6 +296,38 @@ document.getElementById('resetDay').onclick=()=>{if(confirm('Clear this day’s 
 document.getElementById('export').onclick=()=>{let a=document.createElement('a'),u=URL.createObjectURL(new Blob([JSON.stringify(state,null,2)],{type:'application/json'}));a.href=u;a.download='john-nail-training-backup.json';a.click();URL.revokeObjectURL(u)};
 document.getElementById('importBtn').onclick=()=>document.getElementById('importFile').click();
 document.getElementById('importFile').onchange=async e=>{try{state=JSON.parse(await e.target.files[0].text());save();render();alert('Backup imported.')}catch{alert('Could not read this backup file.')}};
-render();
+
+function renderEvolution(){
+ const list=[...state.weightHistory].sort((a,b)=>b.date.localeCompare(a.date)),latest=list[0];
+ document.getElementById('currentWeight').textContent=latest?Number(latest.lb).toLocaleString('en-US',{maximumFractionDigits:1})+' lb':'—';
+ document.getElementById('currentWeightKg').textContent=latest?(Number(latest.lb)/2.2046226218).toFixed(1)+' kg':'No weight saved yet';
+ document.getElementById('weightDate').textContent=latest?new Date(latest.date+'T12:00:00').toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'}):'';
+ document.getElementById('weightCount').textContent=String(list.length);document.getElementById('weightInput').value=latest?latest.lb:'';
+ document.getElementById('weightDateInput').value=new Date().toISOString().slice(0,10);
+ document.getElementById('weightHistory').innerHTML=list.length?list.map(x=>'<div class="weight-row"><span>'+new Date(x.date+'T12:00:00').toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'})+'</span><strong>'+x.lb+' lb</strong></div>').join(''):'<div class="muted">Your saved weight entries will appear here.</div>';
+ document.getElementById('photoHistory').innerHTML=state.progressPhotos.length?state.progressPhotos.slice().reverse().map(p=>'<figure><img src="'+p.data+'" alt="'+p.position+' progress photo"><figcaption>'+p.position+' · '+new Date(p.date+'T12:00:00').toLocaleDateString('en-US')+'</figcaption></figure>').join(''):'<div class="muted" style="grid-column:1/-1">Your progress photos will appear here.</div>';
+}
+function renderHistory(){
+ const entries=Object.entries(state.logs||{}).filter(([k,v])=>v&&(v.weight||v.reps||v.done));
+ const days=workout.map(d=>({day:d,items:d.exercises.map((e,i)=>({e,l:state.logs[d.id+'_'+i]||{}})).filter(x=>x.l.weight||x.l.reps||x.l.done)})).filter(x=>x.items.length||state.completedDays.includes(x.day.id));
+ const weekdays=['SUN','MON','TUE','WED','THU','FRI','SAT'],monday=new Date();monday.setHours(0,0,0,0);monday.setDate(monday.getDate()-((monday.getDay()+6)%7));
+ const marks=state.completedDayDates||[],week=Array.from({length:7},(_,i)=>{const d=new Date(monday);d.setDate(d.getDate()+i);return {label:weekdays[d.getDay()],key:d.toISOString().slice(0,10)}});
+ document.getElementById('historyDashboard').innerHTML='<section class="history-hero"><div class="history-eyebrow">PERFORMANCE JOURNAL</div><h2>Training History</h2><p>Your consistency, one workout at a time.</p><div class="history-stats"><div><strong>'+state.completedDays.length+'</strong><span>WORKOUT DAYS COMPLETED</span></div><div><strong>'+entries.length+'</strong><span>EXERCISES WITH RECORDS</span></div><div><strong>'+state.weightHistory.length+'</strong><span>WEIGHT ENTRIES</span></div></div></section><section class="history-card"><div class="history-eyebrow">CONSISTENCY</div><h3>This week</h3><div class="history-week">'+week.map(x=>'<div class="history-weekday '+(marks.includes(x.key)?'done':'')+'"><i>'+(marks.includes(x.key)?'✓':'')+'</i><span>'+x.label+'</span></div>').join('')+'</div></section><section class="history-card"><div class="history-eyebrow">WORKOUT RECORDS</div><h3>Exercise history</h3>'+(days.length?days.map(x=>'<article class="history-session"><div class="history-date"><b>'+x.day.day+'</b><span>'+x.items.length+' recorded exercises</span></div><div class="history-session-items">'+x.items.map(y=>'<div><span>'+y.e.name+'</span><small>'+(y.l.weight||'')+(y.l.reps?' · '+y.l.reps+' reps':'')+(y.l.done?' · Completed':'')+'</small></div>').join('')+'</div></article>').join(''):'<p class="muted">Your exercise weights, reps and completed workouts will appear here as you record them.</p>')+'</section>';
+}
+document.getElementById('saveWeight').onclick=()=>{const lb=Number(document.getElementById('weightInput').value),date=document.getElementById('weightDateInput').value;if(!lb||lb<=0||!date){alert('Enter a valid weight and date.');return}state.weightHistory=state.weightHistory.filter(x=>x.date!==date);state.weightHistory.push({lb,date});save();renderEvolution();renderHistory()};
+document.querySelectorAll('[data-photo]').forEach(input=>input.onchange=async()=>{const file=input.files[0];if(!file)return;if(file.size>3*1024*1024){alert('Please choose a photo under 3 MB.');input.value='';return}const data=await new Promise((resolve,reject)=>{const reader=new FileReader();reader.onload=()=>resolve(reader.result);reader.onerror=reject;reader.readAsDataURL(file)});state.progressPhotos.push({position:input.dataset.photo,date:new Date().toISOString().slice(0,10),data});try{save();renderEvolution()}catch(e){alert('Could not save this photo. Try a smaller image.')}input.value=''});
+
+render();renderEvolution();renderHistory();
 (()=>{let timer=null,active=null,left=0,end=0;const all=()=>[...document.querySelectorAll('#exerciseList .exercise')];const stop=()=>{if(timer){clearInterval(timer);timer=null}};const show=(c,n,s)=>{if(c){c.querySelector('.rest-count').textContent=String(n);c.querySelector('.rest-status').textContent=s}};const duration=c=>Math.max(1,parseInt(c.querySelector('.rest-timer').dataset.rest,10)||60);const pause=()=>{if(!active)return;left=Math.max(0,Math.ceil((end-Date.now())/1000));stop();show(active,left,'Paused · tap PLAY to resume')};const start=c=>{if(active!==c){stop();active=c;left=duration(c);c.querySelector('.rest-timer').classList.remove('finished')}if(left<=0)left=duration(c);end=Date.now()+left*1000;stop();show(c,left,'Resting · timer running');timer=setInterval(()=>{left=Math.max(0,Math.ceil((end-Date.now())/1000));show(c,left,left?'Resting · timer running':'Rest complete! You can move on.');if(!left){stop();c.querySelector('.rest-timer').classList.add('finished');try{if(navigator.vibrate)navigator.vibrate([180,90,180])}catch(e){} }},200)};document.addEventListener('click',e=>{const p=e.target.closest('.rest-play'),h=e.target.closest('.rest-pause'),n=e.target.closest('.rest-next');if(p){const c=p.closest('.exercise');if(active!==c||left<=0)left=duration(c);start(c)}if(h)pause();if(n){const list=all(),c=n.closest('.exercise'),next=list[list.indexOf(c)+1];stop();active=next||null;left=next?duration(next):0;if(next){show(next,left,'Next exercise · rest ready');next.scrollIntoView({behavior:'smooth',block:'center'});next.querySelector('.rest-timer').classList.remove('finished')}else c.querySelector('.rest-status').textContent='Last exercise of the day completed.'}});document.getElementById('days').addEventListener('click',()=>{stop();active=null;left=0})})();
+
+</script><script>
+(()=>{
+ const main=document.querySelector('main.wrap');if(!main||document.querySelector('.app-nav'))return;
+ const kids=[...main.children],hero=kids.find(x=>x.classList.contains('hero')),panels=kids.filter(x=>x.classList.contains('panel')),footer=main.querySelector('footer');
+ const pages=[{id:'home',label:'HOME',items:[hero,panels[0],panels[1]]},{id:'progress',label:'MY PROGRESS',items:[panels.find(x=>x.id==='myProgressPanel')]},{id:'history',label:'HISTORY',items:[panels.find(x=>x.id==='historyPanel'),footer]}],created=[];
+ pages.forEach(p=>{const sec=document.createElement('section');sec.className='app-page'+(p.id==='home'?' active':'');sec.id='page-'+p.id;p.items.filter(Boolean).forEach(n=>sec.appendChild(n));main.appendChild(sec);if(p.id==='history'){const dash=document.createElement('div');dash.id='historyDashboard';sec.insertBefore(dash,sec.firstChild);renderHistory()}created.push(sec)});
+ const icons={home:'<svg viewBox="0 0 24 24"><path d="m3.5 10 8.5-7 8.5 7v10a1 1 0 0 1-1 1h-5.2v-6.2H9.7V21H4.5a1 1 0 0 1-1-1z"/></svg>',progress:'<svg viewBox="0 0 24 24"><path d="M4 19V5m0 14h16M7 15l4-4 3 2 5-6"/></svg>',history:'<svg viewBox="0 0 24 24"><path d="M3.5 11a8.5 8.5 0 1 1 2.4 6M3.5 5.5V11H9M12 7v5l3.5 2"/></svg>'};
+ const nav=document.createElement('nav');nav.className='app-nav';nav.setAttribute('aria-label','Main navigation');nav.innerHTML=pages.map((p,i)=>'<button type="button" data-page="'+p.id+'" aria-current="'+(i===0?'page':'false')+'">'+icons[p.id]+'<span>'+p.label+'</span></button>').join('');main.appendChild(nav);
+ nav.addEventListener('click',e=>{const b=e.target.closest('button[data-page]');if(!b)return;const id=b.dataset.page;created.forEach(p=>p.classList.toggle('active',p.id==='page-'+id));nav.querySelectorAll('button').forEach(x=>x.setAttribute('aria-current',x===b?'page':'false'));window.scrollTo({top:0,behavior:'smooth'});if(id==='history')renderHistory()});
+})();
 </script></body></html>
