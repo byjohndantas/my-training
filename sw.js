@@ -1,4 +1,4 @@
-const CACHE='my-training-v27';
+const CACHE='my-training-v28';
 
 const FILES=[
 
@@ -8,6 +8,7 @@ const FILES=[
   './workouts.json',
   './manifest.webmanifest',
   './assets/luxury-gym-bg.png',
+  './assets/evolution-abstract.svg',
   ...Array.from({length:39},(_,i)=>
     './assets/exercise-'+String(i+1).padStart(2,'0')+'.webp'
   ),
