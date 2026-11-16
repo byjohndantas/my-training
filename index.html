@@ -1163,7 +1163,7 @@ document.getElementById('notes').onchange=e=>{state.notes[WORKOUTS[selected].id]
   section.id='page-'+page.id;
   page.items.filter(Boolean).forEach(node=>section.appendChild(node));
   main.appendChild(section);
-  if(page.id==='history'){const dashboard=document.createElement('div');dashboard.id='historyDashboard';section.appendChild(dashboard);if(typeof renderHistory==='function')renderHistory();}
+  if(page.id==='history'){const dashboard=document.createElement('div');dashboard.id='historyDashboard';section.appendChild(dashboard);section.insertBefore(dashboard,section.firstChild);if(typeof renderHistory==='function')renderHistory();}
   created.push(section);
  });
  const nav=document.createElement('nav');
