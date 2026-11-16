@@ -1,9 +1,10 @@
-const CACHE='my-training-v20';
+const CACHE='my-training-v21';
 
 const FILES=[
 
   './',
   './index.html',
+  './assets/gym-background.svg',
   './workouts.json',
   './manifest.webmanifest',
   './assets/luxury-gym-bg.png',
