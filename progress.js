@@ -266,6 +266,7 @@ calBox.id='mpCalendarBox';
 calBox.innerHTML=`
   <div class="mp-heading" style="margin-top:24px">TRAINING CALENDAR</div>
   <div class="mp-calendar-stats" id="calStats"></div>
+  <div class="mp-month-goal" id="mpMonthGoal"></div>
   <div class="mp-calendar">
     <div class="mp-calendar-head">
       <button type="button" id="calPrev">‹</button>
@@ -301,6 +302,16 @@ calStyle.textContent=`
  display:block;color:#d5b17a;font-size:22px;margin-bottom:4px
 }
 #mpCalendarBox .cal-stat span{font-size:9px;letter-spacing:1px;color:#b8a28b}
+#mpCalendarBox .mp-month-goal{
+ margin:12px 0;padding:14px;border:1px solid #d8c9a833;border-radius:14px;
+ background:linear-gradient(145deg,#30271f,#17120e)
+}
+#mpCalendarBox .mp-month-goal-head{display:flex;justify-content:space-between;gap:8px;align-items:center}
+#mpCalendarBox .mp-month-goal-label{font-size:9px;letter-spacing:.15em;color:#bdae98}
+#mpCalendarBox .mp-month-goal-value{font-size:17px;font-weight:650;color:#e0cda8}
+#mpCalendarBox .mp-month-goal-track{height:7px;margin-top:11px;border-radius:99px;background:#100d0b;overflow:hidden}
+#mpCalendarBox .mp-month-goal-track span{display:block;height:100%;border-radius:99px;background:linear-gradient(90deg,#a99576,#e3d2b2);box-shadow:0 0 12px #d8c9a833}
+#mpCalendarBox .mp-month-goal-caption{margin-top:7px;color:#a99576;font-size:10px}
 #mpCalendarBox .mp-calendar{
  background:#191512;border:1px solid #493626;border-radius:12px;padding:14px
 }
@@ -416,6 +427,18 @@ function renderCalendar(){
   <div class="cal-stat"><strong>${monthCount}</strong><span>TREINOS NO MÊS</span></div>
   <div class="cal-stat"><strong>${weekCount}</strong><span>ESTA SEMANA</span></div>
   <div class="cal-stat"><strong>${streak}</strong><span>DIAS SEGUIDOS</span></div>
+ `;
+ const monthlyTarget=12;
+ const monthlyPercent=Math.min(100,Math.round(monthCount/monthlyTarget*100));
+ document.getElementById('mpMonthGoal').innerHTML=`
+  <div class="mp-month-goal-head">
+   <span class="mp-month-goal-label">META MENSAL</span>
+   <strong class="mp-month-goal-value">${monthCount} / ${monthlyTarget} treinos</strong>
+  </div>
+  <div class="mp-month-goal-track" role="progressbar" aria-label="Progresso da meta mensal" aria-valuemin="0" aria-valuemax="${monthlyTarget}" aria-valuenow="${Math.min(monthCount,monthlyTarget)}">
+   <span style="width:${monthlyPercent}%"></span>
+  </div>
+  <div class="mp-month-goal-caption">${monthlyPercent}% da meta concluída neste mês</div>
  `;
 
  let html='';
