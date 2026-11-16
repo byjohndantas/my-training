@@ -956,4 +956,52 @@ document.getElementById('notes').onchange=e=>{state.notes[WORKOUTS[selected].id]
 })();
 </script>
 <script src="./progress.js?v=9"></script>
+
+<style>
+.app-page{display:none;min-height:55vh;padding-bottom:88px}
+.app-page.active{display:block}
+.app-nav{position:fixed;z-index:9999;left:0;right:0;bottom:0;padding:10px 12px calc(10px + env(safe-area-inset-bottom));display:grid;grid-template-columns:repeat(3,1fr);gap:8px;background:rgba(15,11,8,.94);border-top:1px solid rgba(216,201,168,.28);backdrop-filter:blur(18px)}
+.app-nav button{border:1px solid rgba(216,201,168,.18);border-radius:13px;background:linear-gradient(145deg,#30271f,#17120f);color:#bdae98;padding:11px 5px;font-size:9px;letter-spacing:.12em}
+.app-nav button[aria-current="page"]{color:#17110b;background:linear-gradient(145deg,#e3d2b2,#a99576);border-color:#e3d2b2;box-shadow:0 0 18px rgba(216,201,168,.2)}
+.app-page .hero{margin-bottom:8px}
+@media(min-width:700px){.app-nav{left:50%;right:auto;transform:translateX(-50%);width:min(100%,720px);border:1px solid rgba(216,201,168,.2);border-bottom:0;border-radius:18px 18px 0 0}}
+</style>
+<script>
+(()=> {
+ const main=document.querySelector('main.wrap');
+ if(!main || document.querySelector('.app-nav')) return;
+ const children=[...main.children];
+ const hero=children.find(x=>x.classList.contains('hero'));
+ const panels=children.filter(x=>x.classList.contains('panel'));
+ const footer=main.querySelector('footer');
+ const pages=[
+  {id:'home',label:'HOME',items:[hero,panels[0],panels[1]]},
+  {id:'progress',label:'MY PROGRESS',items:[...panels.slice(2).filter(x=>x.id==='myProgressPanel'),...panels.slice(2).filter(x=>x.id!=='myProgressPanel')]},
+  {id:'history',label:'HISTORY',items:[footer]}
+ ];
+ const created=[];
+ pages.forEach(page=>{
+  const section=document.createElement('section');
+  section.className='app-page'+(page.id==='home'?' active':'');
+  section.id='page-'+page.id;
+  page.items.filter(Boolean).forEach(node=>section.appendChild(node));
+  main.appendChild(section);
+  created.push(section);
+ });
+ const nav=document.createElement('nav');
+ nav.className='app-nav';
+ nav.setAttribute('aria-label','Navegação principal');
+ nav.innerHTML=pages.map((p,i)=>'<button type="button" data-page="'+p.id+'" aria-current="'+(i===0?'page':'false')+'">'+p.label+'</button>').join('');
+ main.appendChild(nav);
+ nav.addEventListener('click',e=>{
+  const button=e.target.closest('button[data-page]');
+  if(!button)return;
+  const id=button.dataset.page;
+  created.forEach(page=>page.classList.toggle('active',page.id==='page-'+id));
+  nav.querySelectorAll('button').forEach(b=>b.setAttribute('aria-current',b===button?'page':'false'));
+  window.scrollTo({top:0,behavior:'smooth'});
+ });
+})();
+</script>
+
 </body></html>
