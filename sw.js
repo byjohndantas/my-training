@@ -1,4 +1,4 @@
-const CACHE='my-training-v29';
+const CACHE='my-training-v30';
 
 const FILES=[
 
@@ -10,6 +10,7 @@ const FILES=[
   './assets/luxury-gym-bg.png',
   './assets/evolution-abstract.svg',
   './assets/evolution-figure.svg',
+  './assets/evolution-portrait.webp',
   ...Array.from({length:39},(_,i)=>
     './assets/exercise-'+String(i+1).padStart(2,'0')+'.webp'
   ),
