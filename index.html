@@ -781,6 +781,14 @@ body::before{
 #myProgressPanel button{border-color:rgba(216,185,135,.3);background:linear-gradient(145deg,#382b20,#211811);color:#f1e5d3;box-shadow:0 0 12px rgba(190,145,88,.08)}
 #myProgressPanel button.primary,#myProgressPanel #saveWeight{background:linear-gradient(135deg,#e3c99e,#a77b48);color:#1a120c;border-color:#d8b477;box-shadow:0 5px 18px rgba(171,124,69,.2)}
 </style>
+
+<style>
+/* MY PROGRESS — soft abstract bronze/champagne visual */
+#myProgressPanel:before{content:"";position:absolute;z-index:-1;right:-38px;top:-42px;width:min(112%,560px);height:260px;border:0;border-radius:0;background:url("./assets/evolution-abstract.svg") center/cover no-repeat;filter:blur(5px);opacity:.27;box-shadow:none;pointer-events:none}
+#myProgressPanel:after{content:none;display:none}
+#myProgressPanel{background:linear-gradient(145deg,rgba(33,26,21,.88),rgba(16,12,9,.94))}
+#myProgressPanel .weight-card{position:relative;z-index:1}
+</style>
 </head><body><main class="wrap"><header class="hero"><img class="profile-avatar" src="./assets/569FEEA4-0FBF-4EDF-BADD-3FD5338B8540.jpeg" alt="Foto de perfil"><div class="eyebrow">PERSONAL TRAINING JOURNAL</div><div class="brand">MY TRAINING</div><div class="sub">Treino, consistência e evolução — um dia de cada vez.</div></header>
 <section class="panel"><div class="toolbar"><b>DIAS CONCLUÍDOS</b><strong id="progressText" style="color:var(--gold)">0 de 6 dias</strong></div><div class="progressline"><span id="progressBar"></span></div><nav class="days" id="days"></nav><div class="actions" style="margin-top:12px"><button type="button" class="primary" onclick="document.getElementById('myProgressPanel').scrollIntoView({behavior:'smooth'})">VER MINHA EVOLUÇÃO</button></div></section>
 <section class="panel"><div class="muted" id="dayLabel">SEGUNDA-FEIRA</div><h1 class="sectionhead" id="dayTitle">Costas & Bíceps</h1><p class="muted" id="dayFocus"></p><div id="exerciseList"></div><label for="notes" style="margin-top:18px">ANOTAÇÕES DO TREINO</label><textarea id="notes" class="note" placeholder="Energia, observações, evolução..."></textarea><div class="actions"><button class="primary" id="completeDay">Marcar dia como concluído</button><button id="resetDay">Limpar marcações do dia</button></div></section>
