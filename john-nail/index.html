@@ -291,7 +291,7 @@ function render(){
  document.querySelectorAll('[data-field]').forEach(el=>el.onchange=()=>{let l=state.logs[el.dataset.key]||{};l[el.dataset.field]=el.value;state.logs[el.dataset.key]=l;save()});renderProgress();
 }
 document.getElementById('notes').onchange=e=>{state.notes[workout[selected].id]=e.target.value;save()};
-document.getElementById('completeDay').onclick=()=>{let d=workout[selected];if(!state.completedDays.includes(d.id))state.completedDays.push(d.id);d.exercises.forEach((e,i)=>{let k=d.id+'_'+i;state.logs[k]=state.logs[k]||{};state.logs[k].done=true});save();render()};
+document.getElementById('completeDay').onclick=()=>{let d=workout[selected];if(!state.completedDays.includes(d.id))state.completedDays.push(d.id);const completedDate=new Date().toISOString().slice(0,10);if(!state.completedDayDates.includes(completedDate))state.completedDayDates.push(completedDate);d.exercises.forEach((e,i)=>{let k=d.id+'_'+i;state.logs[k]=state.logs[k]||{};state.logs[k].done=true});save();render()};
 document.getElementById('resetDay').onclick=()=>{if(confirm('Clear this day’s weights and completion marks?')){let d=workout[selected];state.completedDays=state.completedDays.filter(x=>x!==d.id);d.exercises.forEach((e,i)=>delete state.logs[d.id+'_'+i]);save();render()}};
 document.getElementById('export').onclick=()=>{let a=document.createElement('a'),u=URL.createObjectURL(new Blob([JSON.stringify(state,null,2)],{type:'application/json'}));a.href=u;a.download='john-nail-training-backup.json';a.click();URL.revokeObjectURL(u)};
 document.getElementById('importBtn').onclick=()=>document.getElementById('importFile').click();
@@ -308,6 +308,7 @@ function renderEvolution(){
  document.getElementById('photoHistory').innerHTML=state.progressPhotos.length?state.progressPhotos.slice().reverse().map(p=>'<figure><img src="'+p.data+'" alt="'+p.position+' progress photo"><figcaption>'+p.position+' · '+new Date(p.date+'T12:00:00').toLocaleDateString('en-US')+'</figcaption></figure>').join(''):'<div class="muted" style="grid-column:1/-1">Your progress photos will appear here.</div>';
 }
 function renderHistory(){
+ if(!document.getElementById('historyDashboard'))return;
  const entries=Object.entries(state.logs||{}).filter(([k,v])=>v&&(v.weight||v.reps||v.done));
  const days=workout.map(d=>({day:d,items:d.exercises.map((e,i)=>({e,l:state.logs[d.id+'_'+i]||{}})).filter(x=>x.l.weight||x.l.reps||x.l.done)})).filter(x=>x.items.length||state.completedDays.includes(x.day.id));
  const weekdays=['SUN','MON','TUE','WED','THU','FRI','SAT'],monday=new Date();monday.setHours(0,0,0,0);monday.setDate(monday.getDate()-((monday.getDay()+6)%7));
