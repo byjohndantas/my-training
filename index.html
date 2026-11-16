@@ -763,6 +763,25 @@ body::before{
  background-color:transparent;
 }
 </style>
+<style>
+/* FUTURISTIC ORBITAL UI — MY PROGRESS */
+#myProgressPanel{position:relative;isolation:isolate;overflow:hidden;background:radial-gradient(ellipse at 88% 5%,rgba(77,157,190,.13),transparent 34%),radial-gradient(ellipse at 8% 35%,rgba(225,169,91,.12),transparent 36%),linear-gradient(145deg,#11151b 0%,#17131a 48%,#0d1118 100%);border-color:rgba(133,190,211,.34);box-shadow:0 18px 50px #0009,inset 0 1px rgba(255,255,255,.08)}
+#myProgressPanel:before{content:"";position:absolute;z-index:-1;width:190px;height:190px;right:-65px;top:35px;border-radius:50%;background:radial-gradient(circle at 34% 28%,#f4f4ff 0%,#9ceaff 5%,#4d9ec7 17%,#273b67 38%,#111729 61%,transparent 72%);box-shadow:inset -18px -16px 32px #050914,0 0 24px #67d8ff66,0 0 70px #3886c455;opacity:.78;animation:orbFloat 7s ease-in-out infinite}
+#myProgressPanel:after{content:"";position:absolute;z-index:-1;right:-80px;top:78px;width:220px;height:90px;border:1px solid #9ceaff55;border-radius:50%;transform:rotate(-24deg);box-shadow:0 0 14px #68cfff33;pointer-events:none}
+#myProgressPanel .sectionhead{background:linear-gradient(90deg,#f4eadc 0%,#d8f5ff 55%,#d8b985 100%);background-clip:text;-webkit-background-clip:text;color:transparent;text-shadow:0 0 22px #78cfff33}
+#myProgressPanel .mp-stat,#myProgressPanel .mp-record,#mpCalendarBox .cal-stat,#mpCalendarBox .mp-month-goal{background:linear-gradient(145deg,rgba(37,48,60,.82),rgba(17,22,31,.94));border:1px solid rgba(133,190,211,.3);box-shadow:inset 0 1px rgba(255,255,255,.07),0 8px 24px #0005}
+#myProgressPanel .mp-number,#myProgressPanel .mp-value{color:#b9eaff;text-shadow:0 0 14px #64cfff66}
+#myProgressPanel .mp-heading{color:#a9e5ff;text-shadow:0 0 12px #58c9ff55}
+#myProgressPanel .mp-item{border-color:#8ac9e52b}
+#mpCalendarBox .cal-day{border:1px solid rgba(139,190,211,.16);background:linear-gradient(145deg,#1b2632,#111821);box-shadow:inset 0 1px #ffffff08}
+#mpCalendarBox .cal-day.trained{background:radial-gradient(circle at 30% 20%,#fff1c9,#dba85e 28%,#77502c 75%);color:#17131a;border-color:#ffe0a0;box-shadow:0 0 13px #f0b65d99,inset 0 1px #fff8}
+#mpCalendarBox .cal-day.today{outline:2px solid #8ce5ff;outline-offset:2px;box-shadow:0 0 18px #63d8ff77}
+#mpCalendarBox .mp-month-goal-track{background:#1c2a37;box-shadow:inset 0 0 10px #0008}
+#mpCalendarBox .mp-month-goal-track span{background:linear-gradient(90deg,#4ca7d1,#b4efff,#e3bd7e);box-shadow:0 0 14px #71d9ff99}
+#myProgressPanel button{border-color:#78c8e755;background:linear-gradient(145deg,#243747,#151d29);box-shadow:0 0 12px #5acbff18}
+@keyframes orbFloat{0%,100%{transform:translateY(0) rotate(0deg)}50%{transform:translateY(-9px) rotate(7deg)}}
+@media(prefers-reduced-motion:reduce){#myProgressPanel:before{animation:none}}
+</style>
 </head><body><main class="wrap"><header class="hero"><img class="profile-avatar" src="./assets/569FEEA4-0FBF-4EDF-BADD-3FD5338B8540.jpeg" alt="Foto de perfil"><div class="eyebrow">PERSONAL TRAINING JOURNAL</div><div class="brand">MY TRAINING</div><div class="sub">Treino, consistência e evolução — um dia de cada vez.</div></header>
 <section class="panel"><div class="toolbar"><b>DIAS CONCLUÍDOS</b><strong id="progressText" style="color:var(--gold)">0 de 6 dias</strong></div><div class="progressline"><span id="progressBar"></span></div><nav class="days" id="days"></nav><div class="actions" style="margin-top:12px"><button type="button" class="primary" onclick="document.getElementById('myProgressPanel').scrollIntoView({behavior:'smooth'})">VER MINHA EVOLUÇÃO</button></div></section>
 <section class="panel"><div class="muted" id="dayLabel">SEGUNDA-FEIRA</div><h1 class="sectionhead" id="dayTitle">Costas & Bíceps</h1><p class="muted" id="dayFocus"></p><div id="exerciseList"></div><label for="notes" style="margin-top:18px">ANOTAÇÕES DO TREINO</label><textarea id="notes" class="note" placeholder="Energia, observações, evolução..."></textarea><div class="actions"><button class="primary" id="completeDay">Marcar dia como concluído</button><button id="resetDay">Limpar marcações do dia</button></div></section>
