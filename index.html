@@ -739,17 +739,27 @@ body {
   background: rgba(0,0,0,.12);
 }
 
-/* PREMIUM GYM BACKGROUND — APPROVED PHOTOGRAPH */
-html,body{min-height:100%;background-color:#100b08}
-body {
+/* PREMIUM GYM BACKGROUND — iOS / INSTALLED APP SAFE */
+html,body{min-height:100%;background:#100b08}
+body{
+ position:relative;
+ isolation:isolate;
+ background:transparent!important;
+ min-height:100vh;
+}
+body::before{
+ content:"";
+ position:fixed;
+ inset:0;
+ z-index:-1;
+ pointer-events:none;
  background-color:#100b08;
  background-image:linear-gradient(rgba(12,8,5,.18),rgba(12,8,5,.58)),url('./assets/luxury-gym-bg.png');
  background-size:cover;
  background-position:center top;
  background-repeat:no-repeat;
- background-attachment:fixed;
 }
-#app, main, .app-shell, .container {
+#app, main, .app-shell, .container, .wrap{
  background-color:transparent;
 }
 </style>
