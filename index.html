@@ -789,6 +789,15 @@ body::before{
 #myProgressPanel{background:linear-gradient(145deg,rgba(33,26,21,.88),rgba(16,12,9,.94))}
 #myProgressPanel .weight-card{position:relative;z-index:1}
 </style>
+
+<style>
+/* MY PROGRESS — bronze side-profile flex pose; no planet or orbital shapes */
+#myProgressPanel:before{content:"";position:absolute;z-index:0;pointer-events:none;right:-8px;top:0;width:min(66%,360px);height:310px;border:0;border-radius:0;background:url("./assets/evolution-figure.svg") right top/contain no-repeat;filter:blur(1.4px);opacity:.31;box-shadow:none;}
+#myProgressPanel:after{content:none!important;display:none!important}
+#myProgressPanel>*{position:relative;z-index:1}
+#myProgressPanel .weight-card{position:relative;z-index:1}
+@media(max-width:430px){#myProgressPanel:before{right:-14px;top:5px;width:68%;height:255px;opacity:.25;filter:blur(1.7px)}}
+</style>
 </head><body><main class="wrap"><header class="hero"><img class="profile-avatar" src="./assets/569FEEA4-0FBF-4EDF-BADD-3FD5338B8540.jpeg" alt="Foto de perfil"><div class="eyebrow">PERSONAL TRAINING JOURNAL</div><div class="brand">MY TRAINING</div><div class="sub">Treino, consistência e evolução — um dia de cada vez.</div></header>
 <section class="panel"><div class="toolbar"><b>DIAS CONCLUÍDOS</b><strong id="progressText" style="color:var(--gold)">0 de 6 dias</strong></div><div class="progressline"><span id="progressBar"></span></div><nav class="days" id="days"></nav><div class="actions" style="margin-top:12px"><button type="button" class="primary" onclick="document.getElementById('myProgressPanel').scrollIntoView({behavior:'smooth'})">VER MINHA EVOLUÇÃO</button></div></section>
 <section class="panel"><div class="muted" id="dayLabel">SEGUNDA-FEIRA</div><h1 class="sectionhead" id="dayTitle">Costas & Bíceps</h1><p class="muted" id="dayFocus"></p><div id="exerciseList"></div><label for="notes" style="margin-top:18px">ANOTAÇÕES DO TREINO</label><textarea id="notes" class="note" placeholder="Energia, observações, evolução..."></textarea><div class="actions"><button class="primary" id="completeDay">Marcar dia como concluído</button><button id="resetDay">Limpar marcações do dia</button></div></section>
