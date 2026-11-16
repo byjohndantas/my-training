@@ -877,6 +877,45 @@ body::before{
 .wrap > .panel:first-of-type .daybtn.active:before{background-color:#4a3825}
 @media(min-width:700px){.app-nav{border-radius:20px 20px 0 0}}
 </style>
+
+<style>
+/* HISTORY — premium training performance dashboard */
+#page-history{padding:18px 0 34px}
+.history-hero,.history-card{margin:0 12px 14px;border:1px solid rgba(216,190,145,.2);border-radius:20px;background:linear-gradient(145deg,rgba(47,35,25,.97),rgba(20,15,11,.98));box-shadow:0 16px 38px rgba(0,0,0,.24),inset 0 1px rgba(255,255,255,.045)}
+.history-hero{padding:22px 18px;background:radial-gradient(ellipse at 100% 0,rgba(197,151,91,.2),transparent 48%),linear-gradient(145deg,#34271d,#17110d)}
+.history-eyebrow,.history-kicker{font-size:9px;letter-spacing:.22em;color:#d5b47f}
+.history-hero h2{font:500 29px Georgia,serif;color:#f1e5d4;margin:9px 0 5px}
+.history-hero p{font-size:12px;color:#b9a68e;margin:0}
+.history-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:22px}
+.history-stats>div{padding:12px 8px;border:1px solid rgba(216,190,145,.16);border-radius:13px;background:rgba(10,8,6,.28)}
+.history-stats strong{display:block;color:#e4c99e;font:500 25px Georgia,serif}
+.history-stats span{display:block;margin-top:5px;color:#b9a68e;font-size:8px;line-height:1.35;letter-spacing:.11em}
+.history-card{padding:17px}
+.history-card-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:15px}
+.history-card h3{font:500 21px Georgia,serif;color:#f0e3d1;margin:5px 0 0}
+.history-count{color:#e5c99a;font:500 20px Georgia,serif}
+.history-week{display:grid;grid-template-columns:repeat(7,1fr);gap:6px}
+.history-weekday{text-align:center;color:#a99780;font-size:8px;letter-spacing:.08em}
+.history-weekday i{display:grid;place-items:center;width:30px;height:30px;margin:0 auto 7px;border-radius:50%;border:1px solid rgba(216,190,145,.2);background:#19120e;color:#e5c99a;font-style:normal;font-size:12px}
+.history-weekday.done i{background:linear-gradient(145deg,#e3c99e,#9f7548);color:#1a120c;border-color:#e3c99e;box-shadow:0 0 15px rgba(207,166,107,.2)}
+.history-session{padding:13px 0;border-top:1px solid rgba(216,190,145,.13)}
+.history-date b{display:block;color:#ead9bf;font-size:13px;font-weight:600}
+.history-date span,.history-session-items small{display:block;color:#a99780;font-size:10px;margin-top:4px}
+.history-session-items{margin-top:10px;display:grid;gap:7px}
+.history-session-items>div{display:flex;justify-content:space-between;gap:10px;align-items:center;font-size:11px;color:#d9c8b1}
+.history-session-items small{margin:0;white-space:nowrap}
+.history-record{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:12px 0;border-top:1px solid rgba(216,190,145,.13)}
+.history-record b{display:block;font-size:11px;color:#e7d7c1}
+.history-record small{display:block;font-size:9px;color:#a99780;margin-top:4px}
+.history-record strong{color:#e5c99a;font-size:17px;white-space:nowrap}
+.history-record strong small{display:inline;color:#b9a68e;font-size:9px}
+.history-empty{padding:14px;border:1px dashed rgba(216,190,145,.2);border-radius:13px;color:#b9a68e;font-size:11px;line-height:1.55}
+.history-empty span{font-size:9px;letter-spacing:.16em;color:#d5b47f}
+.history-empty p{margin:6px 0 0}
+#page-history .panel{margin:14px 12px}
+#page-history .warning{font-size:10px}
+@media(min-width:600px){.history-hero,.history-card{margin-left:auto;margin-right:auto;max-width:696px}}
+</style>
 </head><body><main class="wrap"><header class="hero"><img class="profile-avatar" src="./assets/569FEEA4-0FBF-4EDF-BADD-3FD5338B8540.jpeg" alt="Foto de perfil"><div class="eyebrow">PERSONAL TRAINING JOURNAL</div><div class="brand">MY TRAINING</div><div class="sub">Treino, consistência e evolução — um dia de cada vez.</div></header>
 <section class="panel"><div class="toolbar"><b>DIAS CONCLUÍDOS</b><strong id="progressText" style="color:var(--gold)">0 de 6 dias</strong></div><div class="progressline"><span id="progressBar"></span></div><nav class="days" id="days"></nav><div class="actions" style="margin-top:12px"><button type="button" class="primary" onclick="document.getElementById('myProgressPanel').scrollIntoView({behavior:'smooth'})">VER MINHA EVOLUÇÃO</button></div></section>
 <section class="panel"><div class="muted" id="dayLabel">SEGUNDA-FEIRA</div><h1 class="sectionhead" id="dayTitle">Costas & Bíceps</h1><p class="muted" id="dayFocus"></p><div id="exerciseList"></div><label for="notes" style="margin-top:18px">ANOTAÇÕES DO TREINO</label><textarea id="notes" class="note" placeholder="Energia, observações, evolução..."></textarea><div class="actions"><button class="primary" id="completeDay">Marcar dia como concluído</button><button id="resetDay">Limpar marcações do dia</button></div></section>
@@ -911,7 +950,7 @@ body::before{
 const KEY='jd_my_training_v1';let state=JSON.parse(localStorage.getItem(KEY)||'{"logs":{},"notes":{},"completedDays":[]}');let selected=0;
 if(!Array.isArray(state.weightHistory))state.weightHistory=[{kg:70,date:'2026-11-16'}];
 if(!Array.isArray(state.progressPhotos))state.progressPhotos=[];
-const save=()=>{localStorage.setItem(KEY,JSON.stringify(state));renderProgress()};
+const save=()=>{localStorage.setItem(KEY,JSON.stringify(state));renderProgress();if(typeof renderHistory==='function')renderHistory()};
 
 function exerciseGraphic(name,muscle,photoIndex){
  const safe=name.replace(/&/g,' e ').replace(/"/g,'');
@@ -988,9 +1027,52 @@ function renderEvolution(){
  document.getElementById('weightHistory').innerHTML=[...state.weightHistory].sort((a,b)=>b.date.localeCompare(a.date)).map(x=>'<div class="weight-row"><span>'+new Date(x.date+'T12:00:00').toLocaleDateString('pt-BR')+'</span><strong>'+x.kg+' kg <small>· '+(x.kg*2.2046226218).toFixed(1)+' lb</small></strong></div>').join('');
  document.getElementById('photoHistory').innerHTML=state.progressPhotos.slice().reverse().map(p=>'<div><img src="'+p.data+'" alt="Foto de evolução '+p.position+'"><small>'+p.position+' · '+new Date(p.date+'T12:00:00').toLocaleDateString('pt-BR')+'</small></div>').join('');
 }
+
+function renderHistory(){
+ const host=document.getElementById('historyDashboard');if(!host)return;
+ const sessions=Array.isArray(state.exerciseHistory)?state.exerciseHistory:[];
+ const completed=Array.isArray(state.completedDayDates)?state.completedDayDates:[];
+ const grouped={};
+ sessions.forEach(x=>{if(!x||!x.date)return;(grouped[x.date]??=[]).push(x)});
+ const dates=Object.keys(grouped).sort((a,b)=>b.localeCompare(a));
+ const completedDates=[...new Set(completed.map(x=>x.date).filter(Boolean))];
+ const totalSets=sessions.reduce((n,x)=>n+(Array.isArray(x.sets)?x.sets.length:0),0);
+ const totalExercises=sessions.length;
+ const dayNames=['DOM','SEG','TER','QUA','QUI','SEX','SÁB'];
+ const weekStart=new Date();weekStart.setHours(0,0,0,0);weekStart.setDate(weekStart.getDate()-((weekStart.getDay()+6)%7));
+ const weekDays=Array.from({length:7},(_,i)=>{const d=new Date(weekStart);d.setDate(d.getDate()+i);const key=[d.getFullYear(),String(d.getMonth()+1).padStart(2,'0'),String(d.getDate()).padStart(2,'0')].join('-');return {key,label:dayNames[d.getDay()],done:completedDates.includes(key)}});
+ const fmt=d=>new Date(d+'T12:00:00').toLocaleDateString('pt-BR',{day:'2-digit',month:'short',year:'numeric'});
+ const records={};
+ sessions.forEach(x=>{const values=(x.sets||[]).map(s=>Number(String(s.weight||'').replace(',','.'))).filter(n=>Number.isFinite(n)&&n>0);if(!values.length)return;const best=Math.max(...values);if(!records[x.exercise]||best>records[x.exercise].best)records[x.exercise]={best,date:x.date};});
+ const recordRows=Object.entries(records).sort((a,b)=>b[1].best-a[1].best).slice(0,5);
+ host.innerHTML=`
+ <section class="history-hero">
+  <div class="history-eyebrow">PERFORMANCE JOURNAL</div>
+  <h2>Seu histórico</h2>
+  <p>Consistência construída treino após treino.</p>
+  <div class="history-stats">
+   <div><strong>${completedDates.length}</strong><span>TREINOS CONCLUÍDOS</span></div>
+   <div><strong>${totalExercises}</strong><span>EXERCÍCIOS REGISTRADOS</span></div>
+   <div><strong>${totalSets}</strong><span>SÉRIES SALVAS</span></div>
+  </div>
+ </section>
+ <section class="history-card">
+  <div class="history-card-head"><div><span class="history-kicker">CONSISTÊNCIA</span><h3>Esta semana</h3></div><span class="history-count">${weekDays.filter(x=>x.done).length}/6</span></div>
+  <div class="history-week">${weekDays.map(x=>'<div class="history-weekday '+(x.done?'done':'')+'"><i>'+(x.done?'✓':'')+'</i><span>'+x.label+'</span></div>').join('')}</div>
+ </section>
+ <section class="history-card">
+  <div class="history-card-head"><div><span class="history-kicker">ATIVIDADE RECENTE</span><h3>Últimos treinos</h3></div></div>
+  ${dates.length?dates.slice(0,8).map(date=>'<article class="history-session"><div class="history-date"><b>'+fmt(date)+'</b><span>'+grouped[date].length+' exercícios com séries registradas</span></div><div class="history-session-items">'+grouped[date].slice(0,5).map(x=>'<div><span>'+x.exercise+'</span><small>'+((x.sets||[]).length)+' séries</small></div>').join('')+(grouped[date].length>5?'<small>+'+(grouped[date].length-5)+' exercícios</small>':'')+'</div></article>').join(''):'<div class="history-empty"><span>SEU PRIMEIRO REGISTRO COMEÇA AQUI</span><p>Quando você salvar as cargas e repetições durante o treino, cada sessão aparecerá nesta linha do tempo.</p></div>'}
+ </section>
+ <section class="history-card">
+  <div class="history-card-head"><div><span class="history-kicker">PROGRESSÃO DE CARGA</span><h3>Melhores cargas registradas</h3></div></div>
+  ${recordRows.length?'<div class="history-records">'+recordRows.map(([name,r])=>'<div class="history-record"><div><b>'+name+'</b><small>'+fmt(r.date)+'</small></div><strong>'+r.best.toLocaleString('pt-BR')+' <small>LB</small></strong></div>').join('')+'</div>':'<div class="history-empty"><p>As melhores cargas aparecerão aqui conforme você registrar pesos nas séries.</p></div>'}
+ </section>`;
+}
+
 document.getElementById('saveWeight').onclick=()=>{const kg=Number(document.getElementById('weightInput').value),date=document.getElementById('weightDateInput').value;if(!kg||kg<=0||!date){alert('Informe um peso válido e a data.');return}state.weightHistory=state.weightHistory.filter(x=>x.date!==date);state.weightHistory.push({kg,date});save();renderEvolution()};
 document.querySelectorAll('[data-photo]').forEach(input=>input.onchange=async()=>{const file=input.files[0];if(!file)return;if(file.size>3*1024*1024){alert('Escolha uma foto de até 3 MB para manter o armazenamento leve.');input.value='';return}const data=await new Promise((resolve,reject)=>{const reader=new FileReader();reader.onload=()=>resolve(reader.result);reader.onerror=reject;reader.readAsDataURL(file)});state.progressPhotos.push({position:input.dataset.photo,date:new Date().toISOString().slice(0,10),data});try{save();renderEvolution()}catch(e){alert('Não foi possível salvar a foto. Tente uma imagem menor.')}input.value=''});
-document.getElementById('notes').onchange=e=>{state.notes[WORKOUTS[selected].id]=e.target.value;save()};document.getElementById('completeDay').onclick=()=>{let day=WORKOUTS[selected];if(!Array.isArray(state.completedDays))state.completedDays=[];if(!state.completedDays.includes(day.id))state.completedDays.push(day.id);const now=new Date();const date=[now.getFullYear(),String(now.getMonth()+1).padStart(2,'0'),String(now.getDate()).padStart(2,'0')].join('-');if(!Array.isArray(state.completedDayDates))state.completedDayDates=[];if(!state.completedDayDates.some(x=>x.date===date&&x.dayId===day.id))state.completedDayDates.push({date,dayId:day.id,day:day.name});day.exercises.forEach((e,i)=>{let k=day.id+'_'+i;state.logs[k]=state.logs[k]||{};state.logs[k].done=true});save();render()};document.getElementById('resetDay').onclick=()=>{if(confirm('Limpar as marcações e cargas deste dia?')){let day=WORKOUTS[selected];if(Array.isArray(state.completedDays))state.completedDays=state.completedDays.filter(id=>id!==day.id);day.exercises.forEach((e,i)=>delete state.logs[day.id+'_'+i]);save();render()}};document.getElementById('export').onclick=()=>{let a=document.createElement('a'),u=URL.createObjectURL(new Blob([JSON.stringify(state,null,2)],{type:'application/json'}));a.href=u;a.download='my-training-backup.json';a.click();URL.revokeObjectURL(u)};document.getElementById('importBtn').onclick=()=>document.getElementById('importFile').click();document.getElementById('importFile').onchange=async e=>{try{state=JSON.parse(await e.target.files[0].text());save();render();alert('Backup importado.')}catch{alert('Não foi possível ler esse backup.')}};if('serviceWorker'in navigator&&location.protocol.startsWith('http'))navigator.serviceWorker.register('./sw.js').catch(()=>{});render();renderEvolution();
+document.getElementById('notes').onchange=e=>{state.notes[WORKOUTS[selected].id]=e.target.value;save()};document.getElementById('completeDay').onclick=()=>{let day=WORKOUTS[selected];if(!Array.isArray(state.completedDays))state.completedDays=[];if(!state.completedDays.includes(day.id))state.completedDays.push(day.id);const now=new Date();const date=[now.getFullYear(),String(now.getMonth()+1).padStart(2,'0'),String(now.getDate()).padStart(2,'0')].join('-');if(!Array.isArray(state.completedDayDates))state.completedDayDates=[];if(!state.completedDayDates.some(x=>x.date===date&&x.dayId===day.id))state.completedDayDates.push({date,dayId:day.id,day:day.name});day.exercises.forEach((e,i)=>{let k=day.id+'_'+i;state.logs[k]=state.logs[k]||{};state.logs[k].done=true});save();render()};document.getElementById('resetDay').onclick=()=>{if(confirm('Limpar as marcações e cargas deste dia?')){let day=WORKOUTS[selected];if(Array.isArray(state.completedDays))state.completedDays=state.completedDays.filter(id=>id!==day.id);day.exercises.forEach((e,i)=>delete state.logs[day.id+'_'+i]);save();render()}};document.getElementById('export').onclick=()=>{let a=document.createElement('a'),u=URL.createObjectURL(new Blob([JSON.stringify(state,null,2)],{type:'application/json'}));a.href=u;a.download='my-training-backup.json';a.click();URL.revokeObjectURL(u)};document.getElementById('importBtn').onclick=()=>document.getElementById('importFile').click();document.getElementById('importFile').onchange=async e=>{try{state=JSON.parse(await e.target.files[0].text());save();render();alert('Backup importado.')}catch{alert('Não foi possível ler esse backup.')}};if('serviceWorker'in navigator&&location.protocol.startsWith('http'))navigator.serviceWorker.register('./sw.js').catch(()=>{});render();renderEvolution();renderHistory();
 
 </script>
 <script>
@@ -1072,7 +1154,7 @@ document.getElementById('notes').onchange=e=>{state.notes[WORKOUTS[selected].id]
  const pages=[
   {id:'home',label:'HOME',items:[hero,panels[0],panels[1]]},
   {id:'progress',label:'MY PROGRESS',items:[...panels.slice(2).filter(x=>x.id==='myProgressPanel'),...panels.slice(2).filter(x=>x.id!=='myProgressPanel')]},
-  {id:'history',label:'HISTORY',items:[footer]}
+  {id:'history',label:'HISTORY',items:[panels.find(x=>x.querySelector('#export')) ,footer]}
  ];
  const created=[];
  pages.forEach(page=>{
@@ -1081,6 +1163,7 @@ document.getElementById('notes').onchange=e=>{state.notes[WORKOUTS[selected].id]
   section.id='page-'+page.id;
   page.items.filter(Boolean).forEach(node=>section.appendChild(node));
   main.appendChild(section);
+  if(page.id==='history'){const dashboard=document.createElement('div');dashboard.id='historyDashboard';section.appendChild(dashboard);if(typeof renderHistory==='function')renderHistory();}
   created.push(section);
  });
  const nav=document.createElement('nav');
