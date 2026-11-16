@@ -1,4 +1,4 @@
-const CACHE='my-training-v25';
+const CACHE='my-training-v26';
 
 const FILES=[
 
