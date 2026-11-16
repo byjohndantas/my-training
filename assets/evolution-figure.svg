@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 520 360">
+<defs>
+ <linearGradient id="bronze" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#f0d9ad"/><stop offset=".32" stop-color="#c69a62"/><stop offset=".68" stop-color="#81552f"/><stop offset="1" stop-color="#3d2819"/></linearGradient>
+ <linearGradient id="light" x1="0" y1="0" x2="1" y2="0"><stop stop-color="#f7e6c7" stop-opacity=".75"/><stop offset=".55" stop-color="#d2a36b" stop-opacity=".3"/><stop offset="1" stop-color="#6e4829" stop-opacity=".05"/></linearGradient>
+ <filter id="soft"><feGaussianBlur stdDeviation="9"/></filter>
+</defs>
+<ellipse cx="335" cy="190" rx="150" ry="150" fill="#b17b45" opacity=".12" filter="url(#soft)"/>
+<!-- torso and shoulder -->
+<path d="M247 360 Q238 309 255 269 Q270 236 315 222 Q351 210 376 228 Q411 253 429 360Z" fill="url(#bronze)" opacity=".88"/>
+<path d="M267 360 Q270 303 294 273 Q317 248 354 247 Q385 251 405 280 Q374 267 348 285 Q319 305 315 360Z" fill="#4a301e" opacity=".48"/>
+<!-- flexed arm, upper arm -->
+<path d="M296 262 Q262 253 240 224 Q220 197 208 160 Q199 133 179 123 Q159 113 145 128 Q132 141 139 163 Q151 190 169 212 Q188 239 213 267 Q236 291 273 297Z" fill="url(#bronze)"/>
+<path d="M274 281 Q245 271 225 245 Q205 221 190 189 Q178 165 165 155 Q152 145 143 153 Q137 162 150 181 Q172 215 195 244 Q220 276 252 292Z" fill="url(#light)" opacity=".55"/>
+<!-- forearm rising -->
+<path d="M145 143 Q126 126 115 103 Q105 83 114 66 Q121 51 137 57 Q150 63 154 82 Q159 102 176 115 Q192 126 207 135 L193 166 Q169 164 145 143Z" fill="url(#bronze)"/>
+<!-- fist -->
+<path d="M113 73 Q101 63 105 48 Q109 34 122 37 L134 41 Q145 34 154 44 L163 54 Q173 56 174 68 Q174 80 163 87 L145 95 Q128 91 113 73Z" fill="url(#bronze)"/>
+<path d="M111 54 Q125 45 137 52 M135 43 Q147 45 151 58 M151 51 Q163 55 163 68" fill="none" stroke="#f0d9ad" stroke-opacity=".55" stroke-width="3" stroke-linecap="round"/>
+<!-- neck -->
+<path d="M326 215 Q338 194 333 170 L385 158 Q379 200 405 225 Q371 246 326 215Z" fill="url(#bronze)"/>
+<!-- head in side profile facing right -->
+<path d="M315 73 Q331 35 374 34 Q418 34 437 67 Q449 89 438 113 L454 130 Q461 138 449 143 L434 148 Q432 176 410 190 Q389 205 362 194 Q340 185 330 162 Q315 139 309 111 Q303 91 315 73Z" fill="url(#bronze)"/>
+<!-- hair silhouette -->
+<path d="M307 105 Q294 73 316 47 Q337 17 380 20 Q420 20 441 50 Q451 65 448 86 Q434 70 423 65 Q408 56 390 60 Q366 65 348 80 Q329 94 307 105Z" fill="#2b1b12"/>
+<!-- facial profile accents -->
+<path d="M435 112 Q447 116 455 127 Q459 133 450 137 L435 141" fill="none" stroke="#f0d9ad" stroke-opacity=".72" stroke-width="3" stroke-linecap="round"/>
+<path d="M405 111 Q416 107 425 112" fill="none" stroke="#3c2819" stroke-width="4" stroke-linecap="round"/>
+<path d="M435 150 Q428 169 407 174 Q389 179 374 167" fill="none" stroke="#6e4829" stroke-width="4" stroke-linecap="round"/>
+<path d="M347 83 Q365 68 390 65" fill="none" stroke="#f5dfba" stroke-opacity=".35" stroke-width="5" stroke-linecap="round"/>
+<!-- shoulder and bicep highlights -->
+<path d="M212 169 Q230 196 248 215 Q262 229 284 238" fill="none" stroke="#f3d9ad" stroke-opacity=".5" stroke-width="6" stroke-linecap="round"/>
+<path d="M284 257 Q314 237 348 238" fill="none" stroke="#f0d9ad" stroke-opacity=".35" stroke-width="4" stroke-linecap="round"/>
+</svg>
