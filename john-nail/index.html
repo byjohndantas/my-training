@@ -30,6 +30,111 @@ input,textarea{width:100%;min-width:0;border:1px solid var(--line);border-radius
 .note{min-height:78px}.warning{background:#4a34206b;border:1px solid var(--line);border-radius:12px;padding:12px;font-size:11px;line-height:1.5;color:#dfcba9;margin-top:12px}
 .foot{text-align:center;color:#92795e;font-size:9px;letter-spacing:.25em;padding:22px}.hidden{display:none}
 @media(max-width:380px){.panel{margin:13px 10px;padding:14px}.daybtn{font-size:10px}.daybtn img{width:36px;height:36px}.exercise-visual{grid-template-columns:minmax(0,1fr) 82px}.exercise-visual img{height:105px}}
+
+/* SHARED MY TRAINING DESIGN SYSTEM — JOHN NAIL / ENGLISH */
+:root{
+ --fire:#d9874e;--fire-soft:#bd7548;--fire-glow:rgba(217,135,78,.22);
+ --champagne:#e5d2ae;--gold:#e5d2ae;--gold2:#bd8052;
+ --line:rgba(220,174,119,.23);
+}
+body{
+ background:
+  radial-gradient(ellipse at 12% 8%,rgba(196,105,52,.13),transparent 28%),
+  radial-gradient(ellipse at 92% 32%,rgba(224,174,111,.10),transparent 30%),
+  linear-gradient(180deg,#17100b,#0c0907 75%);
+ background-attachment:fixed;
+}
+.hero{
+ position:relative;
+ border-bottom:1px solid rgba(217,135,78,.26);
+ background:linear-gradient(115deg,rgba(31,20,14,.8),rgba(75,43,26,.35),rgba(17,12,9,.65));
+ box-shadow:0 12px 40px rgba(0,0,0,.18);
+}
+.hero:after{
+ content:"";display:block;width:74px;height:2px;margin:19px auto 0;
+ background:linear-gradient(90deg,transparent,var(--fire),var(--champagne),transparent);
+ box-shadow:0 0 16px var(--fire-glow);
+}
+.profile{
+ border:3px solid #d9a06c;
+ box-shadow:0 0 0 6px rgba(108,74,45,.72),0 0 0 10px rgba(229,210,174,.72),
+ 0 0 35px rgba(217,135,78,.25),0 12px 34px #000b;
+}
+.eyebrow{color:#e0a06c;text-shadow:0 0 12px rgba(217,135,78,.2)}
+.brand{color:#f2e4d1;text-shadow:0 0 24px rgba(217,135,78,.13)}
+.sub{color:#cbb69d}
+.panel{
+ position:relative;overflow:hidden;
+ border:1px solid rgba(220,174,119,.23);
+ background:
+  radial-gradient(ellipse at 100% 0%,rgba(224,151,91,.12),transparent 38%),
+  linear-gradient(145deg,rgba(53,36,25,.94),rgba(19,14,11,.97) 72%);
+ box-shadow:0 20px 48px rgba(0,0,0,.34),inset 0 1px rgba(255,238,214,.09);
+ backdrop-filter:blur(14px);
+}
+.panel:before{
+ content:"";position:absolute;inset:0;pointer-events:none;border-radius:inherit;
+ background:linear-gradient(125deg,rgba(255,235,205,.055),transparent 30%,transparent 72%,rgba(217,135,78,.045));
+}
+.toolbar b,.eyebrow,.meta,.details b,.visual-copy strong{color:#e0a06c}
+.progressline{height:7px;background:rgba(10,8,6,.78);border:1px solid rgba(221,164,112,.16);box-shadow:inset 0 2px 5px #0008}
+.progressline span{background:linear-gradient(90deg,#9d603b,#d9874e 48%,#efd7aa);box-shadow:0 0 9px rgba(217,135,78,.42),0 0 20px rgba(217,135,78,.22)}
+.daybtn,button{
+ position:relative;border:1px solid rgba(216,169,119,.28);
+ background:linear-gradient(145deg,rgba(62,42,29,.94),rgba(23,16,12,.98));
+ box-shadow:inset 0 1px rgba(255,245,226,.09),0 7px 18px rgba(0,0,0,.24);
+ transition:transform .2s ease,border-color .2s ease,box-shadow .2s ease;
+}
+.daybtn{border-radius:15px}
+.daybtn img{filter:drop-shadow(0 0 8px rgba(217,135,78,.22))}
+.daybtn.active,button.primary{
+ background:linear-gradient(125deg,#ead8b8 0%,#d4ad7b 54%,#bd8052 100%);
+ border-color:rgba(255,224,181,.72);
+ box-shadow:0 0 0 1px rgba(255,225,184,.13),0 8px 25px rgba(201,124,69,.25),inset 0 1px rgba(255,255,255,.55);
+}
+.daybtn.active small{color:#493a27}
+.sectionhead{text-shadow:0 2px 18px rgba(226,164,111,.08)}
+.exercise{
+ border:1px solid rgba(218,157,104,.23);
+ background:radial-gradient(ellipse at 100% 0%,rgba(216,132,77,.11),transparent 42%),linear-gradient(145deg,rgba(58,40,28,.92),rgba(20,15,12,.97) 70%);
+ box-shadow:0 15px 34px rgba(0,0,0,.29),inset 0 1px rgba(255,238,216,.065);
+}
+.exercise-visual img{border:1px solid rgba(221,164,112,.25);box-shadow:0 6px 20px rgba(0,0,0,.32)}
+.exercise-visual .visual-copy{color:#cbb69d}
+.details{
+ background:linear-gradient(145deg,rgba(17,12,9,.88),rgba(37,25,18,.9));
+ border:1px solid rgba(218,160,108,.2);border-radius:12px;
+}
+.rest-timer{
+ border:1px solid rgba(217,135,78,.24);
+ background:radial-gradient(ellipse at 100% 0%,rgba(217,135,78,.12),transparent 50%),rgba(15,11,8,.72);
+ box-shadow:inset 0 1px rgba(255,238,216,.06),0 9px 22px rgba(0,0,0,.2);
+}
+.rest-count{color:#edbd91;text-shadow:0 0 14px rgba(217,135,78,.24)}
+input,textarea{
+ border-color:rgba(218,160,108,.29);
+ background:linear-gradient(145deg,rgba(17,12,9,.98),rgba(37,25,18,.96));
+ box-shadow:inset 0 2px 8px rgba(0,0,0,.25);
+}
+input:focus,textarea:focus{
+ outline:none;border-color:rgba(228,157,103,.8);
+ box-shadow:0 0 0 3px rgba(217,135,78,.13),0 0 18px rgba(217,135,78,.1);
+}
+label{color:#d2ad86}
+.warning{
+ background:linear-gradient(145deg,rgba(74,52,32,.55),rgba(24,17,12,.7));
+ border:1px solid rgba(220,174,119,.23);box-shadow:inset 0 1px rgba(255,238,216,.06);
+}
+.foot{color:#b18a68}
+@media(hover:hover){
+ .panel:hover,.exercise:hover{border-color:rgba(231,174,120,.38);box-shadow:0 24px 55px rgba(0,0,0,.38),0 0 24px rgba(217,135,78,.06),inset 0 1px rgba(255,238,216,.1)}
+ .daybtn:hover,button:hover{transform:translateY(-1px);box-shadow:0 10px 23px rgba(0,0,0,.3),0 0 16px rgba(217,135,78,.11)}
+}
+@media(prefers-reduced-motion:no-preference){
+ .daybtn img{transition:filter .25s ease,transform .25s ease}
+ .daybtn.active img{filter:drop-shadow(0 0 10px rgba(217,135,78,.5));transform:translateY(-1px)}
+}
+
 </style>
 </head>
 <body><main class="wrap">
