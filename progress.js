@@ -552,4 +552,95 @@ premium.textContent=`
 `;
 document.head.appendChild(premium);
 
+
+  // PERFORMANCE DASHBOARD — WEEKLY ACTIVITY + LOAD PROGRESSION
+  const dashStyle=document.createElement('style');
+  dashStyle.textContent=`
+    #mpPerformance{margin:18px 0 22px;padding:16px;border:1px solid rgba(216,201,168,.28);border-radius:18px;background:radial-gradient(ellipse at 100% 0%,rgba(216,201,168,.12),transparent 48%),linear-gradient(145deg,#30271f,#17120f);box-shadow:0 16px 34px #0004}
+    #mpPerformance .mp-kpis{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;margin:13px 0 20px}
+    #mpPerformance .mp-kpi{padding:12px 8px;border:1px solid #d8c9a833;border-radius:13px;background:linear-gradient(145deg,#3a3026,#1a1511);min-width:0}
+    #mpPerformance .mp-kpi strong{display:block;font:600 25px ui-sans-serif,sans-serif;color:#e3d2b2;letter-spacing:-1px}
+    #mpPerformance .mp-kpi span{display:block;margin-top:5px;color:#bdae98;font-size:8px;letter-spacing:.12em;line-height:1.4}
+    #mpPerformance .mp-chart{padding:12px 9px;border:1px solid #d8c9a822;border-radius:14px;background:#17120f}
+    #mpPerformance .mp-chart svg{display:block;width:100%;height:auto;overflow:visible}
+    #mpPerformance .mp-chart-label{font-size:9px;fill:#bdae98}
+    #mpPerformance .mp-week-bars{display:grid;grid-template-columns:repeat(8,minmax(0,1fr));gap:7px;align-items:end;height:112px;margin-top:10px}
+    #mpPerformance .mp-week{height:100%;display:flex;flex-direction:column;justify-content:flex-end;align-items:center;gap:7px;min-width:0}
+    #mpPerformance .mp-week b{font-size:9px;color:#e3d2b2;font-weight:600}
+    #mpPerformance .mp-week i{display:block;width:100%;max-width:22px;min-height:3px;border-radius:8px 8px 3px 3px;background:linear-gradient(180deg,#e6d7b8,#9f8968);box-shadow:0 0 13px #d8c9a833}
+    #mpPerformance .mp-week small{font-size:8px;color:#a99576}
+    #mpPerformance .mp-subtitle{font-size:9px;letter-spacing:.2em;color:#d8c9a8;margin:18px 0 8px}
+    @media(max-width:360px){#mpPerformance{padding:12px}#mpPerformance .mp-kpi strong{font-size:21px}}
+  `;
+  document.head.appendChild(dashStyle);
+  const performance=document.createElement('section');
+  performance.id='mpPerformance';
+  performance.innerHTML=`
+    <div class="mp-heading">PERFORMANCE DASHBOARD</div>
+    <div class="mp-kpis" id="mpPerformanceKpis"></div>
+    <div class="mp-subtitle">TRAINING FREQUENCY · LAST 8 WEEKS</div>
+    <div class="mp-chart"><div class="mp-week-bars" id="mpWeeklyBars"></div></div>
+    <div class="mp-subtitle">STRENGTH EVOLUTION</div>
+    <div class="mp-chart" id="mpStrengthSummary"></div>
+  `;
+  const statsAnchor=document.getElementById('mpStats');
+  if(statsAnchor) statsAnchor.insertAdjacentElement('afterend',performance);
+
+  function renderPerformance(){
+    const sessions=Array.isArray(state.trainingSessions)?state.trainingSessions:[];
+    const uniqueDates=[...new Set(sessions.map(s=>s.date).filter(Boolean))].sort();
+    const now=new Date(); now.setHours(23,59,59,999);
+    const weekStart=new Date(now); weekStart.setDate(now.getDate()-((now.getDay()+6)%7)-0);
+    weekStart.setHours(0,0,0,0);
+    const monthStart=new Date(now.getFullYear(),now.getMonth(),1);
+    const thisWeek=uniqueDates.filter(d=>{const x=new Date(d+'T00:00:00');return x>=weekStart&&x<=now;}).length;
+    const thisMonth=uniqueDates.filter(d=>{const x=new Date(d+'T00:00:00');return x>=monthStart&&x<=now;}).length;
+    const updatedLoads=(state.history||[]).filter(x=>x.field==='weight'&&x.source!=='starting');
+    const activeExercises=new Set(updatedLoads.map(x=>x.key)).size;
+    document.getElementById('mpPerformanceKpis').innerHTML=`
+      <div class="mp-kpi"><strong>${thisWeek}</strong><span>TREINOS ESTA SEMANA</span></div>
+      <div class="mp-kpi"><strong>${thisMonth}</strong><span>TREINOS NO MÊS</span></div>
+      <div class="mp-kpi"><strong>${activeExercises}</strong><span>EXERCÍCIOS COM CARGA ATUALIZADA</span></div>`;
+    const weeks=[];
+    for(let i=7;i>=0;i--){
+      const end=new Date(weekStart); end.setDate(end.getDate()-i*7+6); end.setHours(23,59,59,999);
+      const start=new Date(end); start.setDate(start.getDate()-6); start.setHours(0,0,0,0);
+      const count=uniqueDates.filter(d=>{const x=new Date(d+'T00:00:00');return x>=start&&x<=end;}).length;
+      weeks.push({label:start.toLocaleDateString('pt-BR',{day:'2-digit',month:'2-digit'}),count});
+    }
+    const maxCount=Math.max(1,...weeks.map(w=>w.count));
+    document.getElementById('mpWeeklyBars').innerHTML=weeks.map(w=>`
+      <div class="mp-week"><b>${w.count||''}</b><i style="height:${Math.max(3,w.count/maxCount*76)}px"></i><small>${w.label}</small></div>`).join('');
+    const dated=updatedLoads.map(x=>({value:Number(String(x.value).match(/^\d+(?:[.,]\d+)?/)?.[0]?.replace(',','.')),at:new Date(x.at)})).filter(x=>Number.isFinite(x.value)).sort((a,b)=>a.at-b.at);
+    const summary=document.getElementById('mpStrengthSummary');
+    if(dated.length<2){
+      summary.innerHTML='<div class="mp-empty">Registre a carga de um exercício em mais de um treino para visualizar a evolução aqui.</div>';
+    }else{
+      const first=dated[0].value,last=dated[dated.length-1].value;
+      const change=first===0?null:((last-first)/first*100);
+      const points=dated.slice(-12);
+      const W=320,H=104,L=8,R=8,T=10,B=10,min=Math.min(...points.map(x=>x.value)),max=Math.max(...points.map(x=>x.value)),range=max-min||1;
+      const coords=points.map((p,i)=>({x:L+i*(W-L-R)/Math.max(1,points.length-1),y:T+(max-p.value)*(H-T-B)/range}));
+      const line=coords.map((p,i)=>(i?'L':'M')+p.x.toFixed(1)+' '+p.y.toFixed(1)).join(' ');
+      const area=line+` L ${coords[coords.length-1].x} ${H-B} L ${coords[0].x} ${H-B} Z`;
+      summary.innerHTML=`
+        <div style="display:flex;justify-content:space-between;align-items:end;gap:8px;margin-bottom:8px">
+          <div><div style="font-size:9px;color:#bdae98;letter-spacing:.13em">PRIMEIRO → ÚLTIMO REGISTRO</div><strong style="font:600 22px ui-sans-serif;color:#e3d2b2">${first} → ${last}</strong></div>
+          <strong style="font-size:12px;color:#d8c9a8">${change===null?'—':(change>0?'+':'')+change.toFixed(1)+'%'}</strong>
+        </div>
+        <svg viewBox="0 0 ${W} ${H}" role="img" aria-label="Evolução das cargas registradas">
+          <defs><linearGradient id="mpAreaGold" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#e3d2b2" stop-opacity=".38"/><stop offset="100%" stop-color="#a99576" stop-opacity="0"/></linearGradient><filter id="mpGlow"><feGaussianBlur stdDeviation="3" result="blur"/><feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge></filter></defs>
+          <path d="${area}" fill="url(#mpAreaGold)"/><path d="${line}" fill="none" stroke="#e3d2b2" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" filter="url(#mpGlow)"/>
+          ${coords.map(p=>`<circle cx="${p.x}" cy="${p.y}" r="3" fill="#f0dfbd" stroke="#8e7959" stroke-width="1"/>`).join('')}
+        </svg>
+        <div style="font-size:9px;color:#a99576">Últimos ${points.length} registros de carga · valores registrados</div>`;
+    }
+  }
+  renderPerformance();
+  document.addEventListener('change',e=>{
+    if(e.target.matches('[data-field][data-key]')) renderPerformance();
+    if(e.target.matches('[data-key].check')&&e.target.checked) renderPerformance();
+  });
+  const completeForDashboard=document.getElementById('completeDay');
+  if(completeForDashboard) completeForDashboard.addEventListener('click',()=>setTimeout(renderPerformance,0));
   drawChart();})();
