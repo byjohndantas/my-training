@@ -28,6 +28,14 @@
   });
   save();
 
+  // Remove a marcação indevida da quinta-feira desta semana (19/11/2026).
+  // Ela foi criada pela regra antiga, que associava o treino selecionado ao dia da semana,
+  // mesmo quando ainda não havia sido concluído naquela data.
+  state.trainingSessions = state.trainingSessions.filter(session =>
+    !(session.date === '2026-11-19' && session.day === 'Costas — Região Média')
+  );
+  save();
+
   const exerciseName = key => {
     const [day, index] = key.split('_');
     const workout = WORKOUTS.find(w => w.id === day);
@@ -353,16 +361,9 @@ function calRegister(){
   const workout=WORKOUTS.find(w=>w.name===title);
   if(!workout) return;
 
-  const index=WORKOUTS.indexOf(workout);
-  const now=new Date();
-  const monday=new Date(now);
-  monday.setHours(0,0,0,0);
-  monday.setDate(now.getDate()-((now.getDay()+6)%7));
-
-  const trainingDate=new Date(monday);
-  trainingDate.setDate(monday.getDate()+index);
-
-  const date=calDateKey(trainingDate);
+  // Registra a data real em que o usuário concluiu o treino,
+  // sem projetar o treino selecionado para outro dia da semana.
+  const date=calDateKey(new Date());
 
   if(!state.trainingSessions) state.trainingSessions=[];
   if(!state.trainingSessions.some(s=>s.date===date)){
