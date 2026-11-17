@@ -1375,4 +1375,15 @@ function selectRadio(index){const wasPlaying=!document.getElementById('radioAudi
 
 </script>
 
+
+<script>
+/* iOS Safari: block accidental multi-touch page zoom while preserving one-finger scrolling. */
+(()=>{
+ const stopZoom=e=>{if(e.cancelable)e.preventDefault();};
+ document.addEventListener('gesturestart',stopZoom,{passive:false});
+ document.addEventListener('gesturechange',stopZoom,{passive:false});
+ document.addEventListener('touchstart',e=>{if(e.touches&&e.touches.length>1)stopZoom(e);},{passive:false});
+ document.addEventListener('touchmove',e=>{if(e.touches&&e.touches.length>1)stopZoom(e);},{passive:false});
+})();
+</script>
 </body></html>
