@@ -1,4 +1,4 @@
-const CACHE='my-training-v34';
+const CACHE='my-training-v35';
 
 const FILES=[
 
@@ -41,7 +41,15 @@ self.addEventListener('activate',e=>{
 });
 
 self.addEventListener('fetch',e=>{
-  e.respondWith(
-    caches.match(e.request).then(r=>r||fetch(e.request))
-  );
+  if(e.request.mode==='navigate'){
+    e.respondWith(
+      fetch(e.request).then(response=>{
+        const copy=response.clone();
+        caches.open(CACHE).then(cache=>cache.put(e.request,copy));
+        return response;
+      }).catch(()=>caches.match(e.request))
+    );
+    return;
+  }
+  e.respondWith(caches.match(e.request).then(r=>r||fetch(e.request)));
 });
