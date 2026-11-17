@@ -1080,7 +1080,7 @@ body::before{
 <p class="muted">Track your body weight and save progress photos to compare your progress over time.</p>
 <div class="weight-card">
  <div class="weight-kicker">CURRENT WEIGHT · STARTING POINT</div>
- <div class="weight-main"><span id="currentWeight">—</span><span class="weight-unit">kg</span><span class="weight-height"></span></div>
+ <div class="weight-main"><span id="currentWeight">—</span><span class="weight-unit">kg</span><span class="weight-height" id="currentHeight"></span></div>
  <div class="weight-lb" id="currentWeightLb">No weight recorded yet</div>
  <div class="weight-date" id="weightDate">Initial entry</div>
 </div>
@@ -1090,6 +1090,9 @@ body::before{
  <div><label for="weightDateInput">DATE</label><input id="weightDateInput" type="date"></div>
 </div>
 <div class="actions"><button type="button" class="primary" id="saveWeight">SAVE WEIGHT</button></div>
+<div class="evolution-subtitle">HEIGHT</div>
+<div class="fields"><div><label for="heightInput">HEIGHT (CM)</label><input id="heightInput" type="number" min="80" max="250" step="0.5" value="" inputmode="decimal" placeholder="e.g. 175"></div></div>
+<div class="actions"><button type="button" id="saveHeight">SAVE HEIGHT</button></div>
 <div class="evolution-subtitle">PROGRESS PHOTOS</div>
 <p class="muted">Add front, side and back photos. Your images are saved in this browser.</p>
 <div class="photo-grid">
@@ -1108,6 +1111,7 @@ if(Array.isArray(state.weightHistory))state.weightHistory=state.weightHistory.ma
 if(Array.isArray(state.completedDayDates))state.completedDayDates=state.completedDayDates.map(x=>typeof x==='string'?{date:x}:x);
 if(!Array.isArray(state.weightHistory))state.weightHistory=[];
 if(!Array.isArray(state.progressPhotos))state.progressPhotos=[];
+if(state.heightCm===undefined)state.heightCm=null;
 const save=()=>{localStorage.setItem(KEY,JSON.stringify(state));renderProgress();if(typeof renderHistory==='function')renderHistory()};
 
 function exerciseGraphic(name,muscle,photoIndex){
@@ -1181,6 +1185,8 @@ function renderEvolution(){
  document.getElementById('currentWeightLb').textContent=latest?(Number(latest.kg)*2.2046226218).toFixed(1)+' lb':'No weight recorded yet';
  document.getElementById('weightDate').textContent=latest?new Date(latest.date+'T12:00:00').toLocaleDateString('en-US'):'No entries yet';
  document.getElementById('weightInput').value=latest?latest.kg:'';
+ document.getElementById('heightInput').value=state.heightCm||'';
+ document.getElementById('currentHeight').textContent=state.heightCm?('· '+(Number(state.heightCm)/100).toFixed(2)+' m'):'';
  document.getElementById('weightDateInput').value=new Date().toISOString().slice(0,10);
  document.getElementById('weightHistory').innerHTML=[...state.weightHistory].sort((a,b)=>b.date.localeCompare(a.date)).map(x=>'<div class="weight-row"><span>'+new Date(x.date+'T12:00:00').toLocaleDateString('en-US')+'</span><strong>'+x.kg+' kg <small>· '+(x.kg*2.2046226218).toFixed(1)+' lb</small></strong></div>').join('');
  document.getElementById('photoHistory').innerHTML=state.progressPhotos.slice().reverse().map(p=>'<div><img src="'+p.data+'" alt="Progress photo '+p.position+'"><small>'+p.position+' · '+new Date(p.date+'T12:00:00').toLocaleDateString('en-US')+'</small></div>').join('');
@@ -1229,6 +1235,7 @@ function renderHistory(){
 }
 
 document.getElementById('saveWeight').onclick=()=>{const kg=Number(document.getElementById('weightInput').value),date=document.getElementById('weightDateInput').value;if(!kg||kg<=0||!date){alert('Enter a valid weight and date.');return}state.weightHistory=state.weightHistory.filter(x=>x.date!==date);state.weightHistory.push({kg,date});save();renderEvolution()};
+document.getElementById('saveHeight').onclick=()=>{const cm=Number(document.getElementById('heightInput').value);if(!cm||cm<80||cm>250){alert('Enter a valid height between 80 and 250 cm.');return}state.heightCm=cm;save();renderEvolution()};
 document.querySelectorAll('[data-photo]').forEach(input=>input.onchange=async()=>{const file=input.files[0];if(!file)return;if(file.size>3*1024*1024){alert('Choose a photo under 3 MB to keep storage light.');input.value='';return}const data=await new Promise((resolve,reject)=>{const reader=new FileReader();reader.onload=()=>resolve(reader.result);reader.onerror=reject;reader.readAsDataURL(file)});state.progressPhotos.push({position:input.dataset.photo,date:new Date().toISOString().slice(0,10),data});try{save();renderEvolution()}catch(e){alert('Could not save the photo. Try a smaller image.')}input.value=''});
 document.getElementById('notes').onchange=e=>{state.notes[WORKOUTS[selected].id]=e.target.value;save()};document.getElementById('completeDay').onclick=()=>{let day=WORKOUTS[selected];if(!Array.isArray(state.completedDays))state.completedDays=[];if(!state.completedDays.includes(day.id))state.completedDays.push(day.id);const now=new Date();const date=[now.getFullYear(),String(now.getMonth()+1).padStart(2,'0'),String(now.getDate()).padStart(2,'0')].join('-');if(!Array.isArray(state.completedDayDates))state.completedDayDates=[];if(!state.completedDayDates.some(x=>x.date===date&&x.dayId===day.id))state.completedDayDates.push({date,dayId:day.id,day:day.name});day.exercises.forEach((e,i)=>{let k=day.id+'_'+i;state.logs[k]=state.logs[k]||{};state.logs[k].done=true});save();render()};document.getElementById('resetDay').onclick=()=>{if(confirm('Clear the completion marks and weights for this day?')){let day=WORKOUTS[selected];if(Array.isArray(state.completedDays))state.completedDays=state.completedDays.filter(id=>id!==day.id);day.exercises.forEach((e,i)=>delete state.logs[day.id+'_'+i]);save();render()}};document.getElementById('export').onclick=()=>{let a=document.createElement('a'),u=URL.createObjectURL(new Blob([JSON.stringify(state,null,2)],{type:'application/json'}));a.href=u;a.download='my-training-backup.json';a.click();URL.revokeObjectURL(u)};document.getElementById('importBtn').onclick=()=>document.getElementById('importFile').click();document.getElementById('importFile').onchange=async e=>{try{state=JSON.parse(await e.target.files[0].text());save();render();alert('Backup imported.')}catch{alert('Could not read this backup.')}};if('serviceWorker'in navigator&&location.protocol.startsWith('http'))navigator.serviceWorker.register('./sw.js').catch(()=>{});render();renderEvolution();renderHistory();
 
