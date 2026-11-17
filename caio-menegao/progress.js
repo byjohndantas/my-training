@@ -118,7 +118,7 @@
       ? latest.map(x => `
         <div class="mp-item">
           <div class="mp-title">${safe(x.exercise)}</div>
-          <div class="mp-date">${x.field === 'weight' ? 'Carga' : 'Repetições'}: <b style="color:#dfbd83">${safe(x.value)}</b> · ${x.source === 'starting' ? 'Starting point' : new Date(x.at).toLocaleDateString('en-US')}</div>
+          <div class="mp-date">${x.field === 'weight' ? 'Weight' : 'Reps'}: <b style="color:#dfbd83">${safe(x.value)}</b> · ${x.source === 'starting' ? 'Starting point' : new Date(x.at).toLocaleDateString('en-US')}</div>
         </div>`).join('')
       : '<div class="mp-empty">Your history will appear here.</div>';
   }
@@ -617,9 +617,9 @@ document.head.appendChild(premium);
     const updatedLoads=(state.history||[]).filter(x=>x.field==='weight'&&x.source!=='starting');
     const activeExercises=new Set(updatedLoads.map(x=>x.key)).size;
     document.getElementById('mpPerformanceKpis').innerHTML=`
-      <div class="mp-kpi"><strong>${thisWeek}</strong><span>TREINOS THIS WEEK</span></div>
+      <div class="mp-kpi"><strong>${thisWeek}</strong><span>WORKOUTS THIS WEEK</span></div>
       <div class="mp-kpi"><strong>${thisMonth}</strong><span>WORKOUTS THIS MONTH</span></div>
-      <div class="mp-kpi"><strong>${activeExercises}</strong><span>EXERCISES COM CARGA ATUALIZADA</span></div>`;
+      <div class="mp-kpi"><strong>${activeExercises}</strong><span>EXERCISES WITH UPDATED WEIGHTS</span></div>`;
     const weeks=[];
     for(let i=7;i>=0;i--){
       const end=new Date(weekStart); end.setDate(end.getDate()-i*7+6); end.setHours(23,59,59,999);
@@ -633,7 +633,7 @@ document.head.appendChild(premium);
     const dated=updatedLoads.map(x=>({value:Number(String(x.value).match(/^\d+(?:[.,]\d+)?/)?.[0]?.replace(',','.')),at:new Date(x.at)})).filter(x=>Number.isFinite(x.value)).sort((a,b)=>a.at-b.at);
     const summary=document.getElementById('mpStrengthSummary');
     if(dated.length<2){
-      summary.innerHTML='<div class="mp-empty">Registre a carga de um exercício em mais de um treino para visualizar a evolução aqui.</div>';
+      summary.innerHTML='<div class="mp-empty">Log an exercise weight in more than one workout to see your progress here.</div>';
     }else{
       const first=dated[0].value,last=dated[dated.length-1].value;
       const change=first===0?null:((last-first)/first*100);
@@ -647,7 +647,7 @@ document.head.appendChild(premium);
           <div><div style="font-size:9px;color:#bdae98;letter-spacing:.13em">PRIMEIRO → ÚLTIMO REGISTRO</div><strong style="font:600 22px ui-sans-serif;color:#e3d2b2">${first} → ${last}</strong></div>
           <strong style="font-size:12px;color:#d8c9a8">${change===null?'—':(change>0?'+':'')+change.toFixed(1)+'%'}</strong>
         </div>
-        <svg viewBox="0 0 ${W} ${H}" role="img" aria-label="Evolução das cargas registradas">
+        <svg viewBox="0 0 ${W} ${H}" role="img" aria-label="Recorded weight progress">
           <defs><linearGradient id="mpAreaGold" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#e3d2b2" stop-opacity=".38"/><stop offset="100%" stop-color="#a99576" stop-opacity="0"/></linearGradient><filter id="mpGlow"><feGaussianBlur stdDeviation="3" result="blur"/><feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge></filter></defs>
           <path d="${area}" fill="url(#mpAreaGold)"/><path d="${line}" fill="none" stroke="#e3d2b2" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" filter="url(#mpGlow)"/>
           ${coords.map(p=>`<circle cx="${p.x}" cy="${p.y}" r="3" fill="#f0dfbd" stroke="#8e7959" stroke-width="1"/>`).join('')}
