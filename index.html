@@ -1080,7 +1080,7 @@ body::before{
 <p class="muted">Acompanhe seu peso e registre fotos para comparar sua evolução ao longo do tempo.</p>
 <div class="weight-card">
  <div class="weight-kicker">PESO ATUAL · PONTO DE PARTIDA</div>
- <div class="weight-main"><span id="currentWeight">70</span><span class="weight-unit">kg</span><span class="weight-height">· 1,68 m</span></div>
+ <div class="weight-main"><span id="currentWeight">70</span><span class="weight-unit">kg</span><span class="weight-height" id="currentHeight"></span></div>
  <div class="weight-lb" id="currentWeightLb">154.3 lb</div>
  <div class="weight-date" id="weightDate">Registro inicial</div>
 </div>
@@ -1090,6 +1090,9 @@ body::before{
  <div><label for="weightDateInput">DATA</label><input id="weightDateInput" type="date"></div>
 </div>
 <div class="actions"><button type="button" class="primary" id="saveWeight">Salvar peso</button></div>
+<div class="evolution-subtitle">ALTURA</div>
+<div class="fields"><div><label for="heightInput">ALTURA (CM)</label><input id="heightInput" type="number" min="80" max="250" step="0.5" value="168" inputmode="decimal" placeholder="Ex.: 175"></div></div>
+<div class="actions"><button type="button" id="saveHeight">Salvar altura</button></div>
 <div class="evolution-subtitle">FOTOS DE EVOLUÇÃO</div>
 <p class="muted">Adicione fotos de frente, lado e costas. As imagens ficam salvas neste navegador.</p>
 <div class="photo-grid">
@@ -1106,6 +1109,7 @@ body::before{
 const KEY='jd_my_training_v1';let state=JSON.parse(localStorage.getItem(KEY)||'{"logs":{},"notes":{},"completedDays":[]}');let selected=0;
 if(!Array.isArray(state.weightHistory))state.weightHistory=[{kg:70,date:'2026-11-16'}];
 if(!Array.isArray(state.progressPhotos))state.progressPhotos=[];
+if(state.heightCm===undefined)state.heightCm=168;
 const save=()=>{localStorage.setItem(KEY,JSON.stringify(state));renderProgress();if(typeof renderHistory==='function')renderHistory()};
 
 function exerciseGraphic(name,muscle,photoIndex){
@@ -1179,6 +1183,8 @@ function renderEvolution(){
  document.getElementById('currentWeightLb').textContent=(Number(latest.kg)*2.2046226218).toFixed(1)+' lb';
  document.getElementById('weightDate').textContent=new Date(latest.date+'T12:00:00').toLocaleDateString('pt-BR');
  document.getElementById('weightInput').value=latest.kg;
+ document.getElementById('heightInput').value=state.heightCm||'';
+ document.getElementById('currentHeight').textContent=state.heightCm?('· '+(Number(state.heightCm)/100).toFixed(2)+' m'):'';
  document.getElementById('weightDateInput').value=new Date().toISOString().slice(0,10);
  document.getElementById('weightHistory').innerHTML=[...state.weightHistory].sort((a,b)=>b.date.localeCompare(a.date)).map(x=>'<div class="weight-row"><span>'+new Date(x.date+'T12:00:00').toLocaleDateString('pt-BR')+'</span><strong>'+x.kg+' kg <small>· '+(x.kg*2.2046226218).toFixed(1)+' lb</small></strong></div>').join('');
  document.getElementById('photoHistory').innerHTML=state.progressPhotos.slice().reverse().map(p=>'<div><img src="'+p.data+'" alt="Foto de evolução '+p.position+'"><small>'+p.position+' · '+new Date(p.date+'T12:00:00').toLocaleDateString('pt-BR')+'</small></div>').join('');
@@ -1227,6 +1233,7 @@ function renderHistory(){
 }
 
 document.getElementById('saveWeight').onclick=()=>{const kg=Number(document.getElementById('weightInput').value),date=document.getElementById('weightDateInput').value;if(!kg||kg<=0||!date){alert('Informe um peso válido e a data.');return}state.weightHistory=state.weightHistory.filter(x=>x.date!==date);state.weightHistory.push({kg,date});save();renderEvolution()};
+document.getElementById('saveHeight').onclick=()=>{const cm=Number(document.getElementById('heightInput').value);if(!cm||cm<80||cm>250){alert('Informe uma altura válida entre 80 e 250 cm.');return}state.heightCm=cm;save();renderEvolution()};
 document.querySelectorAll('[data-photo]').forEach(input=>input.onchange=async()=>{const file=input.files[0];if(!file)return;if(file.size>3*1024*1024){alert('Escolha uma foto de até 3 MB para manter o armazenamento leve.');input.value='';return}const data=await new Promise((resolve,reject)=>{const reader=new FileReader();reader.onload=()=>resolve(reader.result);reader.onerror=reject;reader.readAsDataURL(file)});state.progressPhotos.push({position:input.dataset.photo,date:new Date().toISOString().slice(0,10),data});try{save();renderEvolution()}catch(e){alert('Não foi possível salvar a foto. Tente uma imagem menor.')}input.value=''});
 document.getElementById('notes').onchange=e=>{state.notes[WORKOUTS[selected].id]=e.target.value;save()};document.getElementById('completeDay').onclick=()=>{let day=WORKOUTS[selected];if(!Array.isArray(state.completedDays))state.completedDays=[];if(!state.completedDays.includes(day.id))state.completedDays.push(day.id);const now=new Date();const date=[now.getFullYear(),String(now.getMonth()+1).padStart(2,'0'),String(now.getDate()).padStart(2,'0')].join('-');if(!Array.isArray(state.completedDayDates))state.completedDayDates=[];if(!state.completedDayDates.some(x=>x.date===date&&x.dayId===day.id))state.completedDayDates.push({date,dayId:day.id,day:day.name});day.exercises.forEach((e,i)=>{let k=day.id+'_'+i;state.logs[k]=state.logs[k]||{};state.logs[k].done=true});save();render()};document.getElementById('resetDay').onclick=()=>{if(confirm('Limpar as marcações e cargas deste dia?')){let day=WORKOUTS[selected];if(Array.isArray(state.completedDays))state.completedDays=state.completedDays.filter(id=>id!==day.id);day.exercises.forEach((e,i)=>delete state.logs[day.id+'_'+i]);save();render()}};document.getElementById('export').onclick=()=>{let a=document.createElement('a'),u=URL.createObjectURL(new Blob([JSON.stringify(state,null,2)],{type:'application/json'}));a.href=u;a.download='my-training-backup.json';a.click();URL.revokeObjectURL(u)};document.getElementById('importBtn').onclick=()=>document.getElementById('importFile').click();document.getElementById('importFile').onchange=async e=>{try{state=JSON.parse(await e.target.files[0].text());save();render();alert('Backup importado.')}catch{alert('Não foi possível ler esse backup.')}};if('serviceWorker'in navigator&&location.protocol.startsWith('http'))navigator.serviceWorker.register('./sw.js').catch(()=>{});render();renderEvolution();renderHistory();
 
