@@ -1115,7 +1115,7 @@ function exerciseGraphic(name,muscle,photoIndex){
  return '<div class="exercise-visual"><img src="../assets/exercise-'+String(photoIndex).padStart(2,'0')+'.webp" alt="'+safe+' — exercise demonstration" loading="lazy"><div class="visual-copy"><strong>EXERCISE GUIDE</strong><span>'+muscle+'</span><span>'+safe+'</span></div></div>';
 }
 
-function renderProgress(){const now=new Date();now.setHours(0,0,0,0);const monday=new Date(now);monday.setDate(now.getDate()-((now.getDay()+6)%7));const dates=Array.isArray(state.completedDayDates)?state.completedDayDates:[];const done=new Set(dates.filter(x=>{const d=new Date(x.date+'T00:00:00');return d>=monday&&d<=now;}).map(x=>x.date)).size;document.getElementById('progressText').textContent=`${done} de 6 dias concluídos`;document.getElementById('progressBar').style.width=(Math.min(done,6)/6*100)+'%'}
+function renderProgress(){const now=new Date();now.setHours(0,0,0,0);const monday=new Date(now);monday.setDate(now.getDate()-((now.getDay()+6)%7));const dates=Array.isArray(state.completedDayDates)?state.completedDayDates:[];const done=new Set(dates.filter(x=>{const d=new Date(x.date+'T00:00:00');return d>=monday&&d<=now;}).map(x=>x.date)).size;document.getElementById('progressText').textContent=`${done} of 6 workout days completed`;document.getElementById('progressBar').style.width=(Math.min(done,6)/6*100)+'%'}
 
 function render(){
  let d=WORKOUTS[selected];
@@ -1142,7 +1142,7 @@ function render(){
    .sort((a,b)=>b.date.localeCompare(a.date))[0];
   const previousText=previous
    ? previous.sets.map((x,n)=>'S'+(n+1)+': '+(x.weight||'—')+' × '+(x.reps||'—')).join('  ·  ')
-   : 'Ainda não há um treino anterior registrado para comparação.';
+   : 'No previous workout has been logged for comparison yet.';
   return `<article class="exercise">${exerciseGraphic(e.name,e.muscle,photoOffset+i+1)}
    <div class="exrow"><input class="check" type="checkbox" aria-label="Completed" data-key="${k}" ${l.done?'checked':''}><div class="exname">${i+1}. ${e.name}<div class="meta">${e.sets} sets × ${e.reps} reps · rest ${e.rest}</div><div class="muscle">${e.muscle}</div></div></div>
    <div class="details"><b>How to:</b> ${e.how}<br><b>Avoid:</b> ${e.avoid}</div>
@@ -1224,7 +1224,7 @@ function renderHistory(){
  </section>
  <section class="history-card">
   <div class="history-card-head"><div><span class="history-kicker">STRENGTH PROGRESSION</span><h3>Top Recorded Weights</h3></div></div>
-  ${recordRows.length?'<div class="history-records">'+recordRows.map(([name,r])=>'<div class="history-record"><div><b>'+name+'</b><small>'+fmt(r.date)+'</small></div><strong>'+r.best.toLocaleString('en-US')+' <small>LB</small></strong></div>').join('')+'</div>':'<div class="history-empty"><p>As melhores cargas aparecerão aqui conforme você registrar pesos nas sets.</p></div>'}
+  ${recordRows.length?'<div class="history-records">'+recordRows.map(([name,r])=>'<div class="history-record"><div><b>'+name+'</b><small>'+fmt(r.date)+'</small></div><strong>'+r.best.toLocaleString('en-US')+' <small>LB</small></strong></div>').join('')+'</div>':'<div class="history-empty"><p>Your best lifts will appear here as you log weights for each set.</p></div>'}
  </section>`;
 }
 
@@ -1259,10 +1259,10 @@ document.getElementById('notes').onchange=e=>{state.notes[WORKOUTS[selected].id]
   if(remaining<=0)remaining=duration(card);
   endAt=Date.now()+remaining*1000;
   stop();
-  display(card,remaining,'Descansando · cronômetro em andamento');
+  display(card,remaining,'Resting · timer running');
   interval=setInterval(()=>{
    remaining=Math.max(0,Math.ceil((endAt-Date.now())/1000));
-   display(card,remaining,remaining?'Descansando · cronômetro em andamento':'Descanso concluído! Pode seguir.');
+   display(card,remaining,remaining?'Resting · timer running':'Rest complete! You can move on.');
    if(!remaining){
     stop();card.querySelector('.rest-timer').classList.add('finished');
     try{if(navigator.vibrate)navigator.vibrate([180,90,180])}catch(e){}
@@ -1279,7 +1279,7 @@ document.getElementById('notes').onchange=e=>{state.notes[WORKOUTS[selected].id]
    const list=cards(),card=next.closest('.exercise'),idx=list.indexOf(card),following=list[idx+1];
    stop();activeCard=following||null;remaining=following?duration(following):0;
    if(following){
-    display(following,remaining,'Próximo exercício · descanso pronto');
+    display(following,remaining,'Next exercise · rest ready');
     following.scrollIntoView({behavior:'smooth',block:'center'});
     following.querySelector('.rest-timer').classList.remove('finished');
    }else{
@@ -1326,7 +1326,7 @@ document.getElementById('notes').onchange=e=>{state.notes[WORKOUTS[selected].id]
  });
  const nav=document.createElement('nav');
  nav.className='app-nav';
- nav.setAttribute('aria-label','Navegação principal');
+ nav.setAttribute('aria-label','Main navigation');
  const navIcons={
   home:'<svg viewBox="0 0 24 24" aria-hidden="true"><path d="m3.5 10 8.5-7 8.5 7v10a1 1 0 0 1-1 1h-5.2v-6.2H9.7V21H4.5a1 1 0 0 1-1-1z"/></svg>',
   progress:'<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 19V5m0 14h16"/><path d="m7 15 4-4 3 2 5-6"/><path d="M16 7h3v3"/></svg>',
