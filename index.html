@@ -1272,20 +1272,21 @@ document.getElementById('notes').onchange=e=>{state.notes[WORKOUTS[selected].id]
 <script>
 (()=>{
  let interval=null,activeCard=null,remaining=0,endAt=0,totalDuration=0,lastBeepSecond=6,audioContext=null;
- const playCountdownBeep=second=>{
+ const playCountdownBeep=async second=>{
   try{
    const AudioCtx=window.AudioContext||window.webkitAudioContext;
    if(!AudioCtx)return;
    if(!audioContext)audioContext=new AudioCtx();
-   if(audioContext.state==='suspended')audioContext.resume();
+   if(audioContext.state!=='running')await audioContext.resume();
+   if(audioContext.state!=='running')return;
    const oscillator=audioContext.createOscillator(),gain=audioContext.createGain(),now=audioContext.currentTime;
    oscillator.type='sine';
-   oscillator.frequency.setValueAtTime(second===1?1320:880,now);
+   oscillator.frequency.setValueAtTime(second===1?1480:920,now);
    gain.gain.setValueAtTime(0.0001,now);
-   gain.gain.exponentialRampToValueAtTime(second===1?0.16:0.11,now+0.012);
-   gain.gain.exponentialRampToValueAtTime(0.0001,now+0.14);
+   gain.gain.exponentialRampToValueAtTime(second===1?0.28:0.22,now+0.015);
+   gain.gain.exponentialRampToValueAtTime(0.0001,now+0.20);
    oscillator.connect(gain);gain.connect(audioContext.destination);
-   oscillator.start(now);oscillator.stop(now+0.15);
+   oscillator.start(now);oscillator.stop(now+0.21);
   }catch(e){}
  };
  const list=document.getElementById('exerciseList');
@@ -1313,7 +1314,7 @@ document.getElementById('notes').onchange=e=>{state.notes[WORKOUTS[selected].id]
   if(activeCard!==card){stop();activeCard=card;remaining=duration(card);totalDuration=remaining;}
   if(remaining<=0){remaining=duration(card);totalDuration=remaining;}
   timerOf(card).classList.remove('finished');
-  endAt=Date.now()+remaining*1000;lastBeepSecond=6;stop();if(!audioContext){try{const AudioCtx=window.AudioContext||window.webkitAudioContext;if(AudioCtx)audioContext=new AudioCtx();}catch(e){}}if(audioContext&&audioContext.state==='suspended')audioContext.resume().catch(()=>{});
+  endAt=Date.now()+remaining*1000;lastBeepSecond=6;stop();if(!audioContext){try{const AudioCtx=window.AudioContext||window.webkitAudioContext;if(AudioCtx)audioContext=new AudioCtx();}catch(e){}}if(audioContext&&audioContext.state!=='running'){try{audioContext.resume().catch(()=>{});}catch(e){}}
   display(card,remaining,'Descansando · cronômetro em andamento');
   interval=setInterval(()=>{
    remaining=Math.max(0,Math.ceil((endAt-Date.now())/1000));
