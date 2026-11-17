@@ -847,6 +847,8 @@ input:focus,textarea:focus{
   .app-nav button[aria-current="page"] svg{transform:translateY(-1px)}
 }
 
+
+.radio-panel{margin:18px 16px;padding:18px;border:1px solid var(--line);border-radius:20px;background:linear-gradient(145deg,rgba(48,35,26,.98),rgba(28,20,15,.98));box-shadow:0 12px 30px #0003}.radio-top{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:12px}.radio-kicker{font-size:10px;letter-spacing:.24em;color:var(--gold);font-weight:700}.radio-title{font:27px Georgia,serif;margin:3px 0 0}.radio-now{font-size:13px;color:var(--muted);margin:4px 0 12px}.radio-controls{display:flex;align-items:center;gap:8px;margin:12px 0}.radio-controls button{min-width:48px;min-height:42px}.radio-controls .radio-play{flex:1;background:var(--gold2);color:#17110d;border-color:var(--gold2)}.radio-stations{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;margin:12px 0}.radio-stations button{font-size:11px;line-height:1.25;min-height:46px;padding:9px 7px}.radio-stations button.active{background:var(--gold);color:#17110d;border-color:var(--gold)}.radio-frame{width:100%;height:200px;border:0;border-radius:12px;background:#111;display:block}.radio-hint{font-size:11px;color:var(--muted);line-height:1.45;margin:10px 0 0}
 </style><style>
 .rest-timer{margin-top:13px;padding:13px;border:1px solid rgba(216,201,168,.28);border-radius:14px;background:radial-gradient(ellipse at 100% 0%,rgba(216,201,168,.10),transparent 55%),linear-gradient(145deg,#211a15,#120e0b)}
 .rest-top{display:flex;align-items:center;justify-content:space-between;gap:8px}
@@ -1074,6 +1076,14 @@ body::before{
 </style>
 </head><body><main class="wrap"><header class="hero"><img class="profile-avatar" src="./caio-menegao-profile.jpg" alt="Caio Menegão profile photo"><div class="eyebrow">PERSONAL TRAINING JOURNAL</div><div class="brand">MY TRAINING</div><div class="sub">Training, consistency and progress — one day at a time.</div></header>
 <section class="panel"><div class="toolbar"><b>WORKOUT DAYS COMPLETED</b><strong id="progressText" style="color:var(--gold)">0 of 6 days</strong></div><div class="progressline"><span id="progressBar"></span></div><nav class="days" id="days"></nav></section>
+<section class="radio-panel" id="myRadioPanel">
+<div class="radio-top"><div><div class="radio-kicker">MY RADIO</div><h2 class="radio-title">Train with your music</h2></div><span class="muted">iHeart</span></div>
+<div class="radio-now" id="radioNow">K-POP Workout · Playlist</div>
+<div class="radio-controls"><button type="button" id="radioPrev" aria-label="Previous station">⏮</button><button type="button" class="radio-play" id="radioPlay" aria-label="Open selected station">OPEN RADIO</button><button type="button" id="radioNext" aria-label="Next station">⏭</button></div>
+<div class="radio-stations" id="radioStations"><button type="button" class="active" data-radio="0">K-POP Workout</button><button type="button" data-radio="1">Cardio Mix</button><button type="button" data-radio="2">80s Workout Hits</button><button type="button" data-radio="3">iHeart80s</button><button type="button" data-radio="4">Workout Hits</button><button type="button" data-radio="5">2000s Workout Hits</button></div>
+<iframe class="radio-frame" id="radioFrame" title="iHeart radio player" src="https://www.iheart.com/playlist/k-pop-workout-312064750-4x5VwmLx8htiEHpKpGxSqp/?embed=true" allow="autoplay; encrypted-media" loading="lazy" referrerpolicy="strict-origin-when-cross-origin"></iframe>
+<p class="radio-hint">Use your iPhone volume buttons to adjust the sound. Background playback depends on iHeart and iOS support for this embedded player.</p>
+</section>
 <section class="panel"><div class="muted" id="dayLabel">MONDAY</div><h1 class="sectionhead" id="dayTitle">Back & Biceps</h1><p class="muted" id="dayFocus"></p><div id="exerciseList"></div><label for="notes" style="margin-top:18px">WORKOUT NOTES</label><textarea id="notes" class="note" placeholder="Energy, notes, progress..."></textarea><div class="actions"><button class="primary" id="completeDay">MARK DAY AS COMPLETE</button><button id="resetDay">RESET THIS DAY</button></div></section>
 <section class="panel" id="myProgressPanel">
 <h2 class="sectionhead">My Progress</h2>
@@ -1350,6 +1360,14 @@ nav.innerHTML=pages.map((p,i)=>'<button type="button" data-page="'+p.id+'" aria-
   window.scrollTo({top:0,behavior:'smooth'});
  });
 })();
+
+const RADIO_STATIONS=[{"name":"K-POP Workout","url":"https://www.iheart.com/playlist/k-pop-workout-312064750-4x5VwmLx8htiEHpKpGxSqp/?embed=true","type":"Playlist"},{"name":"Cardio Mix","url":"https://www.iheart.com/live/cardio-mix-7250/?embed=true","type":"Live radio"},{"name":"80s Workout Hits","url":"https://www.iheart.com/playlist/80s-workout-hits-312064750-NpCrLrvTKYvL3ZDRRdYbDV/?embed=true","type":"Playlist"},{"name":"iHeart80s","url":"https://www.iheart.com/live/iheart80s-5060/?embed=true","type":"Live radio"},{"name":"Workout Hits","url":"https://www.iheart.com/playlist/workout-hits-312064750-CfGQPw9nkkFE5QGCLiwSbQ/?embed=true","type":"Playlist"},{"name":"2000s Workout Hits","url":"https://www.iheart.com/playlist/2000s-workout-hits-312064750-L9CyRMup93kcyQJNvAFpGQ/?embed=true","type":"Playlist"}];
+let selectedRadio=0;
+function selectRadio(index,load=true){selectedRadio=(index+RADIO_STATIONS.length)%RADIO_STATIONS.length;const station=RADIO_STATIONS[selectedRadio];document.getElementById('radioNow').textContent=station.name+' · '+station.type;document.querySelectorAll('[data-radio]').forEach(b=>b.classList.toggle('active',Number(b.dataset.radio)===selectedRadio));if(load)document.getElementById('radioFrame').src=station.url;}
+document.querySelectorAll('[data-radio]').forEach(b=>b.addEventListener('click',()=>selectRadio(Number(b.dataset.radio))));
+document.getElementById('radioPrev').addEventListener('click',()=>selectRadio(selectedRadio-1));
+document.getElementById('radioNext').addEventListener('click',()=>selectRadio(selectedRadio+1));
+document.getElementById('radioPlay').addEventListener('click',()=>{const frame=document.getElementById('radioFrame');if(!frame.src||frame.src==='about:blank')frame.src=RADIO_STATIONS[selectedRadio].url;else frame.scrollIntoView({behavior:'smooth',block:'center'});});
 </script>
 
 </body></html>
