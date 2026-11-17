@@ -1321,6 +1321,8 @@ document.getElementById('notes').onchange=e=>{state.notes[WORKOUTS[selected].id]
 @media(min-width:700px){.app-nav{left:50%;right:auto;transform:translateX(-50%);width:min(100%,720px);border:1px solid rgba(216,201,168,.2);border-bottom:0;border-radius:18px 18px 0 0}}
 </style>
 <script>
+const RADIO_STATIONS=[{"name":"K-POP Workout","url":"https://www.iheart.com/playlist/k-pop-workout-312064750-4x5VwmLx8htiEHpKpGxSqp/?embed=true","type":"Playlist"},{"name":"Cardio Mix","url":"https://www.iheart.com/live/cardio-mix-7250/?embed=true","type":"Live radio"},{"name":"80s Workout Hits","url":"https://www.iheart.com/playlist/80s-workout-hits-312064750-NpCrLrvTKYvL3ZDRRdYbDV/?embed=true","type":"Playlist"},{"name":"iHeart80s","url":"https://www.iheart.com/live/iheart80s-5060/?embed=true","type":"Live radio"},{"name":"Workout Hits","url":"https://www.iheart.com/playlist/workout-hits-312064750-CfGQPw9nkkFE5QGCLiwSbQ/?embed=true","type":"Playlist"},{"name":"2000s Workout Hits","url":"https://www.iheart.com/playlist/2000s-workout-hits-312064750-L9CyRMup93kcyQJNvAFpGQ/?embed=true","type":"Playlist"}];
+let selectedRadio=0;
 (()=> {
  const main=document.querySelector('main.wrap');
  if(!main || document.querySelector('.app-nav')) return;
@@ -1375,8 +1377,6 @@ nav.innerHTML=pages.map((p,i)=>'<button type="button" data-page="'+p.id+'" aria-
  });
 })();
 
-const RADIO_STATIONS=[{"name":"K-POP Workout","url":"https://www.iheart.com/playlist/k-pop-workout-312064750-4x5VwmLx8htiEHpKpGxSqp/?embed=true","type":"Playlist"},{"name":"Cardio Mix","url":"https://www.iheart.com/live/cardio-mix-7250/?embed=true","type":"Live radio"},{"name":"80s Workout Hits","url":"https://www.iheart.com/playlist/80s-workout-hits-312064750-NpCrLrvTKYvL3ZDRRdYbDV/?embed=true","type":"Playlist"},{"name":"iHeart80s","url":"https://www.iheart.com/live/iheart80s-5060/?embed=true","type":"Live radio"},{"name":"Workout Hits","url":"https://www.iheart.com/playlist/workout-hits-312064750-CfGQPw9nkkFE5QGCLiwSbQ/?embed=true","type":"Playlist"},{"name":"2000s Workout Hits","url":"https://www.iheart.com/playlist/2000s-workout-hits-312064750-L9CyRMup93kcyQJNvAFpGQ/?embed=true","type":"Playlist"}];
-let selectedRadio=0;
 function selectRadio(index,load=true){selectedRadio=(index+RADIO_STATIONS.length)%RADIO_STATIONS.length;const station=RADIO_STATIONS[selectedRadio];document.getElementById('radioNow').textContent=station.name+' · '+station.type;document.querySelectorAll('[data-radio]').forEach(b=>b.classList.toggle('active',Number(b.dataset.radio)===selectedRadio));if(load)document.getElementById('radioFrame').src=station.url;const dockName=document.getElementById('radioDockName');if(dockName)dockName.textContent=station.name;const overlayName=document.getElementById('radioOverlayName');if(overlayName)overlayName.textContent=station.name;}
 
 </script>
