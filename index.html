@@ -1271,7 +1271,23 @@ document.getElementById('notes').onchange=e=>{state.notes[WORKOUTS[selected].id]
 </script>
 <script>
 (()=>{
- let interval=null,activeCard=null,remaining=0,endAt=0,totalDuration=0;
+ let interval=null,activeCard=null,remaining=0,endAt=0,totalDuration=0,lastBeepSecond=6,audioContext=null;
+ const playCountdownBeep=second=>{
+  try{
+   const AudioCtx=window.AudioContext||window.webkitAudioContext;
+   if(!AudioCtx)return;
+   if(!audioContext)audioContext=new AudioCtx();
+   if(audioContext.state==='suspended')audioContext.resume();
+   const oscillator=audioContext.createOscillator(),gain=audioContext.createGain(),now=audioContext.currentTime;
+   oscillator.type='sine';
+   oscillator.frequency.setValueAtTime(second===1?1320:880,now);
+   gain.gain.setValueAtTime(0.0001,now);
+   gain.gain.exponentialRampToValueAtTime(second===1?0.16:0.11,now+0.012);
+   gain.gain.exponentialRampToValueAtTime(0.0001,now+0.14);
+   oscillator.connect(gain);gain.connect(audioContext.destination);
+   oscillator.start(now);oscillator.stop(now+0.15);
+  }catch(e){}
+ };
  const list=document.getElementById('exerciseList');
  const cards=()=>list?[...list.querySelectorAll('.exercise')]:[];
  const stop=()=>{if(interval!==null){clearInterval(interval);interval=null}};
@@ -1297,10 +1313,11 @@ document.getElementById('notes').onchange=e=>{state.notes[WORKOUTS[selected].id]
   if(activeCard!==card){stop();activeCard=card;remaining=duration(card);totalDuration=remaining;}
   if(remaining<=0){remaining=duration(card);totalDuration=remaining;}
   timerOf(card).classList.remove('finished');
-  endAt=Date.now()+remaining*1000;stop();
+  endAt=Date.now()+remaining*1000;lastBeepSecond=6;stop();if(!audioContext){try{const AudioCtx=window.AudioContext||window.webkitAudioContext;if(AudioCtx)audioContext=new AudioCtx();}catch(e){}}if(audioContext&&audioContext.state==='suspended')audioContext.resume().catch(()=>{});
   display(card,remaining,'Descansando · cronômetro em andamento');
   interval=setInterval(()=>{
    remaining=Math.max(0,Math.ceil((endAt-Date.now())/1000));
+   if(remaining>0&&remaining<=5&&remaining!==lastBeepSecond){lastBeepSecond=remaining;playCountdownBeep(remaining);}
    display(card,remaining,remaining?'Descansando · cronômetro em andamento':'Descanso concluído! Pode seguir.');
    if(!remaining){stop();timerOf(card).classList.add('finished');try{if(typeof navigator!=='undefined'&&typeof navigator.vibrate==='function')navigator.vibrate([140,90,140,90,140]);}catch(e){}}
   },200);
