@@ -1081,13 +1081,13 @@ body::before{
 <div class="weight-card">
  <div class="weight-kicker">CURRENT WEIGHT · STARTING POINT</div>
  <div class="weight-main"><span id="currentWeight">—</span><span class="weight-unit">kg</span><span class="weight-height"></span></div>
- <div class="weight-lb" id="currentWeightLb">154.3 lb</div>
+ <div class="weight-lb" id="currentWeightLb">No weight recorded yet</div>
  <div class="weight-date" id="weightDate">Initial entry</div>
 </div>
 <div class="evolution-subtitle">UPDATE WEIGHT</div>
 <div class="fields">
  <div><label for="weightInput">WEIGHT (KG)</label><input id="weightInput" type="number" min="1" max="400" step="0.1" value="" inputmode="decimal"></div>
- <div><label for="weightDateInput">DATA</label><input id="weightDateInput" type="date"></div>
+ <div><label for="weightDateInput">DATE</label><input id="weightDateInput" type="date"></div>
 </div>
 <div class="actions"><button type="button" class="primary" id="saveWeight">SAVE WEIGHT</button></div>
 <div class="evolution-subtitle">PROGRESS PHOTOS</div>
@@ -1106,7 +1106,7 @@ body::before{
 const KEY='jd_my_training_john_nail_v1';let state=JSON.parse(localStorage.getItem(KEY)||'{"logs":{},"notes":{},"completedDays":[]}');let selected=0;
 if(Array.isArray(state.weightHistory))state.weightHistory=state.weightHistory.map(x=>x&&x.lb!=null?{kg:Number(x.lb)/2.2046226218,date:x.date}:x);
 if(Array.isArray(state.completedDayDates))state.completedDayDates=state.completedDayDates.map(x=>typeof x==='string'?{date:x}:x);
-if(!Array.isArray(state.weightHistory))state.weightHistory=[{kg:70,date:'2026-11-16'}];
+if(!Array.isArray(state.weightHistory))state.weightHistory=[];
 if(!Array.isArray(state.progressPhotos))state.progressPhotos=[];
 const save=()=>{localStorage.setItem(KEY,JSON.stringify(state));renderProgress();if(typeof renderHistory==='function')renderHistory()};
 
