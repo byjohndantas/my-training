@@ -277,7 +277,20 @@ const rests=[['90 sec','120 sec','90 sec','60 sec','90 sec','60 sec','60 sec'],[
 const iconFiles=['01-segunda-costas-biceps.png','02-terca-peito-ombros.png','03-quarta-pernas.png','04-quinta-costas-regiao-media.png','05-sexta-superiores.png','06-sabado-core-recuperacao.png'];
 const workout=dayNames.map((day,d)=>({id:['mon','tue','wed','thu','fri','sat'][d],day,name:dayTitles[d],focus:dayFocus[d],exercises:names[d].map((name,i)=>({name,muscle:muscles[d][i],how:instructions[d][i][0],avoid:instructions[d][i][1],sets:sets[d][i],reps:reps[d][i],rest:rests[d][i]}))}));
 let state;try{state=JSON.parse(localStorage.getItem(KEY)||'{"logs":{},"notes":{},"completedDays":[]}')}catch{state={logs:{},notes:{},completedDays:[]}}
-if(!Array.isArray(state.weightHistory))state.weightHistory=[];if(!Array.isArray(state.progressPhotos))state.progressPhotos=[];if(!Array.isArray(state.completedDayDates))state.completedDayDates=[];
+if(!Array.isArray(state.weightHistory))state.weightHistory=[];if(!Array.isArray(state.progressPhotos))state.progressPhotos=[];if(!Array.isArray(state.completedDayDates))state.completedDayDates=[];if(!Array.isArray(state.completionRecords))state.completionRecords=[];
+/* One-time correction requested: Monday is complete; Tuesday is not. Preserve all other training records. */
+if(!state.mondayTuesdayCorrectionV1){
+ state.completedDays=state.completedDays.filter(x=>x!=='tue');
+ if(!state.completedDays.includes('mon'))state.completedDays.push('mon');
+ workoutMondayCorrection();
+ state.completionRecords=state.completionRecords.filter(x=>x.dayId!=='tue');
+ const correctionDate=new Date().toISOString().slice(0,10);
+ if(!state.completionRecords.some(x=>x.dayId==='mon'&&x.date===correctionDate))state.completionRecords.push({dayId:'mon',date:correctionDate});
+ state.mondayTuesdayCorrectionV1=true;
+}
+function workoutMondayCorrection(){
+ for(let i=0;i<7;i++){const k='mon_'+i;state.logs[k]=state.logs[k]||{};state.logs[k].done=true;}
+}
 let selected=0;
 const save=()=>{localStorage.setItem(KEY,JSON.stringify(state));renderProgress()};
 function renderProgress(){let total=workout.reduce((n,d)=>n+d.exercises.length,0),done=workout.reduce((n,d)=>n+d.exercises.reduce((m,e,i)=>{let l=state.logs[d.id+'_'+i]||{};return m+(state.completedDays.includes(d.id)||l.done?1:0)},0),0);document.getElementById('progressText').textContent=done+' of '+total+' exercises';document.getElementById('progressBar').style.width=(done/total*100)+'%'}
@@ -291,7 +304,7 @@ function render(){
  document.querySelectorAll('[data-field]').forEach(el=>el.onchange=()=>{let l=state.logs[el.dataset.key]||{};l[el.dataset.field]=el.value;state.logs[el.dataset.key]=l;save()});renderProgress();
 }
 document.getElementById('notes').onchange=e=>{state.notes[workout[selected].id]=e.target.value;save()};
-document.getElementById('completeDay').onclick=()=>{let d=workout[selected];if(!state.completedDays.includes(d.id))state.completedDays.push(d.id);const completedDate=new Date().toISOString().slice(0,10);if(!state.completedDayDates.includes(completedDate))state.completedDayDates.push(completedDate);d.exercises.forEach((e,i)=>{let k=d.id+'_'+i;state.logs[k]=state.logs[k]||{};state.logs[k].done=true});save();render()};
+document.getElementById('completeDay').onclick=()=>{let d=workout[selected];if(!state.completedDays.includes(d.id))state.completedDays.push(d.id);const completedDate=new Date().toISOString().slice(0,10);if(!state.completedDayDates.includes(completedDate))state.completedDayDates.push(completedDate);if(!state.completionRecords.some(x=>x.dayId===d.id&&x.date===completedDate))state.completionRecords.push({dayId:d.id,date:completedDate});d.exercises.forEach((e,i)=>{let k=d.id+'_'+i;state.logs[k]=state.logs[k]||{};state.logs[k].done=true});save();render();renderHistory()};
 document.getElementById('resetDay').onclick=()=>{if(confirm('Clear this day’s weights and completion marks?')){let d=workout[selected];state.completedDays=state.completedDays.filter(x=>x!==d.id);d.exercises.forEach((e,i)=>delete state.logs[d.id+'_'+i]);save();render()}};
 document.getElementById('export').onclick=()=>{let a=document.createElement('a'),u=URL.createObjectURL(new Blob([JSON.stringify(state,null,2)],{type:'application/json'}));a.href=u;a.download='john-nail-training-backup.json';a.click();URL.revokeObjectURL(u)};
 document.getElementById('importBtn').onclick=()=>document.getElementById('importFile').click();
@@ -312,7 +325,10 @@ function renderHistory(){
  const entries=Object.entries(state.logs||{}).filter(([k,v])=>v&&(v.weight||v.reps||v.done));
  const days=workout.map(d=>({day:d,items:d.exercises.map((e,i)=>({e,l:state.logs[d.id+'_'+i]||{}})).filter(x=>x.l.weight||x.l.reps||x.l.done)})).filter(x=>x.items.length||state.completedDays.includes(x.day.id));
  const weekdays=['SUN','MON','TUE','WED','THU','FRI','SAT'],monday=new Date();monday.setHours(0,0,0,0);monday.setDate(monday.getDate()-((monday.getDay()+6)%7));
- const marks=state.completedDayDates||[],week=Array.from({length:7},(_,i)=>{const d=new Date(monday);d.setDate(d.getDate()+i);return {label:weekdays[d.getDay()],key:d.toISOString().slice(0,10)}});
+ const weekStart=monday.toISOString().slice(0,10),weekEnd=new Date(monday.getTime()+6*86400000).toISOString().slice(0,10);
+ const records=(state.completionRecords||[]).filter(x=>x.date>=weekStart&&x.date<=weekEnd);
+ const marks=new Set(records.map(x=>({mon:1,tue:2,wed:3,thu:4,fri:5,sat:6}[x.dayId])).filter(Number.isInteger));
+ const week=Array.from({length:7},(_,i)=>{const d=new Date(monday);d.setDate(d.getDate()+i);return {label:weekdays[d.getDay()],dayIndex:i===0?0:i,key:d.toISOString().slice(0,10)}});
  document.getElementById('historyDashboard').innerHTML='<section class="history-hero"><div class="history-eyebrow">PERFORMANCE JOURNAL</div><h2>Training History</h2><p>Your consistency, one workout at a time.</p><div class="history-stats"><div><strong>'+state.completedDays.length+'</strong><span>WORKOUT DAYS COMPLETED</span></div><div><strong>'+entries.length+'</strong><span>EXERCISES WITH RECORDS</span></div><div><strong>'+state.weightHistory.length+'</strong><span>WEIGHT ENTRIES</span></div></div></section><section class="history-card"><div class="history-eyebrow">CONSISTENCY</div><h3>This week</h3><div class="history-week">'+week.map(x=>'<div class="history-weekday '+(marks.includes(x.key)?'done':'')+'"><i>'+(marks.includes(x.key)?'✓':'')+'</i><span>'+x.label+'</span></div>').join('')+'</div></section><section class="history-card"><div class="history-eyebrow">WORKOUT RECORDS</div><h3>Exercise history</h3>'+(days.length?days.map(x=>'<article class="history-session"><div class="history-date"><b>'+x.day.day+'</b><span>'+x.items.length+' recorded exercises</span></div><div class="history-session-items">'+x.items.map(y=>'<div><span>'+y.e.name+'</span><small>'+(y.l.weight||'')+(y.l.reps?' · '+y.l.reps+' reps':'')+(y.l.done?' · Completed':'')+'</small></div>').join('')+'</div></article>').join(''):'<p class="muted">Your exercise weights, reps and completed workouts will appear here as you record them.</p>')+'</section>';
 }
 document.getElementById('saveWeight').onclick=()=>{const lb=Number(document.getElementById('weightInput').value),date=document.getElementById('weightDateInput').value;if(!lb||lb<=0||!date){alert('Enter a valid weight and date.');return}state.weightHistory=state.weightHistory.filter(x=>x.date!==date);state.weightHistory.push({lb,date});save();renderEvolution();renderHistory()};
