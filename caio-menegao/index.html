@@ -1,0 +1,1348 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#17110d"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"><link rel="manifest" href="./manifest.webmanifest"><title>Caio Menegão — My Training</title>
+<style>
+:root{--bg:#17110d;--panel:#261d17;--panel2:#30231a;--gold:#d9b477;--gold2:#a77b45;--cream:#f3e8d9;--muted:#bba58d;--line:#57412e;--green:#9eb58a}*{box-sizing:border-box}body{margin:0;background:radial-gradient(ellipse at top,#302116 0,#17110d 48%);color:var(--cream);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;padding-bottom:40px}.wrap{max-width:760px;margin:auto}.hero{padding:30px 22px 22px;border-bottom:1px solid var(--line)}.eyebrow{letter-spacing:.28em;color:var(--gold);font-size:11px}.brand{font-family:Georgia,serif;font-size:34px;letter-spacing:.03em;margin:10px 0 3px}.sub{color:var(--muted);font-size:14px}.panel{margin:18px 16px;padding:18px;border:1px solid var(--line);border-radius:20px;background:rgba(38,29,23,.94);box-shadow:0 12px 30px #0003}.progressline{height:7px;background:#4a3829;border-radius:8px;overflow:hidden;margin-top:12px}.progressline span{display:block;height:100%;background:var(--gold);width:0}.days{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:14px}.daybtn,button{border:1px solid var(--line);border-radius:12px;padding:12px;background:#211811;color:var(--cream);font-weight:650}.daybtn.active,button.primary{background:var(--gold2);color:#17110d;border-color:var(--gold2)}button{cursor:pointer}.daybtn small{display:block;font-size:10px;font-weight:400;margin-top:4px;color:#e8d4b8}.sectionhead{font-family:Georgia,serif;font-size:27px;margin:3px 0;color:var(--cream)}.muted{color:var(--muted);font-size:13px}.exercise{border-top:1px solid var(--line);padding:15px 0}.exrow{display:flex;gap:10px;align-items:flex-start}.exname{font-weight:700;flex:1}.meta{color:var(--gold);font-size:12px;margin-top:5px}.muscle{font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:.1em}.details{background:#1c1510;border-radius:12px;padding:12px;margin-top:10px;color:#d6c5b1;font-size:13px;line-height:1.45}.details b{color:var(--gold)}.fields{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:10px}input,textarea{width:100%;border:1px solid var(--line);border-radius:10px;background:#17110d;color:var(--cream);padding:11px;font:inherit;min-width:0}label{font-size:11px;color:var(--muted);display:block;margin-bottom:5px}.check{accent-color:var(--gold);width:20px;height:20px}.actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}.actions button{flex:1}.note{min-height:78px}.toolbar{display:flex;justify-content:space-between;gap:8px;align-items:center}.toolbar button{font-size:12px}.foot{text-align:center;color:#8f7961;font-size:10px;letter-spacing:.2em;padding:22px}.warning{color:#e3c99e;background:#35291e;border:1px solid var(--line);border-radius:12px;padding:12px;font-size:12px;line-height:1.45}.hidden{display:none}@media(min-width:600px){.hero{padding-top:42px}.brand{font-size:42px}.panel{margin:22px auto;max-width:700px}}
+
+.exercise-visual{display:flex;align-items:center;gap:12px;margin:10px 0 12px;padding:10px 12px;border:1px solid #57412e;border-radius:14px;background:linear-gradient(135deg,#211811,#30231a);min-height:108px}
+.exercise-visual img{width:100%;height:190px;object-fit:cover;display:block;border-radius:10px;border:1px solid #57412e}
+.exercise-visual .visual-copy{font-size:11px;line-height:1.4;color:#bba58d;letter-spacing:.06em;text-transform:uppercase}
+.exercise-visual .visual-copy strong{display:block;color:#d9b477;font-size:12px;letter-spacing:.12em;margin-bottom:4px}
+.exercise-visual .visual-copy span{display:block;color:#d6c5b1;text-transform:none;letter-spacing:0;font-size:12px}
+@media(max-width:380px){.exercise-visual img{height:170px}.exercise-visual{gap:8px;padding:8px}}/* MY TRAINING — PREMIUM EDITORIAL SKIN */
+:root{--bg:#100c09;--panel:#1d1510;--panel2:#291d15;--gold:#e1bf82;--gold2:#b48a50;--cream:#f5eee4;--muted:#b8a28b;--line:rgba(205,164,111,.24);--green:#a9bd91}
+html{background:var(--bg);scroll-behavior:smooth}
+body{background:radial-gradient(ellipse at 50% -12%,rgba(143,94,49,.28),transparent 42%),radial-gradient(ellipse at 100% 45%,rgba(93,57,32,.12),transparent 40%),#100c09;color:var(--cream);font-family:ui-sans-serif,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;letter-spacing:.005em}
+.wrap{max-width:720px}
+.hero{padding:38px 22px 26px;border-bottom:1px solid var(--line);background:linear-gradient(180deg,rgba(39,27,18,.45),transparent);text-align:center}
+.eyebrow{font-size:9px;letter-spacing:.34em;color:#d4ad75}
+.brand{font-family:Georgia,"Times New Roman",serif;font-size:clamp(34px,8vw,46px);font-weight:500;letter-spacing:.11em;margin:13px 0 7px;color:#f2e4d1;text-shadow:0 4px 24px #0008}
+.sub{font-size:13px;letter-spacing:.04em;color:#bda78f}
+.panel{margin:16px 12px;padding:17px;border:1px solid rgba(202,160,105,.2);border-radius:20px;background:linear-gradient(145deg,rgba(43,31,22,.96),rgba(25,18,13,.98));box-shadow:0 18px 44px rgba(0,0,0,.28),inset 0 1px rgba(255,235,205,.035)}
+.toolbar b{font-size:10px;letter-spacing:.17em;color:#d6bd9b}
+.progressline{height:5px;background:#493729;border-radius:99px;margin-top:14px}
+.progressline span{background:linear-gradient(90deg,#a97943,#e6c68f);box-shadow:0 0 12px #c79a5b66;border-radius:99px}
+.days{gap:7px;margin-top:16px}
+.daybtn,button{border:1px solid rgba(205,164,111,.25);border-radius:12px;background:linear-gradient(145deg,#2a1e15,#1c140f);color:#e9ddce;box-shadow:inset 0 1px rgba(255,255,255,.035);transition:background .2s,border-color .2s,transform .2s}
+.daybtn{padding:11px 6px;font-size:12px;letter-spacing:.04em}
+.daybtn small{font-size:9px;line-height:1.35;color:#bda78f}
+.daybtn.active,button.primary{background:linear-gradient(135deg,#d7b47d,#a77b48);color:#1a120c;border-color:#d8b47c;box-shadow:0 5px 18px rgba(171,124,69,.2)}
+.daybtn.active small{color:#392515}
+button{font-size:12px}
+button:active{transform:scale(.985)}
+.sectionhead{font-family:Georgia,"Times New Roman",serif;font-weight:500;font-size:29px;letter-spacing:.015em;color:#f2e5d5}
+#dayLabel{font-size:9px;letter-spacing:.22em;color:#d6ad75}
+#dayFocus{font-size:13px;color:#bda88f;margin-top:6px}
+.exercise{border:1px solid rgba(205,164,111,.17);border-radius:17px;padding:12px;margin:16px 0;background:linear-gradient(145deg,rgba(47,34,24,.7),rgba(24,17,12,.92));box-shadow:0 9px 24px #0002}
+.exrow{gap:11px;align-items:center}
+.exname{font-size:14px;line-height:1.35;color:#f4eade}
+.meta{font-size:11px;color:#dfbd83;letter-spacing:.015em}
+.muscle{font-size:9px;letter-spacing:.16em;color:#bda68d;margin-top:5px}
+.exercise-visual{display:grid;grid-template-columns:minmax(0,1fr) 104px;align-items:center;gap:11px;margin:0 0 12px;padding:8px;border:1px solid rgba(205,164,111,.18);border-radius:13px;background:linear-gradient(130deg,rgba(14,10,8,.45),rgba(73,49,30,.25));min-height:0}
+.exercise-visual img{width:100%;height:138px;aspect-ratio:4/3;object-fit:cover;object-position:center;border-radius:9px;border:1px solid rgba(205,164,111,.2);filter:saturate(.91) contrast(1.035);display:block}
+.exercise-visual .visual-copy{font-size:9px;line-height:1.45;color:#c4ae94;letter-spacing:.045em;text-transform:uppercase;overflow-wrap:anywhere}
+.exercise-visual .visual-copy strong{display:block;color:#dfbd83;font-size:9px;line-height:1.4;letter-spacing:.13em;margin-bottom:6px}
+.exercise-visual .visual-copy span{display:block;color:#d4c2ad;text-transform:none;letter-spacing:0;font-size:10px;margin-top:3px}
+.details{background:rgba(12,9,7,.55);border:1px solid rgba(205,164,111,.1);border-radius:12px;padding:12px;margin-top:11px;color:#d7c8b7;font-size:12px;line-height:1.55}
+.details b{color:#dfbd83}
+.fields{gap:8px;margin-top:12px}
+label{font-size:9px;letter-spacing:.13em;color:#bba58d}
+input,textarea{border:1px solid rgba(205,164,111,.25);border-radius:10px;background:#120d09;color:var(--cream);padding:12px;font-size:13px}
+input:focus,textarea:focus{outline:none;border-color:#c59a62;box-shadow:0 0 0 2px rgba(197,154,98,.13)}
+.check{accent-color:#caa16b;width:19px;height:19px}
+.actions{gap:8px}
+.actions button{min-height:42px}
+.warning{background:rgba(74,52,32,.42);border-color:rgba(205,164,111,.2);color:#dfcba9}
+.foot{font-size:9px;letter-spacing:.25em;color:#92795e}
+@media(max-width:380px){.panel{margin:13px 10px;padding:14px}.exercise{padding:10px}.exercise-visual{grid-template-columns:minmax(0,1fr) 88px;gap:8px;padding:7px}.exercise-visual img{height:116px}.exercise-visual .visual-copy strong{font-size:8px}.exercise-visual .visual-copy span{font-size:9px}.sectionhead{font-size:26px}.daybtn{font-size:11px}}
+@media(min-width:600px){.hero{padding:48px 22px 30px}.panel{padding:22px}.exercise-visual{grid-template-columns:minmax(0,1fr) 125px}.exercise-visual img{height:170px}}
+
+/* MY TRAINING — CHOCOLATE & CHAMPAGNE */
+:root {
+  --bg: #100d0b;
+  --panel: #211a15;
+  --panel2: #2b221b;
+  --gold: #d8c9a8;
+  --gold2: #a99576;
+  --cream: #f1e9dc;
+  --muted: #b7aa99;
+  --line: rgba(190,169,137,.22);
+  --green: #a9b69a;
+}
+
+body {
+  background: radial-gradient(ellipse at top, #30271f, #100d0b 65%);
+  color: var(--cream);
+}
+
+.hero {
+  background: linear-gradient(180deg, #292119, transparent);
+}
+
+.panel {
+  background: linear-gradient(145deg, #30271f, #1a1511);
+  border-color: var(--line);
+  box-shadow: 0 18px 44px rgba(0,0,0,.3);
+}
+
+.daybtn, button {
+  background: linear-gradient(145deg, #302820, #211a15);
+  border-color: var(--line);
+  color: var(--cream);
+}
+
+.daybtn.active, button.primary {
+  background: linear-gradient(135deg, #d8c9a8, #a99576);
+  color: #19140f;
+  border-color: #d8c9a8;
+}
+
+.exercise {
+  background: linear-gradient(145deg, #30271f, #1b1612);
+  border-color: var(--line);
+}
+
+.meta, .details b {
+  color: #d8c9a8;
+}
+
+input, textarea {
+  background: #15110e;
+  border-color: var(--line);
+}
+
+input:focus, textarea:focus {
+  border-color: #c5b38f;
+}
+
+
+/* PREMIUM INTERACTIONS — SOFT & REFINED */
+
+.panel,
+.exercise,
+.daybtn,
+button,
+.exercise-visual img {
+  transition:
+    background .25s ease,
+    border-color .25s ease,
+    box-shadow .25s ease,
+    transform .25s ease,
+    filter .25s ease;
+}
+
+.progressline {
+  background: #40362c;
+  overflow: hidden;
+}
+
+.progressline span {
+  background: linear-gradient(
+    90deg,
+    #a99576,
+    #e3d3b5,
+    #b8a17c
+  );
+  background-size: 200% 100%;
+  animation: champagneFlow 4s ease-in-out infinite alternate;
+  transition: width .6s cubic-bezier(.22,.61,.36,1);
+}
+
+@keyframes champagneFlow {
+  from { background-position: 0% 50%; }
+  to { background-position: 100% 50%; }
+}
+
+.exercise {
+  box-shadow: 0 8px 22px rgba(0,0,0,.16);
+}
+
+.daybtn:active,
+button:active {
+  transform: scale(.97);
+}
+
+button:focus-visible,
+.daybtn:focus-visible {
+  outline: 2px solid #d8c9a8;
+  outline-offset: 3px;
+}
+
+@media (hover: hover) {
+  .exercise:hover {
+    border-color: rgba(216,201,168,.38);
+    box-shadow: 0 12px 28px rgba(0,0,0,.25);
+    transform: translateY(-2px);
+  }
+
+  .daybtn:hover,
+  button:hover {
+    border-color: #bba989;
+    filter: brightness(1.08);
+  }
+
+  .exercise-visual img:hover {
+    filter: saturate(1.04) contrast(1.04);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .panel,
+  .exercise,
+  .daybtn,
+  button,
+  .exercise-visual img,
+  .progressline span {
+    animation: none !important;
+    transition: none !important;
+  }
+}
+
+/* WEEKLY DASHBOARD — CHOCOLATE / CHAMPAGNE */
+.wrap > .panel:first-of-type{
+  position:relative;
+  overflow:hidden;
+  border-color:rgba(216,201,168,.32);
+  background:
+    radial-gradient(ellipse at 100% 0%,rgba(216,201,168,.12),transparent 43%),
+    linear-gradient(145deg,#30271f,#211a15 58%,#17120f);
+  box-shadow:0 22px 48px rgba(0,0,0,.34),inset 0 1px rgba(255,255,255,.06);
+}
+.wrap > .panel:first-of-type:before{
+  content:"WEEKLY OVERVIEW";
+  display:block;
+  margin:-2px 0 13px;
+  color:#bdae98;
+  font-size:8px;
+  letter-spacing:.28em;
+}
+.wrap > .panel:first-of-type .toolbar b{
+  font-size:10px;
+  letter-spacing:.19em;
+  color:#d8c9a8;
+}
+.wrap > .panel:first-of-type .toolbar strong{
+  font-size:clamp(16px,4.5vw,21px);
+  letter-spacing:-.035em;
+  color:#f1e9dc!important;
+  font-weight:650;
+  font-variant-numeric:tabular-nums;
+}
+.wrap > .panel:first-of-type .progressline{
+  height:6px;
+  margin-top:15px;
+  background:#17120f;
+  border:1px solid rgba(216,201,168,.16);
+}
+.wrap > .panel:first-of-type .progressline span{
+  background:linear-gradient(90deg,#8e7959,#e8d9b9 55%,#b9a681);
+  box-shadow:0 0 16px rgba(216,201,168,.34);
+}
+.wrap > .panel:first-of-type .days{
+  gap:9px;
+  margin-top:18px;
+}
+.wrap > .panel:first-of-type .daybtn{
+  position:relative;
+  min-height:91px;
+  padding:12px 6px 10px;
+  border-radius:15px;
+  border:1px solid rgba(216,201,168,.22);
+  background:linear-gradient(150deg,rgba(58,47,37,.92),rgba(27,21,17,.98));
+  box-shadow:inset 0 1px rgba(255,255,255,.055),0 8px 18px rgba(0,0,0,.18);
+  color:#eee5d8;
+  font-size:12px;
+  letter-spacing:.13em;
+}
+.wrap > .panel:first-of-type .daybtn:before{
+  display:block;
+  margin:0 auto 7px;
+  color:#d8c9a8;
+  font-size:15px;
+  line-height:1;
+  font-weight:400;
+  letter-spacing:0;
+}
+.wrap > .panel:first-of-type .daybtn:nth-child(1):before{content:"↟"}
+.wrap > .panel:first-of-type .daybtn:nth-child(2):before{content:"◇"}
+.wrap > .panel:first-of-type .daybtn:nth-child(3):before{content:"⬡"}
+.wrap > .panel:first-of-type .daybtn:nth-child(4):before{content:"⌁"}
+.wrap > .panel:first-of-type .daybtn:nth-child(5):before{content:"✧"}
+.wrap > .panel:first-of-type .daybtn:nth-child(6):before{content:"◎"}
+.wrap > .panel:first-of-type .daybtn small{
+  font-size:9px;
+  line-height:1.35;
+  letter-spacing:.045em;
+  color:#c1b19b;
+}
+.wrap > .panel:first-of-type .daybtn.active{
+  background:linear-gradient(145deg,#e4d5b7,#b9a681);
+  border-color:#eadbbd;
+  color:#211911;
+  box-shadow:0 8px 22px rgba(185,166,129,.22),inset 0 1px rgba(255,255,255,.45);
+}
+.wrap > .panel:first-of-type .daybtn.active:before{color:#493a27}
+.wrap > .panel:first-of-type .daybtn.active small{color:#493a27}
+.wrap > .panel:first-of-type .actions{margin-top:16px!important}
+.wrap > .panel:first-of-type .actions button.primary{
+  min-height:48px;
+  border-radius:13px;
+  background:linear-gradient(110deg,#e3d4b5,#b9a681);
+  border-color:#e0d0af;
+  color:#211911;
+  letter-spacing:.07em;
+  box-shadow:0 8px 22px rgba(185,166,129,.16),inset 0 1px rgba(255,255,255,.4);
+}
+@media(max-width:380px){
+  .wrap > .panel:first-of-type .daybtn{min-height:84px;padding:10px 4px 8px}
+  .wrap > .panel:first-of-type .daybtn small{font-size:8px}
+}
+/* JOHN'S PROFILE AVATAR */
+.profile-avatar{
+  display:block;
+  width:104px;
+  height:104px;
+  margin:0 auto 18px;
+  object-fit:cover;
+  object-position:center 34%;
+  border-radius:50%;
+  border:2px solid #d8c9a8;
+  padding:3px;
+  background:linear-gradient(145deg,#e8d9b9,#9e8056);
+  box-shadow:0 0 0 5px rgba(216,201,168,.08),
+    0 12px 30px rgba(0,0,0,.38),
+    0 0 24px rgba(216,201,168,.16);
+}
+@media(max-width:380px){
+  .profile-avatar{
+    width:88px;
+    height:88px;
+    margin-bottom:15px;
+  }
+}
+/* EXERCISE CARDS — PREMIUM FITNESS EDITION */
+
+#exerciseList {
+  display:grid;
+  gap:15px;
+}
+
+#exerciseList .exercise {
+  position:relative;
+  padding:15px;
+  margin:0;
+  border:1px solid rgba(t216,201,168,.28);
+  border-radius:19px;
+  background:
+    radial-gradient(ellipse at 100% 0%,rgba(216,201,168,.07),transparent 42%),
+    linear-gradient(145deg,#30271f,#211a15 65%,#17120f);
+  box-shadow:0 14px 32px rgba(0,0,0,.25),
+    inset 0 1px rgba(255,255,255,.045);
+}
+
+#exerciseList .exercise-visual {
+  grid-template-columns:minmax(0,1fr) 105px;
+  gap:12px;
+  padding:9px;
+  border-radius:15px;
+  border-color:rgba(216,201,168,.23);
+  background:linear-gradient(135deg,#382c20,#1a1511);
+}
+
+#exerciseList .exercise-visual img {
+  height:155px;
+  border-radius:11px;
+  border-color:rgba(216,201,168,.3);
+  filter:saturate(.88) contrast(1.06);
+}
+
+#exerciseList .visual-copy strong {
+  font-size:9px;
+  letter-spacing:.15em;
+  line-height:1.5;
+}
+
+#exerciseList .visual-copy span {
+  font-size:10px;
+  line-height:1.5;
+}
+
+#exerciseList .exrow {
+  align-items:center;
+  gap:13px;
+  padding:7px 2px 2px;
+}
+
+#exerciseList .check {
+  flex:0 0 22px;
+  width:22px;
+  height:22px;
+  accent-color:#d8c9a8;
+}
+
+#exerciseList .exname {
+  font-size:15px;
+  line-height:1.4;
+  letter-spacing:-.02em;
+  color:#f3eadc;
+}
+
+#exerciseList .meta {
+  margin-top:6px;
+  font-size:11px;
+  line-height:1.6;
+  color:#dfcba9;
+}
+
+#exerciseList .muscle {
+  margin-top:6px;
+  font-size:9px;
+  letter-spacing:.2em;
+  color:#bdae98;
+}
+
+#exerciseList .details {
+  margin-top:13px;
+  padding:14px;
+  border:1px solid rgba(216,201,168,.14);
+  border-radius:14px;
+  background:linear-gradient(145deg,#19130f,#120e0b);
+  color:#d4c5b2;
+  font-size:12px;
+  line-height:1.7;
+}
+
+#exerciseList .details b {
+  color:#dfcba9;
+  letter-spacing:.02em;
+}
+
+#exerciseList .fields {
+  gap:10px;
+  margin-top:14px;
+}
+
+#exerciseList .fields label {
+  font-size:8px;
+  letter-spacing:.14em;
+  line-height:1.5;
+  min-height:24px;
+  color:#bdae98;
+}
+
+#exerciseList .fields input {
+  min-height:49px;
+  padding:12px;
+  border-radius:12px;
+  border:1px solid rgba(216,201,168,.27);
+  background:linear-gradient(145deg,#17120f,#211a15);
+  color:#f3eadc;
+  font-size:14px;
+  font-weight:550;
+}
+
+#exerciseList .fields input:focus {
+  border-color:#d8c9a8;
+  box-shadow:0 0 0 3px rgba(216,201,168,.1);
+}
+
+@media(max-width:380px) {
+  #exerciseList .exercise {
+    padding:11px;
+  }
+  #exerciseList .exercise-visual {
+    grid-template-columns:minmax(0,1fr) 88px;
+    gap:8px;
+  }
+  #exerciseList .exercise-visual img {
+    height:125px;
+  }
+  #exerciseList .exname {
+    font-size:14px;
+  }
+  #exerciseList .fields {
+    gap:7px;
+  }
+  #exerciseList .fields input {
+    padding:10px 8px;
+    font-size:13px;
+  }
+}
+
+
+/* LUXURY PERFORMANCE — BACKGROUND FOUNDATION */
+html,body{min-height:100%;background-color:#100905}
+body{
+  background-image:
+    linear-gradient(180deg,rgba(12,8,5,.05) 0%,rgba(12,8,5,.22) 48%,rgba(12,8,5,.48) 100%),
+    url("../assets/luxury-gym-bg.png");
+  background-size:cover;
+  background-position:center top;
+  background-repeat:no-repeat;
+  background-attachment:fixed;
+}
+.wrap{position:relative;isolation:isolate}
+.hero{
+  background:linear-gradient(180deg,rgba(16,10,6,.20),rgba(16,10,6,.06));
+  border-bottom-color:rgba(190,145,88,.3);
+  backdrop-filter:blur(1px);
+}
+.wrap > .panel{
+  background:linear-gradient(145deg,rgba(35,25,17,.70),rgba(17,12,9,.78));
+  border-color:rgba(190,145,88,.32);
+  backdrop-filter:blur(4px);
+  box-shadow:0 18px 48px rgba(0,0,0,.35),inset 0 1px rgba(255,225,185,.045);
+}
+#exerciseList .exercise{
+  background:linear-gradient(145deg,rgba(43,31,21,.76),rgba(19,13,9,.82));
+  border-color:rgba(190,145,88,.28);
+}
+@media(max-width:700px){
+  body{background-attachment:fixed;background-position:center top}
+}
+
+/* LUXURY PERFORMANCE — NEW VISUAL IDENTITY */
+
+:root {
+  --lux-bronze: #b58a5a;
+  --lux-champagne: #e3d0ad;
+  --lux-cream: #f2e8d8;
+  --lux-dark: #100b08;
+}
+
+html, body {
+  background-color: var(--lux-dark);
+}
+
+body {
+  background-image:
+    linear-gradient(
+      180deg,
+      rgba(12,8,5,.12),
+      rgba(12,8,5,.48) 55%,
+      rgba(12,8,5,.78)
+    ),
+    url("../assets/luxury-gym-bg.png");
+  background-size: cover;
+  background-position: center top;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+}
+
+.wrap {
+  max-width: 760px;
+}
+
+.hero {
+  padding: 48px 22px 34px;
+  text-align: center;
+  background: linear-gradient(
+    180deg,
+    rgba(12,8,5,.18),
+    rgba(12,8,5,.05)
+  );
+  border-bottom: 1px solid rgba(181,138,90,.32);
+}
+
+.profile-avatar {
+  width: 112px;
+  height: 112px;
+  border: 2px solid var(--lux-champagne);
+  background: var(--lux-bronze);
+  box-shadow:
+    0 0 0 5px rgba(181,138,90,.13),
+    0 12px 35px rgba(0,0,0,.55);
+}
+
+.eyebrow {
+  color: var(--lux-bronze);
+  letter-spacing: .36em;
+}
+
+.brand {
+  color: var(--lux-cream);
+  text-shadow: 0 5px 28px rgba(0,0,0,.7);
+  letter-spacing: .13em;
+}
+
+.sub {
+  color: #d0bda5;
+}
+
+.wrap > .panel {
+  background:
+    linear-gradient(
+      145deg,
+      rgba(39,28,20,.84),
+      rgba(15,11,8,.90)
+    );
+  border: 1px solid rgba(181,138,90,.34);
+  border-radius: 22px;
+  box-shadow:
+    0 22px 55px rgba(0,0,0,.42),
+    inset 0 1px rgba(255,230,195,.07);
+  backdrop-filter: blur(8px);
+}
+
+.wrap > .panel:first-of-type .daybtn {
+  min-height: 108px;
+  border-radius: 17px;
+  background: linear-gradient(
+    145deg,
+    rgba(58,43,30,.92),
+    rgba(24,17,12,.96)
+  );
+  border: 1px solid rgba(181,138,90,.32);
+  color: var(--lux-cream);
+}
+
+.wrap > .panel:first-of-type .daybtn.active {
+  background: linear-gradient(
+    145deg,
+    #dfc9a3,
+    #a9875d
+  );
+  color: #1a120c;
+  border-color: var(--lux-champagne);
+  box-shadow: 0 10px 28px rgba(181,138,90,.25);
+}
+
+.wrap > .panel:first-of-type .daybtn:before {
+  color: var(--lux-bronze);
+}
+
+.wrap > .panel:first-of-type .daybtn.active:before {
+  color: #49331f;
+}
+
+@media(max-width:600px) {
+  .hero {
+    padding-top: 38px;
+  }
+
+  .wrap > .panel {
+    margin: 15px 12px;
+  }
+}
+
+/* LUXURY PERFORMANCE — CUSTOM DAY IMAGES */
+
+.wrap > .panel:first-of-type .daybtn:before {
+  content: "";
+  display: block;
+  width: 58px;
+  height: 58px;
+  margin: 0 auto 7px;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
+}
+
+.wrap > .panel:first-of-type .daybtn:nth-child(1):before {
+  background-image: url("../assets/01-segunda-costas-biceps.png");
+}
+
+.wrap > .panel:first-of-type .daybtn:nth-child(2):before {
+  background-image: url("../assets/02-terca-peito-ombros.png");
+}
+
+.wrap > .panel:first-of-type .daybtn:nth-child(3):before {
+  background-image: url("../assets/03-quarta-pernas.png");
+}
+
+.wrap > .panel:first-of-type .daybtn:nth-child(4):before {
+  background-image: url("../assets/04-quinta-costas-regiao-media.png");
+}
+
+.wrap > .panel:first-of-type .daybtn:nth-child(5):before {
+  background-image: url("../assets/05-sexta-superiores.png");
+}
+
+.wrap > .panel:first-of-type .daybtn:nth-child(6):before {
+  background-image: url("../assets/06-sabado-core-recuperacao.png");
+}
+
+.wrap > .panel:first-of-type .daybtn.active:before {
+  filter: brightness(1.08);
+}
+
+@media(max-width:380px) {
+  .wrap > .panel:first-of-type .daybtn:before {
+    width: 46px;
+    height: 46px;
+  }
+}
+
+.wrap > .panel:first-of-type .daybtn:before {
+  content: "";
+  display: block;
+  width: 30px;
+  height: 30px;
+  margin: 0 auto 9px;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
+  color: transparent;
+}
+
+
+}
+
+
+
+/* MY EVOLUTION */
+.weight-card{margin:16px 0;padding:20px;border:1px solid rgba(216,201,168,.3);border-radius:17px;background:linear-gradient(145deg,#3a3025,#1b1612);text-align:center}.weight-kicker,.evolution-subtitle{font-size:9px;letter-spacing:.2em;color:#d8c9a8}.weight-main{font:500 48px Georgia,serif;color:#f1e9dc;margin-top:8px;display:flex;align-items:baseline;justify-content:center;gap:7px}.weight-height{font:500 16px ui-sans-serif,-apple-system,sans-serif;color:#d8c9a8;white-space:nowrap}.weight-unit{font:16px ui-sans-serif;margin-left:6px;color:#d8c9a8}.weight-lb{font-size:12px;color:#b7aa99;margin-top:1px}.weight-date{font-size:10px;color:#a99a86;margin-top:9px}.evolution-subtitle{margin:22px 0 10px}.photo-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}.photo-slot{display:flex;flex-direction:column;gap:10px;align-items:center;justify-content:center;min-height:84px;border:1px dashed rgba(216,201,168,.4);border-radius:12px;background:#211a15;padding:10px;text-align:center;color:#d8c9a8}.photo-slot input{font-size:9px;padding:5px;border:0;background:transparent}.photo-history{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:10px}.photo-history img{width:100%;aspect-ratio:3/4;object-fit:cover;border-radius:10px;border:1px solid var(--line)}.photo-history small{display:block;color:var(--muted);font-size:9px;margin:4px 0 10px}.weight-history{display:grid;gap:7px}.weight-row{display:flex;justify-content:space-between;gap:10px;padding:10px 12px;background:#17120f;border:1px solid var(--line);border-radius:10px;font-size:12px}.weight-row small{color:var(--muted)}
+
+/* FUTURE PERFORMANCE — AMBER LIGHT / GLASS / DEPTH */
+:root{
+  --fire:#d9874e;
+  --fire-soft:#bd7548;
+  --fire-glow:rgba(217,135,78,.22);
+  --champagne:#e5d2ae;
+}
+body{
+  background-image:
+    radial-gradient(ellipse at 12% 8%,rgba(196,105,52,.13),transparent 28%),
+    radial-gradient(ellipse at 92% 32%,rgba(224,174,111,.10),transparent 30%),
+    linear-gradient(180deg,rgba(10,7,5,.08),rgba(10,7,5,.48)),
+    url("../assets/luxury-gym-bg.png");
+  background-size:cover;
+  background-position:center top;
+  background-attachment:fixed;
+}
+.hero{
+  position:relative;
+  border-bottom:1px solid rgba(217,135,78,.26);
+  background:linear-gradient(115deg,rgba(31,20,14,.52),rgba(75,43,26,.19),rgba(17,12,9,.38));
+  box-shadow:0 12px 40px rgba(0,0,0,.18);
+}
+.hero:after{
+  content:"";
+  display:block;
+  width:74px;height:2px;margin:19px auto 0;
+  background:linear-gradient(90deg,transparent,var(--fire),var(--champagne),transparent);
+  box-shadow:0 0 16px var(--fire-glow);
+}
+.panel,.history-card,.history-hero{
+  position:relative;
+  overflow:hidden;
+  border:1px solid rgba(220,174,119,.23);
+  background:
+    radial-gradient(ellipse at 100% 0%,rgba(224,151,91,.12),transparent 38%),
+    linear-gradient(145deg,rgba(53,36,25,.91),rgba(19,14,11,.96) 72%);
+  box-shadow:0 20px 48px rgba(0,0,0,.34),inset 0 1px rgba(255,238,214,.09);
+  backdrop-filter:blur(14px);
+}
+.panel:before,.history-card:before{
+  content:"";position:absolute;inset:0;pointer-events:none;border-radius:inherit;
+  background:linear-gradient(125deg,rgba(255,235,205,.055),transparent 30%,transparent 72%,rgba(217,135,78,.045));
+}
+.daybtn,button{
+  position:relative;
+  border:1px solid rgba(216,169,119,.28);
+  background:linear-gradient(145deg,rgba(62,42,29,.94),rgba(23,16,12,.98));
+  box-shadow:inset 0 1px rgba(255,245,226,.09),0 7px 18px rgba(0,0,0,.24);
+}
+.daybtn:before{
+  color:#d98b57!important;
+  text-shadow:0 0 10px rgba(217,135,78,.42),0 0 22px rgba(217,135,78,.18);
+}
+.daybtn.active,button.primary{
+  background:linear-gradient(125deg,#ead8b8 0%,#d4ad7b 54%,#bd8052 100%);
+  border-color:rgba(255,224,181,.72);
+  box-shadow:0 0 0 1px rgba(255,225,184,.13),0 8px 25px rgba(201,124,69,.25),inset 0 1px rgba(255,255,255,.55);
+}
+#exerciseList .exercise,.exercise{
+  border-color:rgba(218,157,104,.23);
+  background:
+    radial-gradient(ellipse at 100% 0%,rgba(216,132,77,.11),transparent 42%),
+    linear-gradient(145deg,rgba(58,40,28,.92),rgba(20,15,12,.97) 70%);
+  box-shadow:0 15px 34px rgba(0,0,0,.29),inset 0 1px rgba(255,238,216,.065);
+}
+.exercise-visual{
+  border-color:rgba(221,164,112,.25);
+  background:linear-gradient(135deg,rgba(94,57,35,.36),rgba(15,11,9,.72));
+  box-shadow:inset 0 1px rgba(255,240,218,.06);
+}
+.exercise-visual img{
+  box-shadow:0 6px 20px rgba(0,0,0,.32);
+}
+.exname,.sectionhead{ text-shadow:0 2px 18px rgba(226,164,111,.08); }
+.meta,.details b,.history-kicker{color:#e0a06c!important}
+.progressline{
+  height:7px;
+  background:rgba(10,8,6,.78);
+  border:1px solid rgba(221,164,112,.16);
+  box-shadow:inset 0 2px 5px rgba(0,0,0,.5);
+}
+.progressline span{
+  background:linear-gradient(90deg,#9d603b,#d9874e 48%,#efd7aa);
+  box-shadow:0 0 9px rgba(217,135,78,.42),0 0 20px rgba(217,135,78,.22);
+}
+input,textarea{
+  border-color:rgba(218,160,108,.29);
+  background:linear-gradient(145deg,rgba(17,12,9,.98),rgba(37,25,18,.96));
+  box-shadow:inset 0 2px 8px rgba(0,0,0,.25);
+}
+input:focus,textarea:focus{
+  border-color:rgba(228,157,103,.8);
+  box-shadow:0 0 0 3px rgba(217,135,78,.13),0 0 18px rgba(217,135,78,.1);
+}
+.app-nav{
+  background:linear-gradient(180deg,rgba(31,22,16,.94),rgba(12,9,7,.98));
+  border-top:1px solid rgba(224,164,110,.32);
+  box-shadow:0 -12px 34px rgba(0,0,0,.32);
+}
+.app-nav button{
+  display:flex;flex-direction:column;align-items:center;justify-content:center;gap:5px;
+  min-height:53px;
+  border:1px solid rgba(224,164,110,.2);
+  background:linear-gradient(145deg,rgba(63,43,30,.92),rgba(22,16,12,.98));
+  color:#c7b49c;
+  box-shadow:inset 0 1px rgba(255,241,220,.07),0 5px 15px rgba(0,0,0,.2);
+}
+.app-nav button svg{
+  display:block;width:20px;height:20px;overflow:visible;
+  fill:none;stroke:currentColor;stroke-width:1.65;stroke-linecap:round;stroke-linejoin:round;
+  filter:drop-shadow(0 0 4px rgba(217,135,78,.26));
+}
+.app-nav button span{font-size:9px;letter-spacing:.16em}
+.app-nav button[aria-current="page"]{
+  color:#21150e;
+  background:linear-gradient(145deg,#f0dfc0,#d5aa79 60%,#bb794e);
+  border-color:#f0d4ad;
+  box-shadow:0 0 0 1px rgba(255,227,190,.16),0 0 19px rgba(217,135,78,.25),inset 0 1px rgba(255,255,255,.55);
+}
+.app-nav button[aria-current="page"] svg{filter:drop-shadow(0 0 4px rgba(255,255,255,.35))}
+.history-hero{
+  margin:16px 12px;padding:22px;border-radius:22px;
+  background:radial-gradient(ellipse at 90% 0%,rgba(217,135,78,.2),transparent 44%),linear-gradient(145deg,#38271b,#17110d 78%);
+}
+.history-card{
+  margin:14px 12px;padding:18px;border-radius:19px;
+}
+.history-stats>div,.history-record,.history-session,.history-weekday{
+  border-color:rgba(220,164,111,.2)!important;
+}
+.history-stats strong,.history-count,.history-record strong{
+  color:#edc99c!important;
+  text-shadow:0 0 16px rgba(217,135,78,.16);
+}
+.history-weekday.done i{
+  background:linear-gradient(145deg,#edc99c,#c47b4e)!important;
+  color:#21150e!important;
+  box-shadow:0 0 14px rgba(217,135,78,.25);
+}
+.rest-timer{
+  border:1px solid rgba(217,135,78,.24);
+  background:radial-gradient(ellipse at 100% 0%,rgba(217,135,78,.12),transparent 50%),rgba(15,11,8,.72);
+  box-shadow:inset 0 1px rgba(255,238,216,.06),0 9px 22px rgba(0,0,0,.2);
+}
+.rest-count{color:#edbd91!important;text-shadow:0 0 14px rgba(217,135,78,.24)}
+@media(hover:hover){
+  .panel:hover,.history-card:hover{border-color:rgba(231,174,120,.38);box-shadow:0 24px 55px rgba(0,0,0,.38),0 0 24px rgba(217,135,78,.06),inset 0 1px rgba(255,238,216,.1)}
+  .daybtn:hover,button:hover{transform:translateY(-1px);box-shadow:0 10px 23px rgba(0,0,0,.3),0 0 16px rgba(217,135,78,.11)}
+}
+@media(prefers-reduced-motion:no-preference){
+  .app-nav button svg{transition:filter .25s ease,transform .25s ease}
+  .app-nav button[aria-current="page"] svg{transform:translateY(-1px)}
+}
+
+</style><style>
+.rest-timer{margin-top:13px;padding:13px;border:1px solid rgba(216,201,168,.28);border-radius:14px;background:radial-gradient(ellipse at 100% 0%,rgba(216,201,168,.10),transparent 55%),linear-gradient(145deg,#211a15,#120e0b)}
+.rest-top{display:flex;align-items:center;justify-content:space-between;gap:8px}
+.rest-top span{font-size:9px;letter-spacing:.2em;color:#bdae98}
+.rest-count{font:600 29px ui-sans-serif,sans-serif;letter-spacing:.04em;color:#e3d2b2;font-variant-numeric:tabular-nums}
+.rest-actions{display:grid;grid-template-columns:1fr 1fr 1.35fr;gap:7px;margin-top:9px}
+.rest-actions button{min-height:42px;padding:9px 6px;font-size:10px;letter-spacing:.04em}
+.rest-actions .rest-play{background:linear-gradient(135deg,#d8c9a8,#a99576);color:#19140f;border-color:#d8c9a8}
+.rest-actions .rest-next{border-color:rgba(216,201,168,.4);color:#e3d2b2}
+.rest-status{margin-top:8px;color:#a99576;font-size:10px;letter-spacing:.04em}
+.rest-timer.finished{border-color:#d8c9a8;box-shadow:0 0 18px rgba(216,201,168,.16)}
+@media(max-width:360px){.rest-actions{grid-template-columns:1fr 1fr}.rest-actions .rest-next{grid-column:1/-1}}
+</style><style>
+.set-entry{margin-top:14px;padding:13px;border:1px solid rgba(216,201,168,.22);border-radius:14px;background:linear-gradient(145deg,rgba(20,15,11,.8),rgba(40,31,23,.72))}
+.set-entry-title{font-size:9px;letter-spacing:.2em;color:#d8c9a8;margin-bottom:8px}
+.set-row{padding:10px 0;border-top:1px solid rgba(216,201,168,.12)}
+.set-row>strong{font-size:9px;letter-spacing:.14em;color:#d8c9a8}
+.set-row .fields{margin-top:8px}
+.set-row .fields label{min-height:16px}
+.set-row .fields input{min-height:43px}
+.set-history{font-size:11px;line-height:1.8}
+
+/* EXERCISE SEPARATION — ALTERNATING CHOCOLATE TONES */
+#exerciseList .exercise:nth-child(odd) {
+  background:
+    radial-gradient(ellipse at 100% 0%, rgba(216,201,168,.095), transparent 46%),
+    linear-gradient(145deg, rgba(66,51,38,.92), rgba(35,27,21,.96) 68%, rgba(25,19,15,.98));
+  border-color: rgba(216,201,168,.34);
+}
+#exerciseList .exercise:nth-child(even) {
+  background:
+    radial-gradient(ellipse at 0% 0%, rgba(190,145,88,.055), transparent 48%),
+    linear-gradient(145deg, rgba(43,34,27,.96), rgba(24,19,15,.98) 72%, rgba(17,13,10,.99));
+  border-color: rgba(190,169,137,.23);
+}
+#exerciseList .exercise:nth-child(odd) .exercise-visual {
+  background: linear-gradient(135deg, rgba(77,59,43,.78), rgba(27,21,16,.88));
+}
+#exerciseList .exercise:nth-child(even) .exercise-visual {
+  background: linear-gradient(135deg, rgba(47,37,29,.88), rgba(19,15,12,.94));
+}
+#exerciseList .exercise:nth-child(odd) .set-row {
+  background: rgba(216,201,168,.035);
+}
+#exerciseList .exercise:nth-child(even) .set-row {
+  background: rgba(0,0,0,.12);
+}
+
+/* PREMIUM GYM BACKGROUND — iOS / INSTALLED APP SAFE */
+html,body{min-height:100%;background:#100b08}
+body{
+ position:relative;
+ isolation:isolate;
+ background:transparent!important;
+ min-height:100vh;
+}
+body::before{
+ content:"";
+ position:fixed;
+ inset:0;
+ z-index:-1;
+ pointer-events:none;
+ background-color:#100b08;
+ background-image:linear-gradient(rgba(12,8,5,.18),rgba(12,8,5,.58)),url('../assets/luxury-gym-bg.png');
+ background-size:cover;
+ background-position:center top;
+ background-repeat:no-repeat;
+}
+#app, main, .app-shell, .container, .wrap{
+ background-color:transparent;
+}
+</style>
+<style>
+/* WARM BRONZE UI — MY PROGRESS */
+#myProgressPanel{position:relative;isolation:isolate;overflow:hidden;background:radial-gradient(ellipse at 92% 4%,rgba(190,145,88,.17),transparent 35%),radial-gradient(ellipse at 8% 38%,rgba(145,93,48,.13),transparent 38%),linear-gradient(145deg,#211a15 0%,#19130f 52%,#100c09 100%);border-color:rgba(216,185,135,.32);box-shadow:0 18px 50px #0009,inset 0 1px rgba(255,255,255,.08)}
+#myProgressPanel:before{content:"";position:absolute;z-index:-1;width:178px;height:178px;right:-62px;top:30px;border-radius:50%;border:1px solid rgba(224,190,137,.42);background:radial-gradient(circle at 35% 32%,rgba(232,204,157,.23),rgba(163,112,59,.10) 35%,rgba(37,27,19,.02) 68%,transparent 72%);box-shadow:inset 0 0 34px rgba(215,177,119,.12),0 0 34px rgba(183,130,70,.12);opacity:.9}
+#myProgressPanel:after{content:"";position:absolute;z-index:-1;right:-88px;top:76px;width:226px;height:92px;border:1px solid rgba(224,190,137,.5);border-radius:50%;transform:rotate(-24deg);box-shadow:0 0 16px rgba(196,150,91,.16);pointer-events:none}
+#myProgressPanel .sectionhead{background:linear-gradient(90deg,#f4eadc 0%,#e3c99e 55%,#c18e50 100%);background-clip:text;-webkit-background-clip:text;color:transparent;text-shadow:0 0 20px rgba(211,170,112,.18)}
+#myProgressPanel .mp-stat,#myProgressPanel .mp-record,#mpCalendarBox .cal-stat,#mpCalendarBox .mp-month-goal{background:linear-gradient(145deg,rgba(58,44,31,.88),rgba(27,20,15,.96));border:1px solid rgba(216,185,135,.25);box-shadow:inset 0 1px rgba(255,255,255,.07),0 8px 24px #0005}
+#myProgressPanel .mp-number,#myProgressPanel .mp-value{color:#e7c99b;text-shadow:0 0 14px rgba(205,158,94,.24)}
+#myProgressPanel .mp-heading{color:#d9bd91;text-shadow:0 0 12px rgba(190,145,88,.18)}
+#myProgressPanel .mp-item{border-color:rgba(216,185,135,.18)}
+#mpCalendarBox .cal-day{border:1px solid rgba(216,185,135,.18);background:linear-gradient(145deg,#30251b,#19130f);box-shadow:inset 0 1px #ffffff08}
+#mpCalendarBox .cal-day.trained{background:radial-gradient(circle at 30% 20%,#fff1c9,#dba85e 28%,#77502c 75%);color:#17110b;border-color:#ffe0a0;box-shadow:0 0 13px #d7a75d55,inset 0 1px #fff8}
+#mpCalendarBox .cal-day.today{outline:2px solid #d8b477;outline-offset:2px;box-shadow:0 0 18px rgba(216,180,119,.28)}
+#mpCalendarBox .mp-month-goal-track{background:#211811;box-shadow:inset 0 0 10px #0008}
+#mpCalendarBox .mp-month-goal-track span{background:linear-gradient(90deg,#8d6339,#d8b477,#f0d9ad);box-shadow:0 0 14px rgba(216,180,119,.28)}
+#myProgressPanel button{border-color:rgba(216,185,135,.3);background:linear-gradient(145deg,#382b20,#211811);color:#f1e5d3;box-shadow:0 0 12px rgba(190,145,88,.08)}
+#myProgressPanel button.primary,#myProgressPanel #saveWeight{background:linear-gradient(135deg,#e3c99e,#a77b48);color:#1a120c;border-color:#d8b477;box-shadow:0 5px 18px rgba(171,124,69,.2)}
+</style>
+
+<style>
+/* MY PROGRESS — soft abstract bronze/champagne visual */
+#myProgressPanel:before{content:"";position:absolute;z-index:-1;right:-38px;top:-42px;width:min(112%,560px);height:260px;border:0;border-radius:0;background:url("../assets/evolution-abstract.svg") center/cover no-repeat;filter:blur(5px);opacity:.27;box-shadow:none;pointer-events:none}
+#myProgressPanel:after{content:none;display:none}
+#myProgressPanel{background:linear-gradient(145deg,rgba(33,26,21,.88),rgba(16,12,9,.94))}
+#myProgressPanel .weight-card{position:relative;z-index:1}
+</style>
+
+<style>
+/* MY PROGRESS — bronze side-profile flex pose; no planet or orbital shapes */
+#myProgressPanel:before{content:"";position:absolute;z-index:0;pointer-events:none;right:-8px;top:0;width:min(66%,360px);height:310px;border:0;border-radius:0;background:url("../assets/evolution-figure.svg") right top/contain no-repeat;filter:blur(1.4px);opacity:.31;box-shadow:none;}
+#myProgressPanel:after{content:none!important;display:none!important}
+#myProgressPanel>*{position:relative;z-index:1}
+#myProgressPanel .weight-card{position:relative;z-index:1}
+@media(max-width:430px){#myProgressPanel:before{right:-14px;top:5px;width:68%;height:255px;opacity:.25;filter:blur(1.7px)}}
+</style>
+
+<style>
+/* MY PROGRESS — photorealistic bronze fitness portrait */
+#myProgressPanel:before{content:"";position:absolute;z-index:0;pointer-events:none;right:-18px;top:-5px;width:min(74%,430px);height:370px;border:0;border-radius:0;background:linear-gradient(90deg,rgba(25,18,13,.92) 0%,rgba(25,18,13,.24) 48%,rgba(25,18,13,.05) 100%),url("../assets/evolution-portrait.webp") right top/cover no-repeat;filter:blur(1.2px);opacity:.36;box-shadow:none}
+#myProgressPanel:after{content:none!important;display:none!important}
+#myProgressPanel>*{position:relative;z-index:1}
+#myProgressPanel .weight-card{position:relative;z-index:1}
+@media(max-width:430px){#myProgressPanel:before{right:-22px;top:0;width:76%;height:290px;opacity:.29;filter:blur(1.5px)}}
+</style>
+<style>
+/* FUTURISTIC APP CHROME — restrained, premium, usable */
+.app-nav{
+  padding:11px 14px calc(11px + env(safe-area-inset-bottom));
+  gap:10px;
+  background:linear-gradient(180deg,rgba(25,19,15,.88),rgba(10,8,7,.97));
+  border-top:1px solid rgba(220,195,155,.24);
+  box-shadow:0 -12px 34px rgba(0,0,0,.34),inset 0 1px rgba(255,255,255,.035);
+  backdrop-filter:blur(24px) saturate(135%);
+  -webkit-backdrop-filter:blur(24px) saturate(135%);
+}
+.app-nav button{
+  min-height:58px;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  gap:5px;
+  border:1px solid rgba(220,195,155,.12);
+  border-radius:15px;
+  padding:7px 4px 8px;
+  background:linear-gradient(145deg,rgba(58,43,30,.55),rgba(22,16,12,.78));
+  color:#aa9a83;
+  font-size:8px;
+  font-weight:650;
+  letter-spacing:.16em;
+  box-shadow:inset 0 1px rgba(255,255,255,.045);
+}
+.app-nav button svg{width:19px;height:19px;display:block;fill:none;stroke:currentColor;stroke-width:1.55;stroke-linecap:round;stroke-linejoin:round;opacity:.92}
+.app-nav button[aria-current="page"]{
+  color:#f0dfc1;
+  background:linear-gradient(145deg,rgba(180,139,88,.32),rgba(72,52,33,.58));
+  border-color:rgba(225,197,151,.52);
+  box-shadow:0 0 0 1px rgba(225,197,151,.07),0 0 24px rgba(188,143,85,.13),inset 0 1px rgba(255,255,255,.12);
+}
+.app-nav button[aria-current="page"] svg{color:#e5c99a;filter:drop-shadow(0 0 5px rgba(221,184,125,.35))}
+.app-nav button:active{transform:scale(.97)}
+/* Day selector: replace decorative glyphs with restrained training pictograms */
+.wrap > .panel:first-of-type .daybtn:before{
+  content:"";
+  display:block;
+  width:23px;height:23px;
+  margin:0 auto 8px;
+  border-radius:8px;
+  background-color:rgba(225,201,160,.92);
+  -webkit-mask-repeat:no-repeat;mask-repeat:no-repeat;
+  -webkit-mask-position:center;mask-position:center;
+  -webkit-mask-size:contain;mask-size:contain;
+}
+.wrap > .panel:first-of-type .daybtn:nth-child(1):before,
+.wrap > .panel:first-of-type .daybtn:nth-child(4):before{
+  -webkit-mask-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M3 9v6m3-9v12m12-12v12m3-9v6M6 12h12'/%3E%3C/svg%3E");
+  mask-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M3 9v6m3-9v12m12-12v12m3-9v6M6 12h12'/%3E%3C/svg%3E");
+}
+.wrap > .panel:first-of-type .daybtn:nth-child(2):before,
+.wrap > .panel:first-of-type .daybtn:nth-child(5):before{
+  -webkit-mask-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M4 7h16M6 7v10m12-10v10M6 12h12M9 17h6'/%3E%3C/svg%3E");
+  mask-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M4 7h16M6 7v10m12-10v10M6 12h12M9 17h6'/%3E%3C/svg%3E");
+}
+.wrap > .panel:first-of-type .daybtn:nth-child(3):before{
+  -webkit-mask-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M7 3l-3 7 4 2-1 9m10-18 3 7-4 2 1 9M8 12h8'/%3E%3C/svg%3E");
+  mask-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M7 3l-3 7 4 2-1 9m10-18 3 7-4 2 1 9M8 12h8'/%3E%3C/svg%3E");
+}
+.wrap > .panel:first-of-type .daybtn:nth-child(6):before{
+  -webkit-mask-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M12 3v3m0 12v3M3 12h3m12 0h3M5.6 5.6l2.1 2.1m8.6 8.6 2.1 2.1m0-12.8-2.1 2.1m-8.6 8.6-2.1 2.1'/%3E%3Ccircle cx='12' cy='12' r='4'/%3E%3C/svg%3E");
+  mask-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M12 3v3m0 12v3M3 12h3m12 0h3M5.6 5.6l2.1 2.1m8.6 8.6 2.1 2.1m0-12.8-2.1 2.1m-8.6 8.6-2.1 2.1'/%3E%3Ccircle cx='12' cy='12' r='4'/%3E%3C/svg%3E");
+}
+.wrap > .panel:first-of-type .daybtn.active:before{background-color:#4a3825}
+@media(min-width:700px){.app-nav{border-radius:20px 20px 0 0}}
+</style>
+
+<style>
+/* HISTORY — premium training performance dashboard */
+#page-history{padding:18px 0 34px}
+.history-hero,.history-card{margin:0 12px 14px;border:1px solid rgba(216,190,145,.2);border-radius:20px;background:linear-gradient(145deg,rgba(47,35,25,.97),rgba(20,15,11,.98));box-shadow:0 16px 38px rgba(0,0,0,.24),inset 0 1px rgba(255,255,255,.045)}
+.history-hero{padding:22px 18px;background:radial-gradient(ellipse at 100% 0,rgba(197,151,91,.2),transparent 48%),linear-gradient(145deg,#34271d,#17110d)}
+.history-eyebrow,.history-kicker{font-size:9px;letter-spacing:.22em;color:#d5b47f}
+.history-hero h2{font:500 29px Georgia,serif;color:#f1e5d4;margin:9px 0 5px}
+.history-hero p{font-size:12px;color:#b9a68e;margin:0}
+.history-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:22px}
+.history-stats>div{padding:12px 8px;border:1px solid rgba(216,190,145,.16);border-radius:13px;background:rgba(10,8,6,.28)}
+.history-stats strong{display:block;color:#e4c99e;font:500 25px Georgia,serif}
+.history-stats span{display:block;margin-top:5px;color:#b9a68e;font-size:8px;line-height:1.35;letter-spacing:.11em}
+.history-card{padding:17px}
+.history-card-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:15px}
+.history-card h3{font:500 21px Georgia,serif;color:#f0e3d1;margin:5px 0 0}
+.history-count{color:#e5c99a;font:500 20px Georgia,serif}
+.history-week{display:grid;grid-template-columns:repeat(7,1fr);gap:6px}
+.history-weekday{text-align:center;color:#a99780;font-size:8px;letter-spacing:.08em}
+.history-weekday i{display:grid;place-items:center;width:30px;height:30px;margin:0 auto 7px;border-radius:50%;border:1px solid rgba(216,190,145,.2);background:#19120e;color:#e5c99a;font-style:normal;font-size:12px}
+.history-weekday.done i{background:linear-gradient(145deg,#e3c99e,#9f7548);color:#1a120c;border-color:#e3c99e;box-shadow:0 0 15px rgba(207,166,107,.2)}
+.history-session{padding:13px 0;border-top:1px solid rgba(216,190,145,.13)}
+.history-date b{display:block;color:#ead9bf;font-size:13px;font-weight:600}
+.history-date span,.history-session-items small{display:block;color:#a99780;font-size:10px;margin-top:4px}
+.history-session-items{margin-top:10px;display:grid;gap:7px}
+.history-session-items>div{display:flex;justify-content:space-between;gap:10px;align-items:center;font-size:11px;color:#d9c8b1}
+.history-session-items small{margin:0;white-space:nowrap}
+.history-record{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:12px 0;border-top:1px solid rgba(216,190,145,.13)}
+.history-record b{display:block;font-size:11px;color:#e7d7c1}
+.history-record small{display:block;font-size:9px;color:#a99780;margin-top:4px}
+.history-record strong{color:#e5c99a;font-size:17px;white-space:nowrap}
+.history-record strong small{display:inline;color:#b9a68e;font-size:9px}
+.history-empty{padding:14px;border:1px dashed rgba(216,190,145,.2);border-radius:13px;color:#b9a68e;font-size:11px;line-height:1.55}
+.history-empty span{font-size:9px;letter-spacing:.16em;color:#d5b47f}
+.history-empty p{margin:6px 0 0}
+#page-history .panel{margin:14px 12px}
+#page-history .warning{font-size:10px}
+@media(min-width:600px){.history-hero,.history-card{margin-left:auto;margin-right:auto;max-width:696px}}
+</style>
+</head><body><main class="wrap"><header class="hero"><img class="profile-avatar" src="./caio-menegao-profile.jpg" alt="Caio Menegão profile photo"><div class="eyebrow">PERSONAL TRAINING JOURNAL</div><div class="brand">MY TRAINING</div><div class="sub">Training, consistency and progress — one day at a time.</div></header>
+<section class="panel"><div class="toolbar"><b>WORKOUT DAYS COMPLETED</b><strong id="progressText" style="color:var(--gold)">0 of 6 days</strong></div><div class="progressline"><span id="progressBar"></span></div><nav class="days" id="days"></nav><div class="actions" style="margin-top:12px"><button type="button" class="primary" onclick="document.getElementById('myProgressPanel').scrollIntoView({behavior:'smooth'})">VIEW MY PROGRESS</button></div></section>
+<section class="panel"><div class="muted" id="dayLabel">MONDAY</div><h1 class="sectionhead" id="dayTitle">Back & Biceps</h1><p class="muted" id="dayFocus"></p><div id="exerciseList"></div><label for="notes" style="margin-top:18px">WORKOUT NOTES</label><textarea id="notes" class="note" placeholder="Energy, notes, progress..."></textarea><div class="actions"><button class="primary" id="completeDay">MARK DAY AS COMPLETE</button><button id="resetDay">RESET THIS DAY</button></div></section>
+<section class="panel" id="myProgressPanel">
+<h2 class="sectionhead">My Progress</h2>
+<p class="muted">Track your body weight and save progress photos to compare your progress over time.</p>
+<div class="weight-card">
+ <div class="weight-kicker">CURRENT WEIGHT · STARTING POINT</div>
+ <div class="weight-main"><span id="currentWeight">—</span><span class="weight-unit">kg</span><span class="weight-height"></span></div>
+ <div class="weight-lb" id="currentWeightLb">No weight recorded yet</div>
+ <div class="weight-date" id="weightDate">Initial entry</div>
+</div>
+<div class="evolution-subtitle">UPDATE WEIGHT</div>
+<div class="fields">
+ <div><label for="weightInput">WEIGHT (KG)</label><input id="weightInput" type="number" min="1" max="400" step="0.1" value="" inputmode="decimal"></div>
+ <div><label for="weightDateInput">DATE</label><input id="weightDateInput" type="date"></div>
+</div>
+<div class="actions"><button type="button" class="primary" id="saveWeight">SAVE WEIGHT</button></div>
+<div class="evolution-subtitle">PROGRESS PHOTOS</div>
+<p class="muted">Add front, side and back photos. Your images are saved in this browser.</p>
+<div class="photo-grid">
+ <label class="photo-slot">FRONT<input type="file" accept="image/*" data-photo="Frente"></label>
+ <label class="photo-slot">SIDE<input type="file" accept="image/*" data-photo="Lado"></label>
+ <label class="photo-slot">BACK<input type="file" accept="image/*" data-photo="Costas"></label>
+</div>
+<div id="photoHistory" class="photo-history"></div>
+<div class="evolution-subtitle">WEIGHT HISTORY</div>
+<div id="weightHistory" class="weight-history"></div>
+</section>
+<section class="panel"><h2 class="sectionhead" style="font-size:22px">Your History</h2><p class="muted">Your records are stored in this browser on this device.</p><div class="actions"><button id="export">EXPORT BACKUP</button><button id="importBtn">IMPORT BACKUP</button><input id="importFile" type="file" accept="application/json" class="hidden"></div><div class="warning" style="margin-top:12px">Important: clearing Safari data, changing devices, or removing website data may erase local records. Export backups regularly and keep an up-to-date copy.</div></section><footer class="foot">DISCIPLINE · PROGRESSION · CONSISTENCY</footer></main>
+<script>const WORKOUTS = [{"id":"segunda","day":"Monday","name":"Back & Biceps","focus":"Width, thickness and biceps","exercises":[{"name":"Lat Pulldown","sets":"4","reps":"8–12","rest":"90 sec","muscle":"Back","how":"Pull the bar toward your upper chest, keeping your torso steady and your elbows pointing down.","avoid":"Do not swing your body or pull behind your neck."},{"name":"Bent-Over Barbell Row","sets":"4","reps":"8–10","rest":"120 sec","muscle":"Back","how":"Hinge forward with a neutral spine and pull the bar toward your abdomen.","avoid":"Avoid rounding your lower back or using momentum."},{"name":"Single-Arm Dumbbell Row","sets":"3","reps":"10–12","rest":"90 sec","muscle":"Back","how":"Support yourself with one hand, keep your torso steady and drive your elbow toward your hip.","avoid":"Do not rotate your torso to lift more weight."},{"name":"Cable Pullover","sets":"3","reps":"12–15","rest":"60 sec","muscle":"Back","how":"With your arms slightly bent, bring the bar down in a controlled arc.","avoid":"Do not turn the movement into a triceps extension."},{"name":"EZ-Bar Curl","sets":"3","reps":"8–12","rest":"90 sec","muscle":"Biceps","how":"Bend your elbows while keeping them close to your torso.","avoid":"Avoid swinging your hips."},{"name":"Incline Dumbbell Curl","sets":"3","reps":"10–12","rest":"60 sec","muscle":"Biceps","how":"Keep your arms slightly behind your torso and curl without moving your shoulders.","avoid":"Use a comfortable range of motion; do not force the joint."},{"name":"Hammer Curl","sets":"3","reps":"10–12","rest":"60 sec","muscle":"Biceps","how":"Keep your palms facing each other and bend your elbows.","avoid":"Avoid swinging the dumbbells."}]},{"id":"terca","day":"Tuesday","name":"Chest & Shoulders","focus":"Chest and deltoid development","exercises":[{"name":"Smith Machine Incline Bench Press","sets":"4","reps":"8–10","rest":"120 sec","muscle":"Chest","how":"Set the bench to a moderate incline and lower the bar under control to your upper chest.","avoid":"Do not use an excessive incline or overarch your lower back."},{"name":"Flat Dumbbell Bench Press","sets":"3","reps":"8–12","rest":"120 sec","muscle":"Chest","how":"Lower the dumbbells beside your chest and press while keeping your wrists aligned.","avoid":"Do not let the dumbbells collide at the top."},{"name":"Cable Fly","sets":"3","reps":"12–15","rest":"60 sec","muscle":"Chest","how":"Bring your hands together in front of your chest with a soft bend in your elbows.","avoid":"Do not use a load that strains your shoulders."},{"name":"Dumbbell Shoulder Press","sets":"3","reps":"8–10","rest":"120 sec","muscle":"Shoulders","how":"Press the dumbbells overhead while keeping your torso controlled.","avoid":"Do not force a painful range of motion."},{"name":"Lateral Raise","sets":"4","reps":"12–15","rest":"60 sec","muscle":"Shoulders","how":"Raise your arms out to the sides to approximately shoulder height.","avoid":"Avoid momentum and shrugging your shoulders."},{"name":"Reverse Pec Deck","sets":"3","reps":"12–15","rest":"60 sec","muscle":"Rear Delts","how":"Open your arms under control, leading with your elbows.","avoid":"Do not push your head forward."}]},{"id":"quarta","day":"Wednesday","name":"Legs","focus":"Quadriceps, hamstrings, glutes and calves","exercises":[{"name":"Leg Press","sets":"3","reps":"10–12","rest":"120 sec","muscle":"Quads / Glutes","how":"Lower until your pelvis stays stable, then press through your entire foot.","avoid":"Do not lock your knees or let your lower back round."},{"name":"Leg Extension","sets":"3","reps":"12–15","rest":"60 sec","muscle":"Quadriceps","how":"Straighten your knees under control and briefly pause at the top.","avoid":"Avoid kicking the weight or letting it drop."},{"name":"Hack Squat","sets":"3","reps":"8–12","rest":"120 sec","muscle":"Quadriceps","how":"Lower with control, keeping your back against the pad and knees tracking over your feet.","avoid":"Do not force a depth that causes discomfort."},{"name":"Lying Leg Curl","sets":"3","reps":"10–12","rest":"90 sec","muscle":"Hamstrings","how":"Bend your knees without lifting your hips from the pad.","avoid":"Avoid jerky movements."},{"name":"Barbell or Dumbbell Romanian Deadlift","sets":"3","reps":"8–10","rest":"120 sec","muscle":"Hamstrings / Glutes","how":"Push your hips back with a neutral spine and slightly bent knees.","avoid":"Do not turn it into a squat or round your back."},{"name":"Hip Thrust","sets":"3","reps":"10–12","rest":"90 sec","muscle":"Glutes","how":"Extend your hips and pause at the top while keeping your ribs aligned.","avoid":"Do not hyperextend your lower back."},{"name":"Standing Calf Raise","sets":"3","reps":"12–15","rest":"60 sec","muscle":"Calves","how":"Lower your heels with control, then rise into a full calf contraction.","avoid":"Avoid bouncing."},{"name":"Seated Calf Raise","sets":"3","reps":"12–15","rest":"60 sec","muscle":"Soleus / Calves","how":"Perform a full ankle extension with your knees supported.","avoid":"Do not shorten the range of motion."}]},{"id":"quinta","day":"Thursday","name":"Mid-Back","focus":"Thickness, rhomboids and mid-traps","exercises":[{"name":"Chest-Supported T-Bar Row","sets":"4","reps":"8–12","rest":"120 sec","muscle":"Mid-Back","how":"Pull toward your torso with your chest supported and shoulder blades controlled.","avoid":"Do not lift your chest off the pad."},{"name":"Wide-Grip Seated Cable Row","sets":"3","reps":"10–12","rest":"90 sec","muscle":"Mid-Back","how":"Pull toward your upper abdomen, bringing your shoulder blades together without shrugging.","avoid":"Do not lean your torso backward."},{"name":"Plate-Loaded Row","sets":"3","reps":"10–12","rest":"90 sec","muscle":"Mid-Back","how":"Adjust the seat and drive your elbows back under control.","avoid":"Do not shorten the range of motion."},{"name":"Reverse Fly","sets":"3","reps":"12–15","rest":"60 sec","muscle":"Rear Delts","how":"Open your arms under control while keeping your chest supported or torso stable.","avoid":"Avoid using momentum."},{"name":"Face Pull","sets":"3","reps":"12–15","rest":"60 sec","muscle":"Rear Delts / Traps","how":"Pull the rope toward your face and separate your hands at the end.","avoid":"Do not arch your lower back."}]},{"id":"sexta","day":"Friday","name":"Complete Upper Body","focus":"Chest, back and arms","exercises":[{"name":"Machine Incline Chest Press","sets":"3","reps":"10–12","rest":"90 sec","muscle":"Chest","how":"Press the handles while keeping your shoulder blades supported and wrists aligned.","avoid":"Do not let your shoulders roll forward."},{"name":"Machine Chest Fly","sets":"2","reps":"12–15","rest":"60 sec","muscle":"Chest","how":"Bring your arms together with a controlled movement.","avoid":"Do not force an excessive stretch."},{"name":"Lat Pulldown","sets":"3","reps":"10–12","rest":"90 sec","muscle":"Back","how":"Pull the bar in front of you toward chest height without swinging.","avoid":"Do not pull behind your neck."},{"name":"Seated Cable Row","sets":"2","reps":"12","rest":"90 sec","muscle":"Back","how":"Pull the handle toward your abdomen with a steady torso.","avoid":"Avoid using momentum."},{"name":"EZ-Bar Curl","sets":"2","reps":"10–12","rest":"60 sec","muscle":"Biceps","how":"Curl your elbows without moving your upper arms forward.","avoid":"Avoid swinging."},{"name":"Alternating Dumbbell Curl","sets":"2","reps":"10–12","rest":"60 sec","muscle":"Biceps","how":"Alternate arms with control and a comfortable palm rotation.","avoid":"Do not rotate your torso."},{"name":"Rope Triceps Pushdown","sets":"3","reps":"10–12","rest":"60 sec","muscle":"Triceps","how":"Extend your elbows and slightly separate the rope ends at the bottom.","avoid":"Keep your elbows steady."},{"name":"Overhead Triceps Extension","sets":"2","reps":"12","rest":"60 sec","muscle":"Triceps","how":"Extend your elbows overhead while keeping your core braced.","avoid":"Do not arch your lower back."}]},{"id":"sabado","day":"Saturday","name":"Core & Recovery","focus":"Abs and light activity","exercises":[{"name":"Cable Rope Crunch","sets":"3","reps":"12–15","rest":"60 sec","muscle":"Abs","how":"Curl your torso, bringing your ribs toward your pelvis.","avoid":"Do not pull only with your arms."},{"name":"Hanging Leg Raise","sets":"3","reps":"8–15","rest":"60 sec","muscle":"Abs","how":"Raise your knees or legs without swinging your body.","avoid":"Start with bent knees if needed."},{"name":"Plank","sets":"3","reps":"30–60 s","rest":"45 sec","muscle":"Core","how":"Keep your body aligned while bracing your abs and glutes.","avoid":"Do not let your hips sag."},{"name":"Side Plank","sets":"3","reps":"30–45 s","rest":"45 sec","muscle":"Core / Obliques","how":"Keep your shoulder, hip and ankle aligned.","avoid":"Shorten the hold if you lose alignment."},{"name":"Easy Cycling or Walking","sets":"1","reps":"20–30 min","rest":"—","muscle":"Conditioning","how":"Maintain a comfortable pace that still allows you to talk.","avoid":"Saturday is optional; prioritize recovery."}]}];</script><script>
+const KEY='jd_my_training_caio_menegao_v1';let state=JSON.parse(localStorage.getItem(KEY)||'{"logs":{},"notes":{},"completedDays":[]}');let selected=0;
+if(Array.isArray(state.weightHistory))state.weightHistory=state.weightHistory.map(x=>x&&x.lb!=null?{kg:Number(x.lb)/2.2046226218,date:x.date}:x);
+if(Array.isArray(state.completedDayDates))state.completedDayDates=state.completedDayDates.map(x=>typeof x==='string'?{date:x}:x);
+if(!Array.isArray(state.weightHistory))state.weightHistory=[];
+if(!Array.isArray(state.progressPhotos))state.progressPhotos=[];
+const save=()=>{localStorage.setItem(KEY,JSON.stringify(state));renderProgress();if(typeof renderHistory==='function')renderHistory()};
+
+function exerciseGraphic(name,muscle,photoIndex){
+ const safe=name.replace(/&/g,' e ').replace(/"/g,'');
+ return '<div class="exercise-visual"><img src="../assets/exercise-'+String(photoIndex).padStart(2,'0')+'.webp" alt="'+safe+' — exercise demonstration" loading="lazy"><div class="visual-copy"><strong>EXERCISE GUIDE</strong><span>'+muscle+'</span><span>'+safe+'</span></div></div>';
+}
+
+function renderProgress(){const now=new Date();now.setHours(0,0,0,0);const monday=new Date(now);monday.setDate(now.getDate()-((now.getDay()+6)%7));const dates=Array.isArray(state.completedDayDates)?state.completedDayDates:[];const done=new Set(dates.filter(x=>{const d=new Date(x.date+'T00:00:00');return d>=monday&&d<=now;}).map(x=>x.date)).size;document.getElementById('progressText').textContent=`${done} of 6 workout days completed`;document.getElementById('progressBar').style.width=(Math.min(done,6)/6*100)+'%'}
+
+function render(){
+ let d=WORKOUTS[selected];
+ let photoOffset=WORKOUTS.slice(0,selected).reduce((n,day)=>n+day.exercises.length,0);
+ document.getElementById('dayLabel').textContent=d.day.toUpperCase();
+ document.getElementById('dayTitle').textContent=d.name;
+ document.getElementById('dayFocus').textContent=d.focus;
+ document.getElementById('notes').value=state.notes[d.id]||'';
+ document.getElementById('days').innerHTML=WORKOUTS.map((x,i)=>`<button class="daybtn ${i===selected?'active':''}" data-i="${i}">${['MON','TUE','WED','THU','FRI','SAT'][i]}<small>${x.name}</small></button>`).join('');
+ document.querySelectorAll('.daybtn').forEach(b=>b.onclick=()=>{selected=+b.dataset.i;render()});
+ document.getElementById('exerciseList').innerHTML=d.exercises.map((e,i)=>{
+  const k=d.id+'_'+i;
+  const l=state.logs[k]||{};
+  const setCount=Math.max(1,parseInt(e.sets,10)||1);
+  if(!Array.isArray(l.sets)){
+   l.sets=Array.from({length:setCount},(_,n)=>({weight:n===0?(l.weight||''):'',reps:n===0?(l.reps||'') :''}));
+   state.logs[k]=l;
+  }else if(l.sets.length<setCount){
+   while(l.sets.length<setCount)l.sets.push({weight:'',reps:''});
+  }
+  const today=new Date();today.setHours(0,0,0,0);
+  const previous=(state.exerciseHistory||[])
+   .filter(x=>x.key===k && x.date && new Date(x.date+'T00:00:00')<today)
+   .sort((a,b)=>b.date.localeCompare(a.date))[0];
+  const previousText=previous
+   ? previous.sets.map((x,n)=>'S'+(n+1)+': '+(x.weight||'—')+' × '+(x.reps||'—')).join('  ·  ')
+   : 'No previous workout has been logged for comparison yet.';
+  return `<article class="exercise">${exerciseGraphic(e.name,e.muscle,photoOffset+i+1)}
+   <div class="exrow"><input class="check" type="checkbox" aria-label="Completed" data-key="${k}" ${l.done?'checked':''}><div class="exname">${i+1}. ${e.name}<div class="meta">${e.sets} sets × ${e.reps} reps · rest ${e.rest}</div><div class="muscle">${e.muscle}</div></div></div>
+   <div class="details"><b>How to:</b> ${e.how}<br><b>Avoid:</b> ${e.avoid}</div>
+   <div class="details set-history"><b>PREVIOUS WORKOUT:</b><br>${previousText}</div>
+   <div class="set-entry"><div class="set-entry-title">SET LOG</div>
+   ${Array.from({length:setCount},(_,n)=>{const set=l.sets[n]||{};return `<div class="set-row"><strong>SET ${n+1}</strong><div class="fields"><div><label>WEIGHT (LB)</label><input inputmode="decimal" data-field="weight" data-set="${n}" data-key="${k}" placeholder="e.g. 40" value="${set.weight||''}"></div><div><label>REPS</label><input inputmode="numeric" data-field="reps" data-set="${n}" data-key="${k}" placeholder="e.g. 12" value="${set.reps||''}"></div></div></div>`}).join('')}
+   </div>
+   <div class="rest-timer" data-rest="${e.rest}" data-index="${i}"><div class="rest-top"><span>REST TIMER</span><strong class="rest-count">${Math.max(1,parseInt(e.rest,10)||60)}</strong></div><div class="rest-actions"><button type="button" class="rest-play">▶ START</button><button type="button" class="rest-pause">Ⅱ PAUSE</button><button type="button" class="rest-next">NEXT EXERCISE →</button></div><div class="rest-status" aria-live="polite">Recommended rest: ${e.rest}</div></div>
+  </article>`;
+ }).join('');
+ document.querySelectorAll('[data-key].check').forEach(el=>el.onchange=()=>{let l=state.logs[el.dataset.key]||{};l.done=el.checked;state.logs[el.dataset.key]=l;save()});
+ document.querySelectorAll('[data-field][data-key]').forEach(el=>el.onchange=()=>{
+  const key=el.dataset.key,field=el.dataset.field,setIndex=Number(el.dataset.set);
+  const l=state.logs[key]||{};
+  if(!Array.isArray(l.sets))l.sets=[];
+  while(l.sets.length<=setIndex)l.sets.push({weight:'',reps:''});
+  l.sets[setIndex][field]=el.value.trim();
+  l.weight=l.sets.map(x=>x.weight).filter(Boolean).join(' / ');
+  l.reps=l.sets.map(x=>x.reps).filter(Boolean).join(' / ');
+  state.logs[key]=l;
+  const now=new Date(),date=[now.getFullYear(),String(now.getMonth()+1).padStart(2,'0'),String(now.getDate()).padStart(2,'0')].join('-');
+  if(!Array.isArray(state.exerciseHistory))state.exerciseHistory=[];
+  let session=state.exerciseHistory.find(x=>x.key===key&&x.date===date);
+  if(!session){session={key,date,exercise:d.exercises[Number(key.split('_').pop())]?.name||key,sets:[]};state.exerciseHistory.push(session)}
+  session.sets=JSON.parse(JSON.stringify(l.sets));
+  save();
+  const card=el.closest('.exercise');
+  const old=card.querySelector('.set-history');
+  if(old)old.innerHTML='<b>PREVIOUS WORKOUT:</b><br>'+session.sets.map((x,n)=>'S'+(n+1)+': '+(x.weight||'—')+' × '+(x.reps||'—')).join('  ·  ')+' <span style="color:#bdae98">(current session)</span>';
+ });
+ renderProgress();
+}
+function renderEvolution(){
+ const latest=[...state.weightHistory].sort((a,b)=>b.date.localeCompare(a.date))[0]||null;
+ document.getElementById('currentWeight').textContent=latest?Number(latest.kg).toLocaleString('en-US',{maximumFractionDigits:1}):'—';
+ document.getElementById('currentWeightLb').textContent=latest?(Number(latest.kg)*2.2046226218).toFixed(1)+' lb':'No weight recorded yet';
+ document.getElementById('weightDate').textContent=latest?new Date(latest.date+'T12:00:00').toLocaleDateString('en-US'):'No entries yet';
+ document.getElementById('weightInput').value=latest?latest.kg:'';
+ document.getElementById('weightDateInput').value=new Date().toISOString().slice(0,10);
+ document.getElementById('weightHistory').innerHTML=[...state.weightHistory].sort((a,b)=>b.date.localeCompare(a.date)).map(x=>'<div class="weight-row"><span>'+new Date(x.date+'T12:00:00').toLocaleDateString('en-US')+'</span><strong>'+x.kg+' kg <small>· '+(x.kg*2.2046226218).toFixed(1)+' lb</small></strong></div>').join('');
+ document.getElementById('photoHistory').innerHTML=state.progressPhotos.slice().reverse().map(p=>'<div><img src="'+p.data+'" alt="Progress photo '+p.position+'"><small>'+p.position+' · '+new Date(p.date+'T12:00:00').toLocaleDateString('en-US')+'</small></div>').join('');
+}
+
+function renderHistory(){
+ const host=document.getElementById('historyDashboard');if(!host)return;
+ const sessions=Array.isArray(state.exerciseHistory)?state.exerciseHistory:[];
+ const completed=Array.isArray(state.completedDayDates)?state.completedDayDates:[];
+ const grouped={};
+ sessions.forEach(x=>{if(!x||!x.date)return;(grouped[x.date]??=[]).push(x)});
+ const dates=Object.keys(grouped).sort((a,b)=>b.localeCompare(a));
+ const completedDates=[...new Set(completed.map(x=>x.date).filter(Boolean))];
+ const totalSets=sessions.reduce((n,x)=>n+(Array.isArray(x.sets)?x.sets.length:0),0);
+ const totalExercises=sessions.length;
+ const dayNames=['SUN','MON','TUE','WED','THU','FRI','SAT'];
+ const weekStart=new Date();weekStart.setHours(0,0,0,0);weekStart.setDate(weekStart.getDate()-((weekStart.getDay()+6)%7));
+ const weekDays=Array.from({length:7},(_,i)=>{const d=new Date(weekStart);d.setDate(d.getDate()+i);const key=[d.getFullYear(),String(d.getMonth()+1).padStart(2,'0'),String(d.getDate()).padStart(2,'0')].join('-');return {key,label:dayNames[d.getDay()],done:completedDates.includes(key)}});
+ const fmt=d=>new Date(d+'T12:00:00').toLocaleDateString('en-US',{day:'2-digit',month:'short',year:'numeric'});
+ const records={};
+ sessions.forEach(x=>{const values=(x.sets||[]).map(s=>Number(String(s.weight||'').replace(',','.'))).filter(n=>Number.isFinite(n)&&n>0);if(!values.length)return;const best=Math.max(...values);if(!records[x.exercise]||best>records[x.exercise].best)records[x.exercise]={best,date:x.date};});
+ const recordRows=Object.entries(records).sort((a,b)=>b[1].best-a[1].best).slice(0,5);
+ host.innerHTML=`
+ <section class="history-hero">
+  <div class="history-eyebrow">PERFORMANCE JOURNAL</div>
+  <h2>Your History</h2>
+  <p>Consistency built one workout at a time.</p>
+  <div class="history-stats">
+   <div><strong>${completedDates.length}</strong><span>WORKOUTS COMPLETED</span></div>
+   <div><strong>${totalExercises}</strong><span>EXERCISES LOGGED</span></div>
+   <div><strong>${totalSets}</strong><span>SETS SAVED</span></div>
+  </div>
+ </section>
+ <section class="history-card">
+  <div class="history-card-head"><div><span class="history-kicker">CONSISTENCY</span><h3>This week</h3></div><span class="history-count">${weekDays.filter(x=>x.done).length}/6</span></div>
+  <div class="history-week">${weekDays.map(x=>'<div class="history-weekday '+(x.done?'done':'')+'"><i>'+(x.done?'✓':'')+'</i><span>'+x.label+'</span></div>').join('')}</div>
+ </section>
+ <section class="history-card">
+  <div class="history-card-head"><div><span class="history-kicker">RECENT ACTIVITY</span><h3>Recent workouts</h3></div></div>
+  ${dates.length?dates.slice(0,8).map(date=>'<article class="history-session"><div class="history-date"><b>'+fmt(date)+'</b><span>'+grouped[date].length+' exercises with logged sets</span></div><div class="history-session-items">'+grouped[date].slice(0,5).map(x=>'<div><span>'+x.exercise+'</span><small>'+((x.sets||[]).length)+' sets</small></div>').join('')+(grouped[date].length>5?'<small>+'+(grouped[date].length-5)+' exercícios</small>':'')+'</div></article>').join(''):'<div class="history-empty"><span>YOUR FIRST RECORD STARTS HERE</span><p>As you log weights and reps during your workout, each session will appear in this timeline.</p></div>'}
+ </section>
+ <section class="history-card">
+  <div class="history-card-head"><div><span class="history-kicker">STRENGTH PROGRESSION</span><h3>Top Recorded Weights</h3></div></div>
+  ${recordRows.length?'<div class="history-records">'+recordRows.map(([name,r])=>'<div class="history-record"><div><b>'+name+'</b><small>'+fmt(r.date)+'</small></div><strong>'+r.best.toLocaleString('en-US')+' <small>LB</small></strong></div>').join('')+'</div>':'<div class="history-empty"><p>Your best lifts will appear here as you log weights for each set.</p></div>'}
+ </section>`;
+}
+
+document.getElementById('saveWeight').onclick=()=>{const kg=Number(document.getElementById('weightInput').value),date=document.getElementById('weightDateInput').value;if(!kg||kg<=0||!date){alert('Enter a valid weight and date.');return}state.weightHistory=state.weightHistory.filter(x=>x.date!==date);state.weightHistory.push({kg,date});save();renderEvolution()};
+document.querySelectorAll('[data-photo]').forEach(input=>input.onchange=async()=>{const file=input.files[0];if(!file)return;if(file.size>3*1024*1024){alert('Choose a photo under 3 MB to keep storage light.');input.value='';return}const data=await new Promise((resolve,reject)=>{const reader=new FileReader();reader.onload=()=>resolve(reader.result);reader.onerror=reject;reader.readAsDataURL(file)});state.progressPhotos.push({position:input.dataset.photo,date:new Date().toISOString().slice(0,10),data});try{save();renderEvolution()}catch(e){alert('Could not save the photo. Try a smaller image.')}input.value=''});
+document.getElementById('notes').onchange=e=>{state.notes[WORKOUTS[selected].id]=e.target.value;save()};document.getElementById('completeDay').onclick=()=>{let day=WORKOUTS[selected];if(!Array.isArray(state.completedDays))state.completedDays=[];if(!state.completedDays.includes(day.id))state.completedDays.push(day.id);const now=new Date();const date=[now.getFullYear(),String(now.getMonth()+1).padStart(2,'0'),String(now.getDate()).padStart(2,'0')].join('-');if(!Array.isArray(state.completedDayDates))state.completedDayDates=[];if(!state.completedDayDates.some(x=>x.date===date&&x.dayId===day.id))state.completedDayDates.push({date,dayId:day.id,day:day.name});day.exercises.forEach((e,i)=>{let k=day.id+'_'+i;state.logs[k]=state.logs[k]||{};state.logs[k].done=true});save();render()};document.getElementById('resetDay').onclick=()=>{if(confirm('Clear the completion marks and weights for this day?')){let day=WORKOUTS[selected];if(Array.isArray(state.completedDays))state.completedDays=state.completedDays.filter(id=>id!==day.id);day.exercises.forEach((e,i)=>delete state.logs[day.id+'_'+i]);save();render()}};document.getElementById('export').onclick=()=>{let a=document.createElement('a'),u=URL.createObjectURL(new Blob([JSON.stringify(state,null,2)],{type:'application/json'}));a.href=u;a.download='my-training-backup.json';a.click();URL.revokeObjectURL(u)};document.getElementById('importBtn').onclick=()=>document.getElementById('importFile').click();document.getElementById('importFile').onchange=async e=>{try{state=JSON.parse(await e.target.files[0].text());save();render();alert('Backup imported.')}catch{alert('Could not read this backup.')}};if('serviceWorker'in navigator&&location.protocol.startsWith('http'))navigator.serviceWorker.register('./sw.js').catch(()=>{});render();renderEvolution();renderHistory();
+
+</script>
+<script>
+(()=>{
+ let interval=null,activeCard=null,remaining=0,endAt=0;
+ const cards=()=>[...document.querySelectorAll('#exerciseList .exercise')];
+ const fmt=s=>String(s);
+ const stop=()=>{if(interval){clearInterval(interval);interval=null}};
+ const display=(card,seconds,status)=>{
+  if(!card)return;
+  card.querySelector('.rest-count').textContent=fmt(seconds);
+  card.querySelector('.rest-status').textContent=status;
+ };
+ const duration=card=>{
+  const raw=card.querySelector('.rest-timer').dataset.rest||'60';
+  const n=parseInt(raw,10);
+  return Math.max(1,Number.isFinite(n)?n:60);
+ };
+ const pause=()=>{
+  if(!activeCard)return;
+  remaining=Math.max(0,Math.ceil((endAt-Date.now())/1000));
+  stop();display(activeCard,remaining,'Pausado · toque INICIAR para continuar');
+ };
+ const start=card=>{
+  if(activeCard!==card){stop();activeCard=card;remaining=duration(card);card.querySelector('.rest-timer').classList.remove('finished')}
+  if(remaining<=0)remaining=duration(card);
+  endAt=Date.now()+remaining*1000;
+  stop();
+  display(card,remaining,'Resting · timer running');
+  interval=setInterval(()=>{
+   remaining=Math.max(0,Math.ceil((endAt-Date.now())/1000));
+   display(card,remaining,remaining?'Resting · timer running':'Rest complete! You can move on.');
+   if(!remaining){
+    stop();card.querySelector('.rest-timer').classList.add('finished');
+    try{if(navigator.vibrate)navigator.vibrate([180,90,180])}catch(e){}
+   }
+  },200);
+ };
+ document.addEventListener('click',e=>{
+  const play=e.target.closest('.rest-play');
+  const hold=e.target.closest('.rest-pause');
+  const next=e.target.closest('.rest-next');
+  if(play){const card=play.closest('.exercise');if(activeCard!==card||remaining<=0)remaining=duration(card);start(card)}
+  if(hold){pause()}
+  if(next){
+   const list=cards(),card=next.closest('.exercise'),idx=list.indexOf(card),following=list[idx+1];
+   stop();activeCard=following||null;remaining=following?duration(following):0;
+   if(following){
+    display(following,remaining,'Next exercise · rest ready');
+    following.scrollIntoView({behavior:'smooth',block:'center'});
+    following.querySelector('.rest-timer').classList.remove('finished');
+   }else{
+    card.querySelector('.rest-status').textContent='Last exercise of the day completed.';
+   }
+  }
+ });
+ document.getElementById('days').addEventListener('click',()=>{stop();activeCard=null;remaining=0});
+})();
+</script>
+<script src="./progress.js?v=10"></script>
+
+<style>
+.app-page{display:none;min-height:55vh;padding-bottom:88px}
+.app-page.active{display:block}
+.app-nav{position:fixed;z-index:9999;left:0;right:0;bottom:0;padding:10px 12px calc(10px + env(safe-area-inset-bottom));display:grid;grid-template-columns:repeat(3,1fr);gap:8px;background:rgba(15,11,8,.94);border-top:1px solid rgba(216,201,168,.28);backdrop-filter:blur(18px)}
+.app-nav button{border:1px solid rgba(216,201,168,.18);border-radius:13px;background:linear-gradient(145deg,#30271f,#17120f);color:#bdae98;padding:11px 5px;font-size:9px;letter-spacing:.12em}
+.app-nav button[aria-current="page"]{color:#17110b;background:linear-gradient(145deg,#e3d2b2,#a99576);border-color:#e3d2b2;box-shadow:0 0 18px rgba(216,201,168,.2)}
+.app-page .hero{margin-bottom:8px}
+@media(min-width:700px){.app-nav{left:50%;right:auto;transform:translateX(-50%);width:min(100%,720px);border:1px solid rgba(216,201,168,.2);border-bottom:0;border-radius:18px 18px 0 0}}
+</style>
+<script>
+(()=> {
+ const main=document.querySelector('main.wrap');
+ if(!main || document.querySelector('.app-nav')) return;
+ const children=[...main.children];
+ const hero=children.find(x=>x.classList.contains('hero'));
+ const panels=children.filter(x=>x.classList.contains('panel'));
+ const footer=main.querySelector('footer');
+ const pages=[
+  {id:'home',label:'HOME',items:[hero,panels[0],panels[1]]},
+  {id:'progress',label:'MY PROGRESS',items:[...panels.slice(2).filter(x=>x.id==='myProgressPanel'),...panels.slice(2).filter(x=>x.id!=='myProgressPanel')]},
+  {id:'history',label:'HISTORY',items:[panels.find(x=>x.querySelector('#export')) ,footer]}
+ ];
+ const created=[];
+ pages.forEach(page=>{
+  const section=document.createElement('section');
+  section.className='app-page'+(page.id==='home'?' active':'');
+  section.id='page-'+page.id;
+  page.items.filter(Boolean).forEach(node=>section.appendChild(node));
+  main.appendChild(section);
+  if(page.id==='history'){const dashboard=document.createElement('div');dashboard.id='historyDashboard';section.appendChild(dashboard);section.insertBefore(dashboard,section.firstChild);if(typeof renderHistory==='function')renderHistory();}
+  created.push(section);
+ });
+ const nav=document.createElement('nav');
+ nav.className='app-nav';
+ nav.setAttribute('aria-label','Main navigation');
+ const navIcons={
+  home:'<svg viewBox="0 0 24 24" aria-hidden="true"><path d="m3.5 10 8.5-7 8.5 7v10a1 1 0 0 1-1 1h-5.2v-6.2H9.7V21H4.5a1 1 0 0 1-1-1z"/></svg>',
+  progress:'<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 19V5m0 14h16"/><path d="m7 15 4-4 3 2 5-6"/><path d="M16 7h3v3"/></svg>',
+  history:'<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3.5 11a8.5 8.5 0 1 1 2.4 6"/><path d="M3.5 5.5V11h5.5"/><path d="M12 7v5l3.5 2"/></svg>'
+};
+nav.innerHTML=pages.map((p,i)=>'<button type="button" data-page="'+p.id+'" aria-current="'+(i===0?'page':'false')+'">'+navIcons[p.id]+'<span>'+p.label+'</span></button>').join('');
+ main.appendChild(nav);
+ nav.addEventListener('click',e=>{
+  const button=e.target.closest('button[data-page]');
+  if(!button)return;
+  const id=button.dataset.page;
+  created.forEach(page=>page.classList.toggle('active',page.id==='page-'+id));
+  nav.querySelectorAll('button').forEach(b=>b.setAttribute('aria-current',b===button?'page':'false'));
+  window.scrollTo({top:0,behavior:'smooth'});
+ });
+})();
+</script>
+
+</body></html>
