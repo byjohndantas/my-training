@@ -1321,7 +1321,7 @@ document.getElementById('notes').onchange=e=>{state.notes[WORKOUTS[selected].id]
 @media(min-width:700px){.app-nav{left:50%;right:auto;transform:translateX(-50%);width:min(100%,720px);border:1px solid rgba(216,201,168,.2);border-bottom:0;border-radius:18px 18px 0 0}}
 </style>
 <script>
-const RADIO_STATIONS=[{"name":"K-POP Workout","url":"https://www.iheart.com/playlist/k-pop-workout-312064750-4x5VwmLx8htiEHpKpGxSqp/?embed=true","type":"Playlist"},{"name":"Cardio Mix","url":"https://www.iheart.com/live/cardio-mix-7250/?embed=true","type":"Live radio"},{"name":"80s Workout Hits","url":"https://www.iheart.com/playlist/80s-workout-hits-312064750-NpCrLrvTKYvL3ZDRRdYbDV/?embed=true","type":"Playlist"},{"name":"iHeart80s","url":"https://www.iheart.com/live/iheart80s-5060/?embed=true","type":"Live radio"},{"name":"Workout Hits","url":"https://www.iheart.com/playlist/workout-hits-312064750-CfGQPw9nkkFE5QGCLiwSbQ/?embed=true","type":"Playlist"},{"name":"2000s Workout Hits","url":"https://www.iheart.com/playlist/2000s-workout-hits-312064750-L9CyRMup93kcyQJNvAFpGQ/?embed=true","type":"Playlist"}];
+const RADIO_STATIONS=[{name:"Cardio Mix",url:"https://stream.revma.ihrhls.com/zc7250/hls.m3u8"},{name:"iHeart80s",url:"https://stream.revma.ihrhls.com/zc5060/hls.m3u8"}];
 let selectedRadio=0;
 (()=> {
  const main=document.querySelector('main.wrap');
@@ -1355,18 +1355,19 @@ let selectedRadio=0;
 };
 nav.innerHTML=pages.map((p,i)=>'<button type="button" data-page="'+p.id+'" aria-current="'+(i===0?'page':'false')+'">'+navIcons[p.id]+'<span>'+p.label+'</span></button>').join('');
  main.appendChild(nav);
- const radioDock=document.createElement('div');radioDock.id='radioDock';radioDock.innerHTML='<span class="radio-station-name" id="radioDockName">K-POP Workout</span><button type="button" class="radio-skip" id="radioDockPrev" aria-label="Previous station"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 5v14M19 6 9 12l10 6z"/></svg></button><button type="button" class="radio-toggle" id="radioDockToggle" aria-label="Play radio"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m8 5 12 7-12 7z"/></svg></button><button type="button" class="radio-skip" id="radioDockNext" aria-label="Next station"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M18 5v14M5 6l10 6-10 6z"/></svg></button>';
+ const radioDock=document.createElement('div');radioDock.id='radioDock';radioDock.innerHTML='<span class="radio-station-name" id="radioDockName">Cardio Mix</span><button type="button" class="radio-skip" id="radioDockPrev" aria-label="Previous station"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 5v14M19 6 9 12l10 6z"/></svg></button><button type="button" class="radio-toggle" id="radioDockToggle" aria-label="Play radio"><svg id="radioPlayIcon" viewBox="0 0 24 24" aria-hidden="true"><path d="m8 5 12 7-12 7z"/></svg></button><button type="button" class="radio-skip" id="radioDockNext" aria-label="Next station"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M18 5v14M5 6l10 6-10 6z"/></svg></button>';
  document.body.appendChild(radioDock);
- const radioOverlay=document.createElement('div');radioOverlay.id='radioOverlay';radioOverlay.innerHTML='<div class="radio-sheet"><div class="radio-sheet-head"><strong id="radioOverlayName">K-POP Workout</strong><button type="button" id="radioOverlayClose">Close</button></div></div>';
- document.body.appendChild(radioOverlay);
- const radioFrame=document.getElementById('radioFrame');radioOverlay.querySelector('.radio-sheet').appendChild(radioFrame);
- document.getElementById('radioDockName').textContent=RADIO_STATIONS[selectedRadio].name;
- document.getElementById('radioOverlayName').textContent=RADIO_STATIONS[selectedRadio].name;
- document.getElementById('radioDockPrev').addEventListener('click',()=>selectRadio(selectedRadio-1));
- document.getElementById('radioDockNext').addEventListener('click',()=>selectRadio(selectedRadio+1));
- document.getElementById('radioDockToggle').addEventListener('click',()=>{const frame=document.getElementById('radioFrame');if(frame.getAttribute('src')==='about:blank')frame.src=RADIO_STATIONS[selectedRadio].url;radioOverlay.classList.add('open');});
- document.getElementById('radioOverlayClose').addEventListener('click',()=>radioOverlay.classList.remove('open'));
- radioOverlay.addEventListener('click',e=>{if(e.target===radioOverlay)radioOverlay.classList.remove('open')});
+ const radioAudio=document.createElement('audio');radioAudio.id='radioAudio';radioAudio.preload='none';radioAudio.setAttribute('playsinline','');radioAudio.playsInline=true;document.body.appendChild(radioAudio);
+ const updateRadioIcon=playing=>{document.getElementById('radioPlayIcon').innerHTML=playing?'<path d="M8 5v14M16 5v14"/>':'<path d="m8 5 12 7-12 7z"/>';document.getElementById('radioDockToggle').setAttribute('aria-label',playing?'Pause radio':'Play radio');};
+ const loadRadio=(autoplay=false)=>{const station=RADIO_STATIONS[selectedRadio];document.getElementById('radioDockName').textContent=station.name;radioAudio.pause();radioAudio.src=station.url;radioAudio.load();updateRadioIcon(false);if(autoplay){const p=radioAudio.play();if(p&&p.catch)p.catch(()=>{document.getElementById('radioDockName').textContent=station.name+' · tap to retry';});}};
+ radioAudio.addEventListener('playing',()=>{updateRadioIcon(true);document.getElementById('radioDockName').textContent=RADIO_STATIONS[selectedRadio].name;});
+ radioAudio.addEventListener('pause',()=>updateRadioIcon(false));
+ radioAudio.addEventListener('error',()=>{updateRadioIcon(false);document.getElementById('radioDockName').textContent=RADIO_STATIONS[selectedRadio].name+' · unavailable';});
+ document.getElementById('radioDockToggle').addEventListener('click',()=>{if(!radioAudio.paused){radioAudio.pause();return;}if(radioAudio.getAttribute('src')!==RADIO_STATIONS[selectedRadio].url){radioAudio.src=RADIO_STATIONS[selectedRadio].url;}const p=radioAudio.play();if(p&&p.catch)p.catch(()=>{document.getElementById('radioDockName').textContent=RADIO_STATIONS[selectedRadio].name+' · tap to retry';});});
+ const changeRadio=step=>{const wasPlaying=!radioAudio.paused;selectedRadio=(selectedRadio+step+RADIO_STATIONS.length)%RADIO_STATIONS.length;loadRadio(wasPlaying);};
+ document.getElementById('radioDockPrev').addEventListener('click',()=>changeRadio(-1));
+ document.getElementById('radioDockNext').addEventListener('click',()=>changeRadio(1));
+ if('mediaSession' in navigator){navigator.mediaSession.metadata=new MediaMetadata({title:'Cardio Mix',artist:'iHeartRadio',album:'My Training'});navigator.mediaSession.setActionHandler('play',()=>radioAudio.play());navigator.mediaSession.setActionHandler('pause',()=>radioAudio.pause());navigator.mediaSession.setActionHandler('previoustrack',()=>changeRadio(-1));navigator.mediaSession.setActionHandler('nexttrack',()=>changeRadio(1));}
  nav.addEventListener('click',e=>{
   const button=e.target.closest('button[data-page]');
   if(!button)return;
@@ -1377,7 +1378,7 @@ nav.innerHTML=pages.map((p,i)=>'<button type="button" data-page="'+p.id+'" aria-
  });
 })();
 
-function selectRadio(index,load=true){selectedRadio=(index+RADIO_STATIONS.length)%RADIO_STATIONS.length;const station=RADIO_STATIONS[selectedRadio];document.getElementById('radioNow').textContent=station.name+' · '+station.type;document.querySelectorAll('[data-radio]').forEach(b=>b.classList.toggle('active',Number(b.dataset.radio)===selectedRadio));const dockName=document.getElementById('radioDockName');if(dockName)dockName.textContent=station.name;const overlayName=document.getElementById('radioOverlayName');if(overlayName)overlayName.textContent=station.name;}
+function selectRadio(index){const wasPlaying=!document.getElementById('radioAudio').paused;selectedRadio=(index+RADIO_STATIONS.length)%RADIO_STATIONS.length;document.getElementById('radioDockName').textContent=RADIO_STATIONS[selectedRadio].name;if(wasPlaying){const audio=document.getElementById('radioAudio');audio.src=RADIO_STATIONS[selectedRadio].url;audio.play().catch(()=>{});}}
 
 </script>
 
