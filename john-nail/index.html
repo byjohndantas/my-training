@@ -1367,7 +1367,7 @@ nav.innerHTML=pages.map((p,i)=>'<button type="button" data-page="'+p.id+'" aria-
  const changeRadio=step=>{const wasPlaying=!radioAudio.paused;selectedRadio=(selectedRadio+step+RADIO_STATIONS.length)%RADIO_STATIONS.length;loadRadio(wasPlaying);};
  document.getElementById('radioDockPrev').addEventListener('click',()=>changeRadio(-1));
  document.getElementById('radioDockNext').addEventListener('click',()=>changeRadio(1));
- if('mediaSession' in navigator){navigator.mediaSession.metadata=new MediaMetadata({title:'Cardio Mix',artist:'iHeartRadio',album:'My Training'});navigator.mediaSession.setActionHandler('play',()=>radioAudio.play());navigator.mediaSession.setActionHandler('pause',()=>radioAudio.pause());navigator.mediaSession.setActionHandler('previoustrack',()=>changeRadio(-1));navigator.mediaSession.setActionHandler('nexttrack',()=>changeRadio(1));}
+ if('mediaSession' in navigator && typeof MediaMetadata!=='undefined'){try{navigator.mediaSession.metadata=new MediaMetadata({title:'Cardio Mix',artist:'iHeartRadio',album:'My Training'});navigator.mediaSession.setActionHandler('play',()=>radioAudio.play());navigator.mediaSession.setActionHandler('pause',()=>radioAudio.pause());navigator.mediaSession.setActionHandler('previoustrack',()=>changeRadio(-1));navigator.mediaSession.setActionHandler('nexttrack',()=>changeRadio(1));}catch(e){}}
  nav.addEventListener('click',e=>{
   const button=e.target.closest('button[data-page]');
   if(!button)return;
