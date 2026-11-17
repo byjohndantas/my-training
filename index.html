@@ -1098,6 +1098,9 @@ body::before{
 .rest-timer.finished .rest-count,.rest-timer.finished .rest-status{color:#c5e6a8!important;text-shadow:0 0 14px rgba(169,207,136,.5)}
 @keyframes restReadyFlash{0%,100%{border-color:#a9cf88;box-shadow:0 0 0 1px rgba(169,207,136,.22),0 0 10px rgba(169,207,136,.12);filter:brightness(1)}50%{border-color:#d2f2b5;box-shadow:0 0 0 2px rgba(169,207,136,.55),0 0 28px rgba(169,207,136,.48);filter:brightness(1.24)}}
 @media(prefers-reduced-motion:reduce){.rest-timer.finished{animation:none!important;border-color:#a9cf88!important}}
+.rest-timer.ready{border-color:#a9cf88!important;animation:restReadyFlash .85s steps(2,end) infinite!important}
+.rest-timer.ready .rest-ring-progress{stroke:#a9cf88!important}
+.rest-timer.ready .rest-count,.rest-timer.ready .rest-status{color:#c5e6a8!important;text-shadow:0 0 14px rgba(169,207,136,.5)}
 </style>
 </head><body><main class="wrap"><header class="hero"><img class="profile-avatar" src="./assets/569FEEA4-0FBF-4EDF-BADD-3FD5338B8540.jpeg" alt="Foto de perfil"><div class="eyebrow">PERSONAL TRAINING JOURNAL</div><div class="brand">MY TRAINING</div><div class="sub">Treino, consistência e evolução — um dia de cada vez.</div></header>
 <section class="panel"><div class="toolbar"><b>DIAS CONCLUÍDOS</b><strong id="progressText" style="color:var(--gold)">0 de 6 dias</strong></div><div class="progressline"><span id="progressBar"></span></div><nav class="days" id="days"></nav></section>
@@ -1278,7 +1281,10 @@ document.getElementById('notes').onchange=e=>{state.notes[WORKOUTS[selected].id]
   const count=timer.querySelector('.rest-count'),statusEl=timer.querySelector('.rest-status'),ring=timer.querySelector('.rest-ring-progress');
   if(count)count.textContent=String(seconds);
   if(statusEl)statusEl.textContent=status;
-  if(ring){const ratio=totalDuration>0?Math.max(0,Math.min(1,seconds/totalDuration)):1;ring.style.strokeDashoffset=String(113.1*(1-ratio));const progress=1-ratio,t=Math.max(0,Math.min(1,progress/.82)),from=[201,181,143],to=[169,207,136],rgb=from.map((v,i)=>Math.round(v+(to[i]-v)*t));ring.style.stroke='rgb('+rgb.join(',')+')';}
+  const ratio=totalDuration>0?Math.max(0,Math.min(1,seconds/totalDuration)):1;
+  const progress=1-ratio;
+  timer.classList.toggle('ready',progress>=.82&&seconds>0);
+  if(ring){ring.style.strokeDashoffset=String(113.1*(1-ratio));const t=Math.max(0,Math.min(1,progress/.82)),from=[201,181,143],to=[169,207,136],rgb=from.map((v,i)=>Math.round(v+(to[i]-v)*t));ring.style.stroke='rgb('+rgb.join(',')+')';}
  };
  const duration=card=>{const timer=timerOf(card),n=parseInt(timer?.dataset.rest||'60',10);return Math.max(1,Number.isFinite(n)?n:60)};
  const pause=()=>{
