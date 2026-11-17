@@ -1364,7 +1364,7 @@ nav.innerHTML=pages.map((p,i)=>'<button type="button" data-page="'+p.id+'" aria-
  document.getElementById('radioOverlayName').textContent=RADIO_STATIONS[selectedRadio].name;
  document.getElementById('radioDockPrev').addEventListener('click',()=>selectRadio(selectedRadio-1));
  document.getElementById('radioDockNext').addEventListener('click',()=>selectRadio(selectedRadio+1));
- document.getElementById('radioDockToggle').addEventListener('click',()=>radioOverlay.classList.toggle('open'));
+ document.getElementById('radioDockToggle').addEventListener('click',()=>{const frame=document.getElementById('radioFrame');if(frame.getAttribute('src')==='about:blank')frame.src=RADIO_STATIONS[selectedRadio].url;radioOverlay.classList.add('open');});
  document.getElementById('radioOverlayClose').addEventListener('click',()=>radioOverlay.classList.remove('open'));
  radioOverlay.addEventListener('click',e=>{if(e.target===radioOverlay)radioOverlay.classList.remove('open')});
  nav.addEventListener('click',e=>{
