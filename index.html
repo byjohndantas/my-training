@@ -865,6 +865,19 @@ html,body{touch-action:manipulation;-webkit-text-size-adjust:100%;overscroll-beh
 .rest-status{margin-top:8px;color:#a99576;font-size:10px;letter-spacing:.04em}
 .rest-timer.finished{border-color:#d8c9a8;box-shadow:0 0 18px rgba(216,201,168,.16)}
 @media(max-width:360px){.rest-actions{grid-template-columns:1fr 1fr}.rest-actions .rest-next{grid-column:1/-1}}
+
+.rest-clock{position:relative;width:48px;height:48px;display:grid;place-items:center;flex:0 0 48px}
+.rest-ring{position:absolute;inset:0;width:100%;height:100%;transform:rotate(-90deg);overflow:visible}
+.rest-ring-track,.rest-ring-progress{fill:none;stroke-width:3}
+.rest-ring-track{stroke:rgba(216,201,168,.16)}
+.rest-ring-progress{stroke:#c9b58f;stroke-linecap:round;stroke-dasharray:113.1;stroke-dashoffset:0;transition:stroke-dashoffset .2s linear,stroke .25s ease}
+.rest-clock .rest-count{position:relative;font-size:17px;line-height:1;font-variant-numeric:tabular-nums}
+.rest-timer.finished{border-color:#9ebd83!important;background:radial-gradient(ellipse at 50% 0%,rgba(142,190,112,.2),transparent 65%),linear-gradient(145deg,#20251a,#12150f)!important;box-shadow:0 0 0 1px rgba(158,189,131,.18),0 0 24px rgba(142,190,112,.2)!important;animation:restReadyPulse 1s ease-in-out 3}
+.rest-timer.finished .rest-ring-progress{stroke:#a9cf88}
+.rest-timer.finished .rest-count,.rest-timer.finished .rest-status{color:#b8d99b!important;text-shadow:0 0 14px rgba(142,190,112,.3)}
+@keyframes restReadyPulse{0%,100%{box-shadow:0 0 0 1px rgba(158,189,131,.15),0 0 10px rgba(142,190,112,.1)}50%{box-shadow:0 0 0 2px rgba(158,189,131,.3),0 0 26px rgba(142,190,112,.28)}}
+@media(prefers-reduced-motion:reduce){.rest-timer.finished{animation:none}}
+
 </style><style>
 .set-entry{margin-top:14px;padding:13px;border:1px solid rgba(216,201,168,.22);border-radius:14px;background:linear-gradient(145deg,rgba(20,15,11,.8),rgba(40,31,23,.72))}
 .set-entry-title{font-size:9px;letter-spacing:.2em;color:#d8c9a8;margin-bottom:8px}
@@ -1159,7 +1172,7 @@ function render(){
    <div class="set-entry"><div class="set-entry-title">REGISTRO DE SÉRIES</div>
    ${Array.from({length:setCount},(_,n)=>{const set=l.sets[n]||{};return `<div class="set-row"><strong>SÉRIE ${n+1}</strong><div class="fields"><div><label>CARGA (LB)</label><input inputmode="decimal" data-field="weight" data-set="${n}" data-key="${k}" placeholder="Ex.: 40" value="${set.weight||''}"></div><div><label>REPETIÇÕES</label><input inputmode="numeric" data-field="reps" data-set="${n}" data-key="${k}" placeholder="Ex.: 12" value="${set.reps||''}"></div></div></div>`}).join('')}
    </div>
-   <div class="rest-timer" data-rest="${e.rest}" data-index="${i}"><div class="rest-top"><span>TEMPO DE DESCANSO</span><strong class="rest-count">${Math.max(1,parseInt(e.rest,10)||60)}</strong></div><div class="rest-actions"><button type="button" class="rest-play">▶ INICIAR</button><button type="button" class="rest-pause">Ⅱ PAUSAR</button><button type="button" class="rest-next">PRÓXIMO EXERCÍCIO →</button></div><div class="rest-status" aria-live="polite">Descanso recomendado: ${e.rest}</div></div>
+   <div class="rest-timer" data-rest="${e.rest}" data-index="${i}"><div class="rest-top"><span>TEMPO DE DESCANSO</span><div class="rest-clock"><svg class="rest-ring" viewBox="0 0 44 44" aria-hidden="true"><circle class="rest-ring-track" cx="22" cy="22" r="18"/><circle class="rest-ring-progress" cx="22" cy="22" r="18"/></svg><strong class="rest-count">${Math.max(1,parseInt(e.rest,10)||60)}</strong></div></div><div class="rest-actions"><button type="button" class="rest-play">▶ INICIAR</button><button type="button" class="rest-pause">Ⅱ PAUSAR</button><button type="button" class="rest-next">PRÓXIMO EXERCÍCIO →</button></div><div class="rest-status" aria-live="polite">Descanso recomendado: ${e.rest}</div></div>
   </article>`;
  }).join('');
  document.querySelectorAll('[data-key].check').forEach(el=>el.onchange=()=>{let l=state.logs[el.dataset.key]||{};l.done=el.checked;state.logs[el.dataset.key]=l;save()});
@@ -1247,59 +1260,41 @@ document.getElementById('notes').onchange=e=>{state.notes[WORKOUTS[selected].id]
 </script>
 <script>
 (()=>{
- let interval=null,activeCard=null,remaining=0,endAt=0;
+ let interval=null,activeCard=null,remaining=0,endAt=0,totalDuration=0;
  const cards=()=>[...document.querySelectorAll('#exerciseList .exercise')];
- const fmt=s=>String(s);
  const stop=()=>{if(interval){clearInterval(interval);interval=null}};
  const display=(card,seconds,status)=>{
   if(!card)return;
-  card.querySelector('.rest-count').textContent=fmt(seconds);
+  card.querySelector('.rest-count').textContent=String(seconds);
   card.querySelector('.rest-status').textContent=status;
+  const ring=card.querySelector('.rest-ring-progress');
+  if(ring){const ratio=totalDuration>0?Math.max(0,Math.min(1,seconds/totalDuration)):1;ring.style.strokeDashoffset=String(113.1*(1-ratio));}
  };
- const duration=card=>{
-  const raw=card.querySelector('.rest-timer').dataset.rest||'60';
-  const n=parseInt(raw,10);
-  return Math.max(1,Number.isFinite(n)?n:60);
- };
- const pause=()=>{
-  if(!activeCard)return;
-  remaining=Math.max(0,Math.ceil((endAt-Date.now())/1000));
-  stop();display(activeCard,remaining,'Pausado · toque INICIAR para continuar');
- };
+ const duration=card=>{const n=parseInt(card.querySelector('.rest-timer').dataset.rest||'60',10);return Math.max(1,Number.isFinite(n)?n:60)};
+ const pause=()=>{if(!activeCard)return;remaining=Math.max(0,Math.ceil((endAt-Date.now())/1000));stop();display(activeCard,remaining,'Pausado · toque INICIAR para continuar');};
  const start=card=>{
-  if(activeCard!==card){stop();activeCard=card;remaining=duration(card);card.querySelector('.rest-timer').classList.remove('finished')}
-  if(remaining<=0)remaining=duration(card);
-  endAt=Date.now()+remaining*1000;
-  stop();
+  if(activeCard!==card){stop();activeCard=card;remaining=duration(card);totalDuration=remaining;card.querySelector('.rest-timer').classList.remove('finished');}
+  if(remaining<=0){remaining=duration(card);totalDuration=remaining;}
+  endAt=Date.now()+remaining*1000;stop();
   display(card,remaining,'Descansando · cronômetro em andamento');
   interval=setInterval(()=>{
    remaining=Math.max(0,Math.ceil((endAt-Date.now())/1000));
    display(card,remaining,remaining?'Descansando · cronômetro em andamento':'Descanso concluído! Pode seguir.');
-   if(!remaining){
-    stop();card.querySelector('.rest-timer').classList.add('finished');
-    try{if(navigator.vibrate)navigator.vibrate([180,90,180])}catch(e){}
-   }
+   if(!remaining){stop();card.querySelector('.rest-timer').classList.add('finished');try{if(navigator.vibrate)navigator.vibrate([220,100,220,100,350]);}catch(e){}}
   },200);
  };
  document.addEventListener('click',e=>{
-  const play=e.target.closest('.rest-play');
-  const hold=e.target.closest('.rest-pause');
-  const next=e.target.closest('.rest-next');
-  if(play){const card=play.closest('.exercise');if(activeCard!==card||remaining<=0)remaining=duration(card);start(card)}
-  if(hold){pause()}
+  const play=e.target.closest('.rest-play'),hold=e.target.closest('.rest-pause'),next=e.target.closest('.rest-next');
+  if(play){const card=play.closest('.exercise');if(activeCard!==card||remaining<=0){remaining=duration(card);totalDuration=remaining;}start(card);}
+  if(hold)pause();
   if(next){
    const list=cards(),card=next.closest('.exercise'),idx=list.indexOf(card),following=list[idx+1];
-   stop();activeCard=following||null;remaining=following?duration(following):0;
-   if(following){
-    display(following,remaining,'Próximo exercício · descanso pronto');
-    following.scrollIntoView({behavior:'smooth',block:'center'});
-    following.querySelector('.rest-timer').classList.remove('finished');
-   }else{
-    card.querySelector('.rest-status').textContent='Último exercício do dia concluído.';
-   }
+   stop();activeCard=following||null;remaining=following?duration(following):0;totalDuration=remaining;
+   if(following){display(following,remaining,'Próximo exercício · descanso pronto');following.scrollIntoView({behavior:'smooth',block:'center'}');following.querySelector('.rest-timer').classList.remove('finished');}
+   else card.querySelector('.rest-status').textContent='Último exercício do dia concluído.';
   }
  });
- document.getElementById('days').addEventListener('click',()=>{stop();activeCard=null;remaining=0});
+ document.getElementById('days').addEventListener('click',()=>{stop();activeCard=null;remaining=0;totalDuration=0;});
 })();
 </script>
 <script src="./progress.js?v=9"></script>
