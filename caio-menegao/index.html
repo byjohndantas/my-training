@@ -1220,7 +1220,7 @@ function renderHistory(){
  </section>
  <section class="history-card">
   <div class="history-card-head"><div><span class="history-kicker">RECENT ACTIVITY</span><h3>Recent workouts</h3></div></div>
-  ${dates.length?dates.slice(0,8).map(date=>'<article class="history-session"><div class="history-date"><b>'+fmt(date)+'</b><span>'+grouped[date].length+' exercises with logged sets</span></div><div class="history-session-items">'+grouped[date].slice(0,5).map(x=>'<div><span>'+x.exercise+'</span><small>'+((x.sets||[]).length)+' sets</small></div>').join('')+(grouped[date].length>5?'<small>+'+(grouped[date].length-5)+' exercícios</small>':'')+'</div></article>').join(''):'<div class="history-empty"><span>YOUR FIRST RECORD STARTS HERE</span><p>As you log weights and reps during your workout, each session will appear in this timeline.</p></div>'}
+  ${dates.length?dates.slice(0,8).map(date=>'<article class="history-session"><div class="history-date"><b>'+fmt(date)+'</b><span>'+grouped[date].length+' exercises with logged sets</span></div><div class="history-session-items">'+grouped[date].slice(0,5).map(x=>'<div><span>'+x.exercise+'</span><small>'+((x.sets||[]).length)+' sets</small></div>').join('')+(grouped[date].length>5?'<small>+'+(grouped[date].length-5)+' exercises</small>':'')+'</div></article>').join(''):'<div class="history-empty"><span>YOUR FIRST RECORD STARTS HERE</span><p>As you log weights and reps during your workout, each session will appear in this timeline.</p></div>'}
  </section>
  <section class="history-card">
   <div class="history-card-head"><div><span class="history-kicker">STRENGTH PROGRESSION</span><h3>Top Recorded Weights</h3></div></div>
