@@ -1396,7 +1396,7 @@ nav.innerHTML=pages.map((p,i)=>'<button type="button" data-page="'+p.id+'" aria-
  radioAudio.addEventListener('pause',()=>updateRadioIcon(false));
  radioAudio.addEventListener('error',()=>{updateRadioIcon(false);document.getElementById('radioDockName').textContent=RADIO_STATIONS[selectedRadio].name+' · indisponível';});
  document.getElementById('radioDockToggle').addEventListener('click',()=>{const station=RADIO_STATIONS[selectedRadio];if(station.type==='playlist'){const open=radioEmbed.style.display!=='none';loadRadio(!open);return;}if(!radioAudio.paused){radioAudio.pause();return;}if(radioAudio.getAttribute('src')!==station.url){radioAudio.src=station.url;}const p=radioAudio.play();if(p&&p.catch)p.catch(()=>{document.getElementById('radioDockName').textContent=station.name+' · toque para tentar novamente';});});
- const changeRadio=step=>{const wasPlaying=!radioAudio.paused;selectedRadio=(selectedRadio+step+RADIO_STATIONS.length)%RADIO_STATIONS.length;loadRadio(wasPlaying);};
+ const changeRadio=step=>{const wasPlaying=radioEmbed.style.display!=='none'||!radioAudio.paused;selectedRadio=(selectedRadio+step+RADIO_STATIONS.length)%RADIO_STATIONS.length;loadRadio(wasPlaying);};
  document.getElementById('radioDockPrev').addEventListener('click',()=>changeRadio(-1));
  document.getElementById('radioDockNext').addEventListener('click',()=>changeRadio(1));
  if('mediaSession' in navigator && typeof MediaMetadata!=='undefined'){try{navigator.mediaSession.metadata=new MediaMetadata({title:'Cardio Mix',artist:'iHeartRadio',album:'My Training'});navigator.mediaSession.setActionHandler('play',()=>radioAudio.play());navigator.mediaSession.setActionHandler('pause',()=>radioAudio.pause());navigator.mediaSession.setActionHandler('previoustrack',()=>changeRadio(-1));navigator.mediaSession.setActionHandler('nexttrack',()=>changeRadio(1));}catch(e){}}
@@ -1410,7 +1410,7 @@ nav.innerHTML=pages.map((p,i)=>'<button type="button" data-page="'+p.id+'" aria-
  });
 })();
 
-function selectRadio(index){const wasPlaying=!document.getElementById('radioAudio').paused;selectedRadio=(index+RADIO_STATIONS.length)%RADIO_STATIONS.length;document.getElementById('radioDockName').textContent=RADIO_STATIONS[selectedRadio].name;if(wasPlaying){const audio=document.getElementById('radioAudio');audio.src=RADIO_STATIONS[selectedRadio].url;audio.play().catch(()=>{});}}
+function selectRadio(index){const audio=document.getElementById('radioAudio');const wasPlaying=document.getElementById('radioEmbed')?.style.display!=='none'||!audio.paused;selectedRadio=(index+RADIO_STATIONS.length)%RADIO_STATIONS.length;loadRadio(wasPlaying);}
 
 </script>
 
