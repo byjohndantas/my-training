@@ -1105,7 +1105,7 @@ body::before{
 </head><body><main class="wrap"><header class="hero"><img class="profile-avatar" src="./assets/569FEEA4-0FBF-4EDF-BADD-3FD5338B8540.jpeg" alt="Foto de perfil"><div class="eyebrow">PERSONAL TRAINING JOURNAL</div><div class="brand">MY TRAINING</div><div class="sub">Treino, consistência e evolução — um dia de cada vez.</div></header>
 <section class="panel"><div class="toolbar"><b>DIAS CONCLUÍDOS</b><strong id="progressText" style="color:var(--gold)">0 de 6 dias</strong></div><div class="progressline"><span id="progressBar"></span></div><nav class="days" id="days"></nav></section>
 
-<section class="panel"><div class="muted" id="dayLabel">SEGUNDA-FEIRA</div><h1 class="sectionhead" id="dayTitle">Costas & Bíceps</h1><p class="muted" id="dayFocus"></p><div id="exerciseList"></div><label for="notes" style="margin-top:18px">ANOTAÇÕES DO TREINO</label><textarea id="notes" class="note" placeholder="Energia, observações, evolução..."></textarea><div class="actions"><button class="primary" id="completeDay">Marcar dia como concluído</button><button id="resetDay">Limpar marcações do dia</button></div></section>
+<section class="panel"><div class="muted" id="dayLabel">SEGUNDA-FEIRA</div><h1 class="sectionhead" id="dayTitle">Costas & Bíceps</h1><p class="muted" id="dayFocus"></p><div class="push-settings" style="margin:14px 0 16px;padding:12px 14px;border:1px solid rgba(216,201,168,.25);border-radius:14px;background:rgba(15,11,8,.58)"><div style="font-size:10px;letter-spacing:.14em;color:#d8c9a8;margin-bottom:7px">ALERTAS NA TELA BLOQUEADA</div><button type="button" id="pushEnableBtn" class="primary" style="width:100%;min-height:42px">ATIVAR NOTIFICAÇÕES</button><div id="pushStatus" class="muted" style="font-size:11px;margin-top:8px" aria-live="polite">Ative uma vez neste iPhone para receber o fim do descanso mesmo com o app fechado.</div></div><div id="exerciseList"></div><label for="notes" style="margin-top:18px">ANOTAÇÕES DO TREINO</label><textarea id="notes" class="note" placeholder="Energia, observações, evolução..."></textarea><div class="actions"><button class="primary" id="completeDay">Marcar dia como concluído</button><button id="resetDay">Limpar marcações do dia</button></div></section>
 <section class="panel" id="myProgressPanel">
 <h2 class="sectionhead">Minha Evolução</h2>
 <p class="muted">Acompanhe seu peso e registre fotos para comparar sua evolução ao longo do tempo.</p>
@@ -1290,6 +1290,7 @@ document.getElementById('notes').onchange=e=>{state.notes[WORKOUTS[selected].id]
   }catch(e){}
  };
  const list=document.getElementById('exerciseList');
+ const remoteTimerId=card=>'rest_'+selected+'_'+(timerOf(card)?.dataset.index||'0');
  const cards=()=>list?[...list.querySelectorAll('.exercise')]:[];
  const stop=()=>{if(interval!==null){clearInterval(interval);interval=null}};
  const timerOf=card=>card&&card.querySelector('.rest-timer');
@@ -1307,6 +1308,7 @@ document.getElementById('notes').onchange=e=>{state.notes[WORKOUTS[selected].id]
  const pause=()=>{
   if(!activeCard||interval===null)return;
   remaining=Math.max(0,Math.ceil((endAt-Date.now())/1000));stop();
+  if(window.MyTrainingPush)window.MyTrainingPush.cancel(remoteTimerId(activeCard));
   display(activeCard,remaining,'Pausado · toque INICIAR para continuar');
  };
  const start=card=>{
@@ -1314,13 +1316,13 @@ document.getElementById('notes').onchange=e=>{state.notes[WORKOUTS[selected].id]
   if(activeCard!==card){stop();activeCard=card;remaining=duration(card);totalDuration=remaining;}
   if(remaining<=0){remaining=duration(card);totalDuration=remaining;}
   timerOf(card).classList.remove('finished');
-  endAt=Date.now()+remaining*1000;lastBeepSecond=6;stop();if(!audioContext){try{const AudioCtx=window.AudioContext||window.webkitAudioContext;if(AudioCtx)audioContext=new AudioCtx();}catch(e){}}if(audioContext&&audioContext.state!=='running'){try{audioContext.resume().catch(()=>{});}catch(e){}}
+  endAt=Date.now()+remaining*1000;lastBeepSecond=6;stop();if(window.MyTrainingPush)window.MyTrainingPush.schedule(remoteTimerId(card),remaining);if(!audioContext){try{const AudioCtx=window.AudioContext||window.webkitAudioContext;if(AudioCtx)audioContext=new AudioCtx();}catch(e){}}if(audioContext&&audioContext.state!=='running'){try{audioContext.resume().catch(()=>{});}catch(e){}}
   display(card,remaining,'Descansando · cronômetro em andamento');
   interval=setInterval(()=>{
    remaining=Math.max(0,Math.ceil((endAt-Date.now())/1000));
    if(remaining>0&&remaining<=5&&remaining!==lastBeepSecond){lastBeepSecond=remaining;playCountdownBeep(remaining);}
    display(card,remaining,remaining?'Descansando · cronômetro em andamento':'Descanso concluído! Pode seguir.');
-   if(!remaining){stop();timerOf(card).classList.add('finished');try{if(typeof navigator!=='undefined'&&typeof navigator.vibrate==='function')navigator.vibrate([140,90,140,90,140]);}catch(e){}}
+   if(!remaining){stop();if(window.MyTrainingPush)window.MyTrainingPush.cancel(remoteTimerId(card));timerOf(card).classList.add('finished');try{if(typeof navigator!=='undefined'&&typeof navigator.vibrate==='function')navigator.vibrate([140,90,140,90,140]);}catch(e){}}
   },200);
  };
  if(list)list.addEventListener('click',e=>{
@@ -1331,7 +1333,7 @@ document.getElementById('notes').onchange=e=>{state.notes[WORKOUTS[selected].id]
   if(button.classList.contains('rest-pause')){e.preventDefault();pause();return;}
   if(button.classList.contains('rest-next')){
    e.preventDefault();const all=cards(),idx=all.indexOf(card),following=all[idx+1];
-   stop();activeCard=following||null;remaining=following?duration(following):0;totalDuration=remaining;
+   stop();if(window.MyTrainingPush)window.MyTrainingPush.cancel(remoteTimerId(card));activeCard=following||null;remaining=following?duration(following):0;totalDuration=remaining;
    if(following){timerOf(following).classList.remove('finished');display(following,remaining,'Próximo exercício · descanso pronto');following.scrollIntoView({behavior:'smooth',block:'center'});}
    else{const status=timerOf(card)?.querySelector('.rest-status');if(status)status.textContent='Último exercício do dia concluído.';}
   }
@@ -1424,4 +1426,75 @@ function selectRadio(index){const wasPlaying=!document.getElementById('radioAudi
  document.addEventListener('touchmove',e=>{if(e.touches&&e.touches.length>1)stopZoom(e);},{passive:false});
 })();
 </script>
+
+<script>
+/* My Training — Web Push client integration (test branch) */
+(()=>{
+ const API='https://my-training-notifications.5b9ngyy2tt.workers.dev';
+ const button=document.getElementById('pushEnableBtn');
+ const status=document.getElementById('pushStatus');
+ if(!button||!status)return;
+ const say=(message)=>{status.textContent=message;};
+ const deviceId=()=>{
+  let id=localStorage.getItem('my_training_push_device');
+  if(!id){id=(crypto.randomUUID?crypto.randomUUID():('device_'+Date.now()+'_'+Math.random().toString(36).slice(2)));localStorage.setItem('my_training_push_device',id);}
+  return id;
+ };
+ const decodeKey=value=>{
+  const padded=value+'='.repeat((4-value.length%4)%4);
+  const raw=atob(padded.replace(/-/g,'+').replace(/_/g,'/'));
+  return Uint8Array.from(raw,c=>c.charCodeAt(0));
+ };
+ const post=async(path,data)=>{
+  const response=await fetch(API+path,{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify(data)});
+  const result=await response.json().catch(()=>({}));
+  if(!response.ok)throw new Error(result.error||('HTTP '+response.status));
+  return result;
+ };
+ window.MyTrainingPush={
+  enabled:false,
+  async schedule(timerId,seconds){
+   if(!this.enabled)return;
+   try{await post('/schedule',{timerId,deviceId:deviceId(),delaySeconds:seconds});}
+   catch(error){say('Notificação não agendada: '+error.message);}
+  },
+  async cancel(timerId){
+   if(!this.enabled)return;
+   try{await post('/cancel',{timerId,deviceId:deviceId()});}catch(error){say('Não consegui cancelar o alerta remoto: '+error.message);}
+  }
+ };
+ button.addEventListener('click',async()=>{
+  button.disabled=true;say('Solicitando permissão de notificações…');
+  try{
+   if(!('serviceWorker'in navigator)||!('PushManager'in window)||!('Notification'in window))throw new Error('Este navegador não oferece suporte a notificações push.');
+   if(!window.isSecureContext)throw new Error('Abra o My Training pelo endereço HTTPS.');
+   if(Notification.permission==='denied')throw new Error('As notificações estão bloqueadas nas configurações do iPhone. Ative-as nos Ajustes.');
+   const permission=Notification.permission==='granted'?'granted':await Notification.requestPermission();
+   if(permission!=='granted')throw new Error('Permissão não concedida.');
+   const health=await fetch(API+'/health');
+   if(!health.ok)throw new Error('O servidor de notificações ainda não está configurado.');
+   const healthData=await health.json();
+   if(!healthData.configured)throw new Error('O servidor ainda precisa das chaves de segurança VAPID.');
+   const keyResponse=await fetch(API+'/vapid-public-key');
+   const keyData=await keyResponse.json();
+   if(!keyResponse.ok||!keyData.publicKey)throw new Error(keyData.error||'Chave pública indisponível.');
+   const registration=await navigator.serviceWorker.register('./sw.js');
+   await navigator.serviceWorker.ready;
+   let subscription=await registration.pushManager.getSubscription();
+   if(!subscription)subscription=await registration.pushManager.subscribe({userVisibleOnly:true,applicationServerKey:decodeKey(keyData.publicKey)});
+   await post('/subscribe',{subscription:subscription.toJSON(),deviceId:deviceId()});
+   window.MyTrainingPush.enabled=true;
+   button.textContent='NOTIFICAÇÕES ATIVADAS';
+   say('Pronto! Este iPhone está inscrito para receber os alertas de descanso.');
+  }catch(error){say(error.message||'Não foi possível ativar as notificações.');}
+  finally{button.disabled=false;}
+ });
+ if(Notification.permission==='granted'){
+  navigator.serviceWorker.ready.then(reg=>reg.pushManager.getSubscription()).then(sub=>{
+   if(sub){window.MyTrainingPush.enabled=true;button.textContent='NOTIFICAÇÕES JÁ AUTORIZADAS';say('Este iPhone já tem uma inscrição de notificações.');}
+  }).catch(()=>{});
+ }
+})();
+</script>
+
 </body></html>
