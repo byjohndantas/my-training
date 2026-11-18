@@ -1339,7 +1339,7 @@ document.getElementById('notes').onchange=e=>{state.notes[WORKOUTS[selected].id]
   }
  });
  const days=document.getElementById('days');
- if(days)days.addEventListener('click',()=>{stop();activeCard=null;remaining=0;totalDuration=0;});
+ if(days)days.addEventListener('click',()=>{if(activeCard&&window.MyTrainingPush)window.MyTrainingPush.cancel(remoteTimerId(activeCard));stop();activeCard=null;remaining=0;totalDuration=0;});
 })();
 </script>>
 <script src="./progress.js?v=9"></script>
@@ -1489,7 +1489,7 @@ function selectRadio(index){const wasPlaying=!document.getElementById('radioAudi
   }catch(error){say(error.message||'Não foi possível ativar as notificações.');}
   finally{button.disabled=false;}
  });
- if(Notification.permission==='granted'){
+ if('Notification'in window&&Notification.permission==='granted'){
   navigator.serviceWorker.ready.then(reg=>reg.pushManager.getSubscription()).then(sub=>{
    if(sub){window.MyTrainingPush.enabled=true;button.textContent='NOTIFICAÇÕES JÁ AUTORIZADAS';say('Este iPhone já tem uma inscrição de notificações.');}
   }).catch(()=>{});
