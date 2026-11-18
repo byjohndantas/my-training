@@ -1,4 +1,4 @@
-const CACHE='my-training-v57-hip-thrust-cache-bust';
+const CACHE='my-training-v58-wednesday-images';
 
 const FILES=[
 
