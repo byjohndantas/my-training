@@ -1,4 +1,4 @@
-const CACHE='my-training-v49-workout-syntax-fix';
+const CACHE='my-training-v50-flat-dumbbell-press';
 
 const FILES=[
 
