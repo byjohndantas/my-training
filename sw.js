@@ -1,4 +1,4 @@
-const CACHE='my-training-v53-supino-reto';
+const CACHE='my-training-v54-supino-closeup';
 
 const FILES=[
 
