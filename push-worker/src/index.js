@@ -107,7 +107,7 @@ export class PushHub extends DurableObject {
           }));
         } catch (error) {
           if (error?.statusCode === 404 || error?.statusCode === 410) dead.add(target.subscription.endpoint);
-          else if (error?.statusCode >= 500) pending.push({ ...timer, runAt: now + 60000 });
+          else if ((error?.statusCode >= 500 || error?.statusCode === 429)) pending.push({ ...timer, runAt: now + 60000 });
         }
       }
     }
