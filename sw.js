@@ -1,4 +1,4 @@
-const CACHE='my-training-v48-cardio-photo';
+const CACHE='my-training-v49-workout-syntax-fix';
 
 const FILES=[
 
