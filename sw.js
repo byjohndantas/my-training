@@ -1,4 +1,4 @@
-const CACHE='my-training-v63-iheart-external';
+const CACHE='my-training-v64-thursday-images';
 
 const FILES=[
 
@@ -11,7 +11,7 @@ const FILES=[
   './assets/evolution-abstract.svg',
   './assets/evolution-figure.svg',
   './assets/evolution-portrait.webp',
-  ...Array.from({length:40},(_,i)=>
+  ...Array.from({length:44},(_,i)=>
     './assets/exercise-'+String(i+1).padStart(2,'0')+'.webp'+(i+1>=15&&i+1<=22?'?v=wednesday-20261118':(i+1===22?'?v=hip-thrust-2':''))
   ),
   './assets/01-segunda-costas-biceps.png',
