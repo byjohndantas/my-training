@@ -1,4 +1,4 @@
-const CACHE='my-training-v50-flat-dumbbell-press';
+const CACHE='my-training-v51-flat-dumbbell-press';
 
 const FILES=[
 
@@ -11,7 +11,7 @@ const FILES=[
   './assets/evolution-abstract.svg',
   './assets/evolution-figure.svg',
   './assets/evolution-portrait.webp',
-  ...Array.from({length:39},(_,i)=>
+  ...Array.from({length:40},(_,i)=>
     './assets/exercise-'+String(i+1).padStart(2,'0')+'.webp'
   ),
   './assets/01-segunda-costas-biceps.png',
