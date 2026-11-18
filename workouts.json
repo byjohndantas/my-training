@@ -148,7 +148,8 @@
         "muscle": "Abdômen inferior",
         "how": "Suspenso na barra, eleve os joelhos em direção ao peito sem balançar o corpo; evolua para pernas estendidas quando dominar o movimento.",
         "avoid": "Evite embalar o corpo ou arquear a lombar.",
-        "photoIndex": 36
+        "photoIndex": 36,
+        "type": "bodyweight"
       },
       {
         "name": "Prancha",
@@ -399,7 +400,8 @@
         "rest": "60 s",
         "muscle": "Abdômen",
         "how": "Eleve os joelhos ou pernas sem balançar o corpo.",
-        "avoid": "Comece com joelhos flexionados se necessário."
+        "avoid": "Comece com joelhos flexionados se necessário.",
+        "type": "bodyweight"
       },
       {
         "name": "Prancha",
@@ -408,7 +410,9 @@
         "rest": "45 s",
         "muscle": "Core",
         "how": "Mantenha corpo alinhado, contraindo abdômen e glúteos.",
-        "avoid": "Não deixe o quadril cair."
+        "avoid": "Não deixe o quadril cair.",
+        "type": "timed",
+        "duration": 60
       },
       {
         "name": "Prancha lateral",
@@ -417,7 +421,9 @@
         "rest": "45 s",
         "muscle": "Core/Oblíquos",
         "how": "Mantenha ombro, quadril e tornozelo alinhados.",
-        "avoid": "Reduza o tempo se perder alinhamento."
+        "avoid": "Reduza o tempo se perder alinhamento.",
+        "type": "timed",
+        "duration": 45
       },
       {
         "name": "Bike ou caminhada leve",
