@@ -1,4 +1,4 @@
-const CACHE='my-training-v59-wednesday-image-refresh';
+const CACHE='my-training-v60-explicit-photo-index';
 
 const FILES=[
 
