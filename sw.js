@@ -1,4 +1,4 @@
-const CACHE='my-training-v46-plank-timer';
+const CACHE='my-training-v47-core-bodyweight';
 
 const FILES=[
 
