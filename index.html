@@ -1313,7 +1313,7 @@ document.getElementById('notes').onchange=e=>{state.notes[WORKOUTS[selected].id]
  };
  const start=card=>{
   if(!card||!timerOf(card))return;
-  if(activeCard!==card){stop();activeCard=card;remaining=duration(card);totalDuration=remaining;}
+  if(activeCard!==card){if(activeCard&&window.MyTrainingPush)window.MyTrainingPush.cancel(remoteTimerId(activeCard));stop();activeCard=card;remaining=duration(card);totalDuration=remaining;}
   if(remaining<=0){remaining=duration(card);totalDuration=remaining;}
   timerOf(card).classList.remove('finished');
   endAt=Date.now()+remaining*1000;lastBeepSecond=6;stop();if(window.MyTrainingPush)window.MyTrainingPush.schedule(remoteTimerId(card),remaining);if(!audioContext){try{const AudioCtx=window.AudioContext||window.webkitAudioContext;if(AudioCtx)audioContext=new AudioCtx();}catch(e){}}if(audioContext&&audioContext.state!=='running'){try{audioContext.resume().catch(()=>{});}catch(e){}}
