@@ -1,4 +1,4 @@
-const CACHE='my-training-v60-explicit-photo-index';
+const CACHE='my-training-v60-explicit-photo-index-six-radio';
 
 const FILES=[
 
