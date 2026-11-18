@@ -1,4 +1,4 @@
-const CACHE='my-training-v51-flat-dumbbell-press';
+const CACHE='my-training-v52-approved-photo-09';
 
 const FILES=[
 
