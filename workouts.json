@@ -158,7 +158,9 @@
         "muscle": "Core",
         "how": "Apoie os antebraços e mantenha cabeça, tronco e quadril alinhados, contraindo abdômen e glúteos.",
         "avoid": "Não deixe o quadril cair nem elevar demais.",
-        "photoIndex": 37
+        "photoIndex": 37,
+        "type": "timed",
+        "duration": 45
       }
     ]
   },
