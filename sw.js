@@ -1,4 +1,4 @@
-const CACHE='my-training-v45-tuesday-abs';
+const CACHE='my-training-v46-plank-timer';
 
 const FILES=[
 
