@@ -1,4 +1,4 @@
-const CACHE='my-training-v43';
+const CACHE='my-training-v44-push';
 
 const FILES=[
 
@@ -52,4 +52,30 @@ self.addEventListener('fetch',e=>{
     return;
   }
   e.respondWith(caches.match(e.request).then(r=>r||fetch(e.request)));
+});
+
+ 
+// Native push notifications: delivered by the browser even when the page is closed.
+self.addEventListener("push", event => {
+  let data = {};
+  try { data = event.data ? event.data.json() : {}; } catch (_) {}
+  event.waitUntil(self.registration.showNotification(data.title || "My Training", {
+    body: data.body || "Seu descanso terminou. Pode seguir!",
+    tag: data.tag || "my-training-rest",
+    icon: "./assets/evolution-figure.svg",
+    badge: "./assets/evolution-figure.svg",
+    data: data.data || { url: "./" },
+    renotify: true
+  }));
+});
+
+self.addEventListener("notificationclick", event => {
+  event.notification.close();
+  const target = event.notification.data && event.notification.data.url || "./";
+  event.waitUntil(self.clients.matchAll({ type: "window", includeUncontrolled: true }).then(clients => {
+    for (const client of clients) {
+      if ("focus" in client) { client.navigate(target); return client.focus(); }
+    }
+    return self.clients.openWindow(target);
+  }));
 });
