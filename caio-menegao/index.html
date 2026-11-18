@@ -1273,45 +1273,73 @@ document.getElementById('notes').onchange=e=>{state.notes[WORKOUTS[selected].id]
 </script>
 <script>
 (()=>{
- let interval=null,activeCard=null,remaining=0,endAt=0,totalDuration=0;
- const cards=()=>[...document.querySelectorAll('#exerciseList .exercise')];
- const stop=()=>{if(interval){clearInterval(interval);interval=null}};
+ let interval=null,activeCard=null,remaining=0,endAt=0,totalDuration=0,lastBeepSecond=6,audioContext=null;
+ const playCountdownBeep=async second=>{
+  try{
+   const AudioCtx=window.AudioContext||window.webkitAudioContext;
+   if(!AudioCtx)return;
+   if(!audioContext)audioContext=new AudioCtx();
+   if(audioContext.state!=='running')await audioContext.resume();
+   if(audioContext.state!=='running')return;
+   const oscillator=audioContext.createOscillator(),gain=audioContext.createGain(),now=audioContext.currentTime;
+   oscillator.type='sine';
+   oscillator.frequency.setValueAtTime(second===1?1480:920,now);
+   gain.gain.setValueAtTime(0.0001,now);
+   gain.gain.exponentialRampToValueAtTime(second===1?0.936:0.744,now+0.015);
+   gain.gain.exponentialRampToValueAtTime(0.0001,now+0.20);
+   oscillator.connect(gain);gain.connect(audioContext.destination);
+   oscillator.start(now);oscillator.stop(now+0.21);
+  }catch(e){}
+ };
+ const list=document.getElementById('exerciseList');
+ const cards=()=>list?[...list.querySelectorAll('.exercise')]:[];
+ const stop=()=>{if(interval!==null){clearInterval(interval);interval=null}};
+ const timerOf=card=>card&&card.querySelector('.rest-timer');
  const display=(card,seconds,status)=>{
-  if(!card)return;
-  card.querySelector('.rest-count').textContent=String(seconds);
-  card.querySelector('.rest-status').textContent=status;
-  const timer=card.querySelector('.rest-timer');
+  const timer=timerOf(card);if(!timer)return;
+  const count=timer.querySelector('.rest-count'),statusEl=timer.querySelector('.rest-status'),ring=timer.querySelector('.rest-ring-progress');
+  if(count)count.textContent=String(seconds);
+  if(statusEl)statusEl.textContent=status;
   const ratio=totalDuration>0?Math.max(0,Math.min(1,seconds/totalDuration)):1;
   const progress=1-ratio;
-  if(timer)timer.classList.toggle('ready',progress>=.82&&seconds>0);
-  const ring=card.querySelector('.rest-ring-progress');
+  timer.classList.toggle('ready',progress>=.82&&seconds>0);
   if(ring){ring.style.strokeDashoffset=String(113.1*(1-ratio));const t=Math.max(0,Math.min(1,progress/.82)),from=[201,181,143],to=[169,207,136],rgb=from.map((v,i)=>Math.round(v+(to[i]-v)*t));ring.style.stroke='rgb('+rgb.join(',')+')';}
  };
- const duration=card=>{const n=parseInt(card.querySelector('.rest-timer').dataset.rest||'60',10);return Math.max(1,Number.isFinite(n)?n:60)};
- const pause=()=>{if(!activeCard)return;remaining=Math.max(0,Math.ceil((endAt-Date.now())/1000));stop();display(activeCard,remaining,'Paused · tap START to continue');};
+ const duration=card=>{const timer=timerOf(card),n=parseInt(timer?.dataset.rest||'60',10);return Math.max(1,Number.isFinite(n)?n:60)};
+ const pause=()=>{
+  if(!activeCard||interval===null)return;
+  remaining=Math.max(0,Math.ceil((endAt-Date.now())/1000));stop();
+  display(activeCard,remaining,'Pausado · toque INICIAR para continuar');
+ };
  const start=card=>{
-  if(activeCard!==card){stop();activeCard=card;remaining=duration(card);totalDuration=remaining;card.querySelector('.rest-timer').classList.remove('finished');}
+  if(!card||!timerOf(card))return;
+  if(activeCard!==card){stop();activeCard=card;remaining=duration(card);totalDuration=remaining;}
   if(remaining<=0){remaining=duration(card);totalDuration=remaining;}
-  endAt=Date.now()+remaining*1000;stop();
-  display(card,remaining,'Resting · timer running');
+  timerOf(card).classList.remove('finished');
+  endAt=Date.now()+remaining*1000;lastBeepSecond=6;stop();if(!audioContext){try{const AudioCtx=window.AudioContext||window.webkitAudioContext;if(AudioCtx)audioContext=new AudioCtx();}catch(e){}}if(audioContext&&audioContext.state!=='running'){try{audioContext.resume().catch(()=>{});}catch(e){}}
+  display(card,remaining,'Descansando · cronômetro em andamento');
   interval=setInterval(()=>{
    remaining=Math.max(0,Math.ceil((endAt-Date.now())/1000));
-   display(card,remaining,remaining?'Resting · timer running':'Rest complete! You can move on.');
-   if(!remaining){stop();card.querySelector('.rest-timer').classList.add('finished');try{if(typeof navigator!=='undefined'&&typeof navigator.vibrate==='function')navigator.vibrate([140,90,140,90,140]);}catch(e){}}
+   if(remaining>0&&remaining<=5&&remaining!==lastBeepSecond){lastBeepSecond=remaining;playCountdownBeep(remaining);}
+   display(card,remaining,remaining?'Descansando · cronômetro em andamento':'Descanso concluído! Pode seguir.');
+   if(!remaining){stop();timerOf(card).classList.add('finished');try{if(typeof navigator!=='undefined'&&typeof navigator.vibrate==='function')navigator.vibrate([140,90,140,90,140]);}catch(e){}}
   },200);
  };
- document.addEventListener('click',e=>{
-  const play=e.target.closest('.rest-play'),hold=e.target.closest('.rest-pause'),next=e.target.closest('.rest-next');
-  if(play){const card=play.closest('.exercise');if(activeCard!==card||remaining<=0){remaining=duration(card);totalDuration=remaining;}start(card);}
-  if(hold)pause();
-  if(next){
-   const list=cards(),card=next.closest('.exercise'),idx=list.indexOf(card),following=list[idx+1];
+ if(list)list.addEventListener('click',e=>{
+  const button=e.target.closest('button.rest-play,button.rest-pause,button.rest-next');
+  if(!button||!list.contains(button))return;
+  const card=button.closest('.exercise');if(!card)return;
+  if(button.classList.contains('rest-play')){e.preventDefault();start(card);return;}
+  if(button.classList.contains('rest-pause')){e.preventDefault();pause();return;}
+  if(button.classList.contains('rest-next')){
+   e.preventDefault();const all=cards(),idx=all.indexOf(card),following=all[idx+1];
    stop();activeCard=following||null;remaining=following?duration(following):0;totalDuration=remaining;
-   if(following){display(following,remaining,'Next exercise · rest ready');following.scrollIntoView({behavior:'smooth',block:'center'}');following.querySelector('.rest-timer').classList.remove('finished');}
-   else card.querySelector('.rest-status').textContent='Last exercise of the day completed.';
+   if(following){timerOf(following).classList.remove('finished');display(following,remaining,'Próximo exercício · descanso pronto');following.scrollIntoView({behavior:'smooth',block:'center'});}
+   else{const status=timerOf(card)?.querySelector('.rest-status');if(status)status.textContent='Último exercício do dia concluído.';}
   }
  });
- document.getElementById('days').addEventListener('click',()=>{stop();activeCard=null;remaining=0;totalDuration=0;});
+ const days=document.getElementById('days');
+ if(days)days.addEventListener('click',()=>{stop();activeCard=null;remaining=0;totalDuration=0;});
 })();
 </script>
 <script src="./progress.js?v=10"></script>
