@@ -3,9 +3,6 @@
   "name": "my-training-notifications",
   "main": "src/index.js",
   "compatibility_date": "2026-11-17",
-  "compatibility_flags": [
-    "nodejs_compat"
-  ],
   "durable_objects": {
     "bindings": [
       {
