@@ -1447,18 +1447,18 @@ function selectRadio(index){const wasPlaying=!document.getElementById('radioAudi
 #focusTimerOverlay .focus-controls button{min-height:48px;border-radius:14px;background:linear-gradient(145deg,#302820,#211a15);border:1px solid rgba(216,201,168,.25);color:#f1e9dc;font-size:12px}
 #focusTimerOverlay .focus-controls .focus-main{background:linear-gradient(135deg,#e3d5b8,#b9a681);color:#211911;border-color:#e3d5b8;font-weight:700}
 #focusTimerOverlay .focus-finish{margin-top:10px;width:100%;min-height:43px;border:1px solid rgba(216,201,168,.17);background:transparent;color:#bdae98;border-radius:13px;font-size:10px;letter-spacing:.1em}
-#focusTimerOverlay.is-complete .focus-finish{background:linear-gradient(135deg,#75ff9b,#20c957);border:1px solid #75ff9b;color:#06200f;font-weight:850;box-shadow:0 0 22px rgba(57,230,107,.42);animation:nextSetPulse 1.05s ease-in-out infinite}
-@keyframes nextSetPulse{0%,100%{transform:scale(1);filter:brightness(1);box-shadow:0 0 12px rgba(57,230,107,.25)}50%{transform:scale(1.035);filter:brightness(1.28);box-shadow:0 0 28px rgba(57,230,107,.72)}}
+#focusTimerOverlay.is-complete .focus-finish{background:linear-gradient(135deg,#ffb15c,#ff7417);border:1px solid #ffb15c;color:#211006;font-weight:850;box-shadow:0 0 22px rgba(255,126,24,.42);animation:nextSetPulse 1.05s ease-in-out infinite}
+@keyframes nextSetPulse{0%,100%{transform:scale(1);filter:brightness(1);box-shadow:0 0 12px rgba(255,126,24,.25)}50%{transform:scale(1.035);filter:brightness(1.28);box-shadow:0 0 28px rgba(255,126,24,.72)}}
 @media(prefers-reduced-motion:reduce){#focusTimerOverlay.is-complete .focus-finish{animation:none}}
-#focusTimerOverlay.is-complete{background:rgba(5,28,14,.88);backdrop-filter:blur(18px) saturate(.9);-webkit-backdrop-filter:blur(18px) saturate(.9)}
-#focusTimerOverlay.is-complete .focus-card{border-color:rgba(74,255,132,.72);background:radial-gradient(ellipse at 50% 0%,rgba(57,230,107,.28),transparent 58%),linear-gradient(150deg,#123522,#091b11 82%);box-shadow:0 0 0 1px rgba(57,230,107,.22),0 0 38px rgba(57,230,107,.34),0 28px 90px rgba(0,0,0,.62),inset 0 1px rgba(255,255,255,.12);animation:focusGreenFlash .72s ease-out 2}
-#focusTimerOverlay.is-complete .focus-ring{background:conic-gradient(#39e66b 100%,rgba(57,230,107,.14) 0);box-shadow:0 0 34px rgba(57,230,107,.42)}
-#focusTimerOverlay.is-complete .focus-ring:before{background:radial-gradient(circle at 50% 35%,#17482a,#092015 76%);border-color:rgba(92,255,145,.38)}
-#focusTimerOverlay.is-complete .focus-time{color:#f0fff3;text-shadow:0 0 28px rgba(57,230,107,.48)}
-#focusTimerOverlay.is-complete .focus-caption,#focusTimerOverlay.is-complete .focus-status{color:#8dffad}
-#focusTimerOverlay.is-complete .focus-status{font-size:12px;font-weight:800;letter-spacing:.09em;text-shadow:0 0 16px rgba(57,230,107,.35)}
-#focusTimerOverlay.is-complete .focus-main{background:linear-gradient(135deg,#75ff9b,#20c957);border-color:#75ff9b;color:#06200f}
-#focusTimerOverlay.is-complete .focus-finish{border-color:rgba(92,255,145,.4);color:#c9ffd7}
+#focusTimerOverlay.is-complete{background:rgba(35,15,4,.88);backdrop-filter:blur(18px) saturate(.9);-webkit-backdrop-filter:blur(18px) saturate(.9)}
+#focusTimerOverlay.is-complete .focus-card{border-color:rgba(255,151,55,.72);background:radial-gradient(ellipse at 50% 0%,rgba(255,126,24,.28),transparent 58%),linear-gradient(150deg,#123522,#091b11 82%);box-shadow:0 0 0 1px rgba(255,126,24,.22),0 0 38px rgba(255,126,24,.34),0 28px 90px rgba(0,0,0,.62),inset 0 1px rgba(255,255,255,.12);animation:focusGreenFlash .72s ease-out 2}
+#focusTimerOverlay.is-complete .focus-ring{background:conic-gradient(#ff861f 100%,rgba(255,126,24,.14) 0);box-shadow:0 0 34px rgba(255,126,24,.42)}
+#focusTimerOverlay.is-complete .focus-ring:before{background:radial-gradient(circle at 50% 35%,#553016,#241309 76%);border-color:rgba(255,177,92,.38)}
+#focusTimerOverlay.is-complete .focus-time{color:#fff3e7;text-shadow:0 0 28px rgba(255,126,24,.48)}
+#focusTimerOverlay.is-complete .focus-caption,#focusTimerOverlay.is-complete .focus-status{color:#ffd0a3}
+#focusTimerOverlay.is-complete .focus-status{font-size:12px;font-weight:800;letter-spacing:.09em;text-shadow:0 0 16px rgba(255,126,24,.35)}
+#focusTimerOverlay.is-complete .focus-main{background:linear-gradient(135deg,#ffb15c,#ff7417);border-color:#ffb15c;color:#211006}
+#focusTimerOverlay.is-complete .focus-finish{border-color:rgba(255,177,92,.4);color:#211006}
 @keyframes focusGreenFlash{0%,100%{filter:brightness(1)}22%{filter:brightness(1.75)}48%{filter:brightness(1.12)}70%{filter:brightness(1.55)}}
 @media(prefers-reduced-motion:reduce){#focusTimerOverlay.is-complete .focus-card{animation:none}}
 @media(prefers-reduced-motion:reduce){#focusTimerOverlay,#focusTimerOverlay .focus-card{transition:none}}
