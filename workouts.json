@@ -129,6 +129,36 @@
         "muscle": "Deltoide posterior",
         "how": "Abra os braços controladamente, conduzindo o movimento com os cotovelos.",
         "avoid": "Não projete a cabeça para frente."
+      },
+      {
+        "name": "Crunch na polia",
+        "sets": "3",
+        "reps": "12–15",
+        "rest": "60 s",
+        "muscle": "Abdômen",
+        "how": "Ajoelhe-se diante da polia, segure a corda junto à cabeça e flexione o tronco aproximando as costelas da pelve.",
+        "avoid": "Não puxe com os braços nem transforme o movimento em uma flexão de quadril.",
+        "photoIndex": 35
+      },
+      {
+        "name": "Elevação de pernas suspenso",
+        "sets": "3",
+        "reps": "8–12",
+        "rest": "60 s",
+        "muscle": "Abdômen inferior",
+        "how": "Suspenso na barra, eleve os joelhos em direção ao peito sem balançar o corpo; evolua para pernas estendidas quando dominar o movimento.",
+        "avoid": "Evite embalar o corpo ou arquear a lombar.",
+        "photoIndex": 36
+      },
+      {
+        "name": "Prancha",
+        "sets": "3",
+        "reps": "30–45 s",
+        "rest": "45 s",
+        "muscle": "Core",
+        "how": "Apoie os antebraços e mantenha cabeça, tronco e quadril alinhados, contraindo abdômen e glúteos.",
+        "avoid": "Não deixe o quadril cair nem elevar demais.",
+        "photoIndex": 37
       }
     ]
   },
