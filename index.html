@@ -1183,7 +1183,7 @@ function render(){
    <div class="set-entry"><div class="set-entry-title">REGISTRO DE SÉRIES</div>
    ${Array.from({length:setCount},(_,n)=>{const set=l.sets[n]||{};return `<div class="set-row"><strong>SÉRIE ${n+1}</strong><div class="fields"><div><label>CARGA (LB)</label><input inputmode="decimal" data-field="weight" data-set="${n}" data-key="${k}" placeholder="Ex.: 40" value="${set.weight||''}"></div><div><label>REPETIÇÕES</label><input inputmode="numeric" data-field="reps" data-set="${n}" data-key="${k}" placeholder="Ex.: 12" value="${set.reps||''}"></div></div></div>`}).join('')}
    </div>
-   <div class="rest-timer" data-rest="${e.rest}" data-index="${i}"><div class="rest-top"><span>TEMPO DE DESCANSO</span><div class="rest-clock"><svg class="rest-ring" viewBox="0 0 44 44" aria-hidden="true"><circle class="rest-ring-track" cx="22" cy="22" r="18"/><circle class="rest-ring-progress" cx="22" cy="22" r="18"/></svg><strong class="rest-count">${Math.max(1,parseInt(e.rest,10)||60)}</strong></div></div><div class="rest-actions"><button type="button" class="rest-play">▶ INICIAR</button><button type="button" class="rest-pause">Ⅱ PAUSAR</button><button type="button" class="rest-next">PRÓXIMO EXERCÍCIO →</button></div><div class="rest-status" aria-live="polite">Descanso recomendado: ${e.rest}</div></div>
+   <div class="rest-timer" data-rest="${e.rest}" data-index="${i}"><div class="rest-top"><span>TEMPO DE DESCANSO</span><div class="rest-clock"><svg class="rest-ring" viewBox="0 0 44 44" aria-hidden="true"><circle class="rest-ring-track" cx="22" cy="22" r="18"/><circle class="rest-ring-progress" cx="22" cy="22" r="18"/></svg><strong class="rest-count">${Math.max(1,parseInt(e.rest,10)||60)}</strong></div></div><div class="rest-actions"><button type="button" class="rest-play">▶ INICIAR</button><button type="button" class="rest-pause">Ⅱ PAUSAR</button><button type="button" class="rest-next">PRÓXIMA SÉRIE →</button></div><div class="rest-status" aria-live="polite">Descanso recomendado: ${e.rest}</div></div>
   </article>`;
  }).join('');
  document.querySelectorAll('[data-key].check').forEach(el=>el.onchange=()=>{let l=state.logs[el.dataset.key]||{};l.done=el.checked;state.logs[el.dataset.key]=l;save()});
@@ -1330,10 +1330,14 @@ document.getElementById('notes').onchange=e=>{state.notes[WORKOUTS[selected].id]
   if(button.classList.contains('rest-play')){e.preventDefault();start(card);return;}
   if(button.classList.contains('rest-pause')){e.preventDefault();pause();return;}
   if(button.classList.contains('rest-next')){
-   e.preventDefault();const all=cards(),idx=all.indexOf(card),following=all[idx+1];
-   stop();activeCard=following||null;remaining=following?duration(following):0;totalDuration=remaining;
-   if(following){timerOf(following).classList.remove('finished');display(following,remaining,'Próximo exercício · descanso pronto');following.scrollIntoView({behavior:'smooth',block:'center'});}
-   else{const status=timerOf(card)?.querySelector('.rest-status');if(status)status.textContent='Último exercício do dia concluído.';}
+   e.preventDefault();
+   stop();
+   activeCard=card;
+   remaining=duration(card);
+   totalDuration=remaining;
+   timerOf(card).classList.remove('finished');
+   display(card,remaining,'Pronto para a próxima série. Faça a série e inicie o descanso novamente.');
+   card.scrollIntoView({behavior:'smooth',block:'center'});
   }
  });
  const days=document.getElementById('days');
@@ -1443,6 +1447,9 @@ function selectRadio(index){const wasPlaying=!document.getElementById('radioAudi
 #focusTimerOverlay .focus-controls button{min-height:48px;border-radius:14px;background:linear-gradient(145deg,#302820,#211a15);border:1px solid rgba(216,201,168,.25);color:#f1e9dc;font-size:12px}
 #focusTimerOverlay .focus-controls .focus-main{background:linear-gradient(135deg,#e3d5b8,#b9a681);color:#211911;border-color:#e3d5b8;font-weight:700}
 #focusTimerOverlay .focus-finish{margin-top:10px;width:100%;min-height:43px;border:1px solid rgba(216,201,168,.17);background:transparent;color:#bdae98;border-radius:13px;font-size:10px;letter-spacing:.1em}
+#focusTimerOverlay.is-complete .focus-finish{background:linear-gradient(135deg,#75ff9b,#20c957);border:1px solid #75ff9b;color:#06200f;font-weight:850;box-shadow:0 0 22px rgba(57,230,107,.42);animation:nextSetPulse 1.05s ease-in-out infinite}
+@keyframes nextSetPulse{0%,100%{transform:scale(1);filter:brightness(1);box-shadow:0 0 12px rgba(57,230,107,.25)}50%{transform:scale(1.035);filter:brightness(1.28);box-shadow:0 0 28px rgba(57,230,107,.72)}}
+@media(prefers-reduced-motion:reduce){#focusTimerOverlay.is-complete .focus-finish{animation:none}}
 #focusTimerOverlay.is-complete{background:rgba(5,28,14,.88);backdrop-filter:blur(18px) saturate(.9);-webkit-backdrop-filter:blur(18px) saturate(.9)}
 #focusTimerOverlay.is-complete .focus-card{border-color:rgba(74,255,132,.72);background:radial-gradient(ellipse at 50% 0%,rgba(57,230,107,.28),transparent 58%),linear-gradient(150deg,#123522,#091b11 82%);box-shadow:0 0 0 1px rgba(57,230,107,.22),0 0 38px rgba(57,230,107,.34),0 28px 90px rgba(0,0,0,.62),inset 0 1px rgba(255,255,255,.12);animation:focusGreenFlash .72s ease-out 2}
 #focusTimerOverlay.is-complete .focus-ring{background:conic-gradient(#39e66b 100%,rgba(57,230,107,.14) 0);box-shadow:0 0 34px rgba(57,230,107,.42)}
@@ -1463,7 +1470,7 @@ function selectRadio(index){const wasPlaying=!document.getElementById('radioAudi
  if(!list||document.getElementById('focusTimerOverlay'))return;
  const overlay=document.createElement('div');
  overlay.id='focusTimerOverlay';
- overlay.innerHTML='<section class="focus-card" role="dialog" aria-modal="true" aria-label="Cronômetro de descanso"><button type="button" class="focus-minimize" aria-label="Minimizar cronômetro">⌄</button><div class="focus-kicker">MY TRAINING · FOCUS MODE</div><h2 class="focus-exercise">REST TIME</h2><div class="focus-ring"><div><div class="focus-time">00:00</div><div class="focus-caption">RECOVERY</div></div></div><div class="focus-status" aria-live="polite">Descanso pronto</div><div class="focus-controls"><button type="button" data-focus="-15">−15s</button><button type="button" class="focus-main" data-focus="toggle">Ⅱ PAUSAR</button><button type="button" data-focus="15">+15s</button></div><button type="button" class="focus-finish" data-focus="finish">PRÓXIMO EXERCÍCIO →</button></section>';
+ overlay.innerHTML='<section class="focus-card" role="dialog" aria-modal="true" aria-label="Cronômetro de descanso"><button type="button" class="focus-minimize" aria-label="Minimizar cronômetro">⌄</button><div class="focus-kicker">MY TRAINING · FOCUS MODE</div><h2 class="focus-exercise">REST TIME</h2><div class="focus-ring"><div><div class="focus-time">00:00</div><div class="focus-caption">RECOVERY</div></div></div><div class="focus-status" aria-live="polite">Descanso pronto</div><div class="focus-controls"><button type="button" data-focus="-15">−15s</button><button type="button" class="focus-main" data-focus="toggle">Ⅱ PAUSAR</button><button type="button" data-focus="15">+15s</button></div><button type="button" class="focus-finish" data-focus="finish">INICIAR PRÓXIMA SÉRIE →</button></section>';
  document.body.appendChild(overlay);
  const time=overlay.querySelector('.focus-time'),title=overlay.querySelector('.focus-exercise'),status=overlay.querySelector('.focus-status'),ring=overlay.querySelector('.focus-ring'),toggle=overlay.querySelector('[data-focus="toggle"]');
  let card=null,observer=null;
