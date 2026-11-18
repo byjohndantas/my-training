@@ -1424,4 +1424,83 @@ function selectRadio(index){const wasPlaying=!document.getElementById('radioAudi
  document.addEventListener('touchmove',e=>{if(e.touches&&e.touches.length>1)stopZoom(e);},{passive:false});
 })();
 </script>
+
+<style>
+/* MY TRAINING — FOCUS TIMER */
+#focusTimerOverlay{position:fixed;inset:0;z-index:20000;display:grid;place-items:center;padding:24px 20px calc(24px + env(safe-area-inset-bottom));background:rgba(10,8,6,.78);backdrop-filter:blur(16px) saturate(.72);-webkit-backdrop-filter:blur(16px) saturate(.72);opacity:0;visibility:hidden;pointer-events:none;transition:opacity .28s ease,visibility .28s ease}
+#focusTimerOverlay.is-visible{opacity:1;visibility:visible;pointer-events:auto}
+#focusTimerOverlay .focus-card{position:relative;width:min(100%,430px);padding:28px 22px 22px;border:1px solid rgba(216,201,168,.32);border-radius:28px;background:radial-gradient(ellipse at 50% 0%,rgba(216,201,168,.13),transparent 55%),linear-gradient(150deg,rgba(48,39,31,.98),rgba(20,15,11,.99));box-shadow:0 28px 90px rgba(0,0,0,.58),inset 0 1px rgba(255,255,255,.07);text-align:center;transform:translateY(14px) scale(.985);transition:transform .28s ease}
+#focusTimerOverlay.is-visible .focus-card{transform:translateY(0) scale(1)}
+#focusTimerOverlay .focus-minimize{position:absolute;right:14px;top:14px;width:38px;height:38px;border-radius:50%;display:grid;place-items:center;background:rgba(216,201,168,.08);color:#e3d7c4;border:1px solid rgba(216,201,168,.2);font-size:21px}
+#focusTimerOverlay .focus-kicker{margin:8px 0 7px;color:#bdae98;font-size:9px;letter-spacing:.28em}
+#focusTimerOverlay .focus-exercise{min-height:24px;margin:0 0 12px;color:#f1e9dc;font:500 20px Georgia,serif}
+#focusTimerOverlay .focus-ring{position:relative;width:min(70vw,270px);aspect-ratio:1;margin:8px auto 18px;display:grid;place-items:center;border-radius:50%;background:conic-gradient(#d8c9a8 var(--focus-progress,0%),rgba(216,201,168,.12) 0);box-shadow:0 0 35px rgba(216,201,168,.07)}
+#focusTimerOverlay .focus-ring:before{content:"";position:absolute;inset:9px;border-radius:50%;background:radial-gradient(circle at 50% 35%,#30271f,#17120e 72%);border:1px solid rgba(216,201,168,.16)}
+#focusTimerOverlay .focus-time{position:relative;color:#f1e9dc;font-size:clamp(58px,16vw,78px);font-weight:600;letter-spacing:-.055em;font-variant-numeric:tabular-nums;line-height:1}
+#focusTimerOverlay .focus-caption{position:relative;margin-top:9px;color:#bdae98;font-size:9px;letter-spacing:.25em}
+#focusTimerOverlay .focus-status{min-height:18px;color:#c5b38f;font-size:11px;letter-spacing:.07em;margin:0 0 18px}
+#focusTimerOverlay .focus-controls{display:grid;grid-template-columns:1fr 1.2fr 1fr;gap:9px}
+#focusTimerOverlay .focus-controls button{min-height:48px;border-radius:14px;background:linear-gradient(145deg,#302820,#211a15);border:1px solid rgba(216,201,168,.25);color:#f1e9dc;font-size:12px}
+#focusTimerOverlay .focus-controls .focus-main{background:linear-gradient(135deg,#e3d5b8,#b9a681);color:#211911;border-color:#e3d5b8;font-weight:700}
+#focusTimerOverlay .focus-finish{margin-top:10px;width:100%;min-height:43px;border:1px solid rgba(216,201,168,.17);background:transparent;color:#bdae98;border-radius:13px;font-size:10px;letter-spacing:.1em}
+#focusTimerOverlay.is-complete .focus-ring{background:conic-gradient(#a9b69a 100%,rgba(216,201,168,.12) 0)}
+#focusTimerOverlay.is-complete .focus-time,#focusTimerOverlay.is-complete .focus-status{color:#c4d2b3}
+@media(prefers-reduced-motion:reduce){#focusTimerOverlay,#focusTimerOverlay .focus-card{transition:none}}
+</style>
+<script>
+/* MY TRAINING — FOCUS TIMER */
+(()=> {
+ const list=document.getElementById('exerciseList');
+ if(!list||document.getElementById('focusTimerOverlay'))return;
+ const overlay=document.createElement('div');
+ overlay.id='focusTimerOverlay';
+ overlay.innerHTML='<section class="focus-card" role="dialog" aria-modal="true" aria-label="Cronômetro de descanso"><button type="button" class="focus-minimize" aria-label="Minimizar cronômetro">⌄</button><div class="focus-kicker">MY TRAINING · FOCUS MODE</div><h2 class="focus-exercise">REST TIME</h2><div class="focus-ring"><div><div class="focus-time">00:00</div><div class="focus-caption">RECOVERY</div></div></div><div class="focus-status" aria-live="polite">Descanso pronto</div><div class="focus-controls"><button type="button" data-focus="-15">−15s</button><button type="button" class="focus-main" data-focus="toggle">Ⅱ PAUSAR</button><button type="button" data-focus="15">+15s</button></div><button type="button" class="focus-finish" data-focus="finish">PRÓXIMO EXERCÍCIO →</button></section>';
+ document.body.appendChild(overlay);
+ const time=overlay.querySelector('.focus-time'),title=overlay.querySelector('.focus-exercise'),status=overlay.querySelector('.focus-status'),ring=overlay.querySelector('.focus-ring'),toggle=overlay.querySelector('[data-focus="toggle"]');
+ let card=null,observer=null;
+ const format=n=>{n=Math.max(0,Number(n)||0);return String(Math.floor(n/60)).padStart(2,'0')+':'+String(n%60).padStart(2,'0')};
+ const sync=()=>{
+  if(!card)return;
+  const count=card.querySelector('.rest-count'),label=card.querySelector('.rest-status'),timer=card.querySelector('.rest-timer');
+  const seconds=count?parseInt(count.textContent,10)||0:0;
+  const total=Math.max(1,parseInt(timer?.dataset.rest||'60',10)||60);
+  time.textContent=format(seconds);
+  title.textContent=card.querySelector('.exname')?.childNodes?.[0]?.textContent?.trim()||card.querySelector('.exname')?.textContent?.trim()||'REST TIME';
+  const completed=!!timer?.classList.contains('finished');
+  overlay.classList.toggle('is-complete',completed);
+  status.textContent=completed?'DESCANSO CONCLUÍDO · PODE SEGUIR':(label?.textContent||'Descanso pronto');
+  ring.style.setProperty('--focus-progress',Math.max(0,Math.min(100,(1-seconds/total)*100))+'%');
+  const paused=(label?.textContent||'').toLowerCase().includes('pausado');
+  toggle.textContent=paused?'▶ CONTINUAR':'Ⅱ PAUSAR';
+ };
+ const show=target=>{
+  card=target;overlay.classList.add('is-visible');sync();
+  if(observer)observer.disconnect();
+  observer=new MutationObserver(sync);
+  const timer=card.querySelector('.rest-timer');
+  if(timer)observer.observe(timer,{subtree:true,childList:true,characterData:true,attributes:true,attributeFilter:['class']});
+ };
+ const hide=()=>{overlay.classList.remove('is-visible');if(observer)observer.disconnect();};
+ list.addEventListener('click',e=>{
+  const next=e.target.closest('button.rest-next');
+  if(next){if(card===next.closest('.exercise'))hide();return;}
+  const timer=e.target.closest('.rest-timer');
+  if(timer){const target=timer.closest('.exercise');if(target)show(target);}
+ });
+ overlay.addEventListener('click',e=>{
+  const b=e.target.closest('button[data-focus],.focus-minimize');if(!b)return;
+  if(b.classList.contains('focus-minimize')){hide();return;}
+  const action=b.dataset.focus;
+  if((action==='15'||action==='-15')&&window.MyTrainingTimerAdjust){window.MyTrainingTimerAdjust(Number(action));sync();return;}
+  if(action==='toggle'&&card){
+   const paused=(card.querySelector('.rest-status')?.textContent||'').toLowerCase().includes('pausado');
+   card.querySelector(paused?'.rest-play':'.rest-pause')?.click();
+   setTimeout(sync,40);return;
+  }
+  if(action==='finish'&&card){card.querySelector('.rest-next')?.click();hide();}
+ });
+ document.addEventListener('keydown',e=>{if(e.key==='Escape'&&overlay.classList.contains('is-visible'))hide();});
+})();
+</script>
+
 </body></html>
