@@ -1,4 +1,4 @@
-const CACHE='my-training-v65-articulated-row';
+const CACHE='my-training-v66-friday-images';
 
 const FILES=[
 
