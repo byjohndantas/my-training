@@ -1175,9 +1175,14 @@ const APPROVED_EXERCISE_IMAGES = Object.freeze({
  "Face pull": 44
 });
 
+const APPROVED_EXERCISE_IMAGE_FILES = Object.freeze({
+ "Supino inclinado máquina": "supino-inclinado-maquina.png"
+});
+
 function exerciseGraphic(name,muscle,photoIndex){
  const safe=name.replace(/&/g,' e ').replace(/"/g,'');
- return '<div class="exercise-visual"><img src="./assets/exercise-'+String(photoIndex).padStart(2,'0')+'.webp'+(photoIndex>=15&&photoIndex<=22?'?v=wednesday-20261118':(photoIndex===22?'?v=hip-thrust-2':''))+'" alt="'+safe+' — demonstração do exercício" loading="lazy"><div class="visual-copy"><strong>EXECUÇÃO DO EXERCÍCIO</strong><span>'+muscle+'</span><span>'+safe+'</span></div></div>';
+ const imageSrc=typeof photoIndex==='string'?'./assets/'+photoIndex:'./assets/exercise-'+String(photoIndex).padStart(2,'0')+'.webp'+(photoIndex>=15&&photoIndex<=22?'?v=wednesday-20261118':(photoIndex===22?'?v=hip-thrust-2':''));
+ return '<div class="exercise-visual"><img src="'+imageSrc+'" alt="'+safe+' — demonstração do exercício" loading="lazy"><div class="visual-copy"><strong>EXECUÇÃO DO EXERCÍCIO</strong><span>'+muscle+'</span><span>'+safe+'</span></div></div>';
 }
 
 function renderProgress(){const now=new Date();now.setHours(0,0,0,0);const monday=new Date(now);monday.setDate(now.getDate()-((now.getDay()+6)%7));const dates=Array.isArray(state.completedDayDates)?state.completedDayDates:[];const done=new Set(dates.filter(x=>{const d=new Date(x.date+'T00:00:00');return d>=monday&&d<=now;}).map(x=>x.date)).size;document.getElementById('progressText').textContent=`${done} de 6 dias concluídos`;document.getElementById('progressBar').style.width=(Math.min(done,6)/6*100)+'%'}
@@ -1208,7 +1213,7 @@ function render(){
   const previousText=previous
    ? previous.sets.map((x,n)=>'S'+(n+1)+': '+(x.weight||'—')+' × '+(x.reps||'—')).join('  ·  ')
    : 'Ainda não há um treino anterior registrado para comparação.';
-  return `<article class="exercise">${exerciseGraphic(e.name,e.muscle,APPROVED_EXERCISE_IMAGES[e.name] ?? e.photoIndex ?? photoOffset+i+1)}
+  return `<article class="exercise">${exerciseGraphic(e.name,e.muscle,APPROVED_EXERCISE_IMAGE_FILES[e.name] ?? APPROVED_EXERCISE_IMAGES[e.name] ?? e.photoIndex ?? photoOffset+i+1)}
    <div class="exrow"><input class="check" type="checkbox" aria-label="Concluído" data-key="${k}" ${l.done?'checked':''}><div class="exname">${i+1}. ${e.name}<div class="meta">${e.type==='timed' ? e.sets+' séries × '+e.reps+' · descanso '+e.rest : e.sets+' séries × '+e.reps+' repetições · descanso '+e.rest}</div><div class="muscle">${e.muscle}</div></div></div>
    <div class="details"><b>Execução:</b> ${e.how}<br><b>Atenção:</b> ${e.avoid}</div>
    <div class="details set-history"><b>ÚLTIMO TREINO:</b><br>${previousText}</div>
