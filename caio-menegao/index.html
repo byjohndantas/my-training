@@ -1146,19 +1146,45 @@ if(state.heightCm===undefined)state.heightCm=null;
 const save=()=>{localStorage.setItem(KEY,JSON.stringify(state));renderProgress();if(typeof renderHistory==='function')renderHistory()};
 
 const APPROVED_EXERCISE_IMAGE_FILES = Object.freeze({
- "Lat Pulldown": "puxada-alta.png",
- "Machine Incline Chest Press": "supino-inclinado-maquina.png",
- "Machine Chest Fly": "crucifixo-maquina.png",
- "Seated Cable Row": "remada-baixa.png",
- "EZ-Bar Curl": "rosca-ez.png",
- "Alternating Dumbbell Curl": "rosca-alternada.png",
- "Rope Triceps Pushdown": "triceps-corda.png",
- "Overhead Triceps Extension": "triceps-acima-da-cabeca.png",
- "Cable Crunch": "exercise-35.webp",
- "Cable Rope Crunch": "exercise-35.webp",
- "Hanging Leg Raise": "exercise-36.webp",
- "Plank": "exercise-37.webp"
-});
+  "Lat Pulldown": "puxada-alta.png",
+  "Bent-Over Barbell Row": "exercise-02.webp",
+  "Single-Arm Dumbbell Row": "exercise-03.webp",
+  "Cable Pullover": "exercise-04.webp",
+  "EZ-Bar Curl": "rosca-ez.png",
+  "Incline Dumbbell Curl": "exercise-06.webp",
+  "Hammer Curl": "exercise-07.webp",
+  "Smith Machine Incline Bench Press": "exercise-08.webp",
+  "Flat Dumbbell Bench Press": "exercise-09.webp",
+  "Cable Fly": "exercise-10.webp",
+  "Dumbbell Shoulder Press": "exercise-11.webp",
+  "Lateral Raise": "exercise-12.webp",
+  "Reverse Pec Deck": "exercise-13.webp",
+  "Cable Crunch": "exercise-35.webp",
+  "Hanging Leg Raise": "exercise-36.webp",
+  "Plank": "exercise-37.webp",
+  "Leg Press": "exercise-15.webp",
+  "Leg Extension": "exercise-16.webp",
+  "Hack Squat": "exercise-17.webp",
+  "Lying Leg Curl": "exercise-18.webp",
+  "Barbell or Dumbbell Romanian Deadlift": "exercise-19.webp",
+  "Hip Thrust": "exercise-20.webp",
+  "Standing Calf Raise": "exercise-21.webp",
+  "Seated Calf Raise": "exercise-22.webp",
+  "Chest-Supported T-Bar Row": "exercise-40.webp",
+  "Wide-Grip Seated Cable Row": "exercise-41.webp",
+  "Plate-Loaded Row": "exercise-42.webp",
+  "Reverse Fly": "exercise-43.webp",
+  "Face Pull": "exercise-44.webp",
+  "Machine Incline Chest Press": "supino-inclinado-maquina.png",
+  "Machine Chest Fly": "crucifixo-maquina.png",
+  "Seated Cable Row": "remada-baixa.png",
+  "Alternating Dumbbell Curl": "rosca-alternada.png",
+  "Rope Triceps Pushdown": "triceps-corda.png",
+  "Overhead Triceps Extension": "triceps-acima-da-cabeca.png",
+  "Cable Rope Crunch": "exercise-35.webp",
+  "Side Plank": "exercise-38.webp",
+  "Easy Cycling or Walking": "exercise-39.webp"
+});;
 
 function exerciseGraphic(name,muscle,photoIndex){
  const safe=name.replace(/&/g,' e ').replace(/"/g,'');
