@@ -1145,9 +1145,26 @@ if(!Array.isArray(state.progressPhotos))state.progressPhotos=[];
 if(state.heightCm===undefined)state.heightCm=null;
 const save=()=>{localStorage.setItem(KEY,JSON.stringify(state));renderProgress();if(typeof renderHistory==='function')renderHistory()};
 
+const APPROVED_EXERCISE_IMAGE_FILES = Object.freeze({
+ "Lat Pulldown": "puxada-alta.png",
+ "Machine Incline Chest Press": "supino-inclinado-maquina.png",
+ "Machine Chest Fly": "crucifixo-maquina.png",
+ "Seated Cable Row": "remada-baixa.png",
+ "EZ-Bar Curl": "rosca-ez.png",
+ "Alternating Dumbbell Curl": "rosca-alternada.png",
+ "Rope Triceps Pushdown": "triceps-corda.png",
+ "Overhead Triceps Extension": "triceps-acima-da-cabeca.png",
+ "Cable Crunch": "exercise-35.webp",
+ "Cable Rope Crunch": "exercise-35.webp",
+ "Hanging Leg Raise": "exercise-36.webp",
+ "Plank": "exercise-37.webp"
+});
+
 function exerciseGraphic(name,muscle,photoIndex){
  const safe=name.replace(/&/g,' e ').replace(/"/g,'');
- return '<div class="exercise-visual"><img src="../assets/exercise-'+String(photoIndex).padStart(2,'0')+'.webp" alt="'+safe+' — exercise demonstration" loading="lazy"><div class="visual-copy"><strong>EXERCISE GUIDE</strong><span>'+muscle+'</span><span>'+safe+'</span></div></div>';
+ const file=APPROVED_EXERCISE_IMAGE_FILES[name];
+ const imageSrc=file?'../assets/'+file:'../assets/exercise-'+String(photoIndex).padStart(2,'0')+'.webp';
+ return '<div class="exercise-visual"><img src="'+imageSrc+'" alt="'+safe+' — exercise demonstration" loading="lazy"><div class="visual-copy"><strong>EXERCISE GUIDE</strong><span>'+muscle+'</span><span>'+safe+'</span></div></div>';
 }
 
 function renderProgress(){const now=new Date();now.setHours(0,0,0,0);const monday=new Date(now);monday.setDate(now.getDate()-((now.getDay()+6)%7));const dates=Array.isArray(state.completedDayDates)?state.completedDayDates:[];const done=new Set(dates.filter(x=>{const d=new Date(x.date+'T00:00:00');return d>=monday&&d<=now;}).map(x=>x.date)).size;document.getElementById('progressText').textContent=`${done} of 6 workout days completed`;document.getElementById('progressBar').style.width=(Math.min(done,6)/6*100)+'%'}
