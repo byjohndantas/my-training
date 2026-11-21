@@ -1747,6 +1747,9 @@ function selectRadio(index){const audio=document.getElementById('radioAudio');co
 /* Bridge the existing workout plan into the 3D viewer without changing saved progress. */
 (()=>{try{window.__MY_TRAINING_WORKOUTS__=typeof WORKOUTS!=='undefined'?WORKOUTS:[];}catch(e){window.__MY_TRAINING_WORKOUTS__=[];}})();
 </script>
+<script type="importmap" id="three-import-map">
+{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.170.0/build/three.module.js","three/addons/":"https://cdn.jsdelivr.net/npm/three@0.170.0/examples/jsm/"}}
+</script>
 <script type="module" id="muscle3d-engine">
 import * as THREE from 'https://cdn.jsdelivr.net/npm/three@0.170.0/build/three.module.js';
 import {GLTFLoader} from 'https://cdn.jsdelivr.net/npm/three@0.170.0/examples/jsm/loaders/GLTFLoader.js';
