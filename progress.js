@@ -685,42 +685,19 @@ document.head.appendChild(premium);
   const completeForDashboard=document.getElementById('completeDay');
   if(completeForDashboard) completeForDashboard.addEventListener('click',()=>setTimeout(renderPerformance,0));
 
-  // MUSCLE MAP — volume semanal planejado, derivado apenas do WORKOUTS deste site.
-  // Não altera logs, medidas, histórico, cargas ou sessões pessoais.
+  // MUSCLE MAP — volume semanal planejado, sem ilustrações de corpo humano.
   const muscleMap = document.createElement('section');
   muscleMap.id = 'mpMuscleMap';
   muscleMap.innerHTML = [
     '<div class="mp-heading">MUSCLE MAP</div>',
-    '<p class="mp-muscle-intro">Distribuição das séries previstas no seu plano semanal. Toque em uma região para ver os exercícios.</p>',
-    '<div class="mp-body-grid">',
-    '<div class="mp-body-card"><div class="mp-body-label">FRENTE</div>',
-    '<svg viewBox="0 0 180 340" role="group" aria-label="Mapa muscular frontal interativo">',
-    '<g class="mp-body-base"><circle cx="90" cy="27" r="17"/>',
-    '<path d="M72 48 Q58 51 53 69 L43 111 Q40 122 48 127 L57 119 L67 84 L70 132 L66 204 L58 283 Q57 296 69 297 L78 218 L90 164 L102 218 L111 297 Q123 298 122 283 L114 204 L110 132 L113 84 L123 119 L132 127 Q140 122 137 111 L127 69 Q122 51 108 48 Z"/>',
-    '<path d="M70 48 Q90 42 110 48 L108 131 Q90 142 72 131 Z"/></g>',
-    '<g class="mp-muscle-regions">',
-    '<path data-muscle="ombros" d="M70 53 Q55 52 52 70 L65 82 L76 68 Z"/>',
-    '<path data-muscle="ombros" d="M110 53 Q125 52 128 70 L115 82 L104 68 Z"/>',
-    '<path data-muscle="peito" d="M72 69 Q90 61 90 88 L90 106 Q77 109 67 96 Z M108 69 Q90 61 90 88 L90 106 Q103 109 113 96 Z"/>',
-    '<path data-muscle="biceps" d="M53 78 L65 85 L58 119 L48 119 Z M127 78 L115 85 L122 119 L132 119 Z"/>',
-    '<path data-muscle="abdomen" d="M73 108 Q90 113 107 108 L105 158 Q90 165 75 158 Z"/>',
-    '<path data-muscle="quadriceps" d="M70 164 L89 166 L82 222 L67 267 L61 263 Z M91 166 L110 164 L119 263 L113 267 L98 222 Z"/>',
-    '<path data-muscle="panturrilhas" d="M66 268 L81 270 L77 292 L68 292 Z M99 270 L114 268 L112 292 L103 292 Z"/>',
-    '</g></svg></div>',
-    '<div class="mp-body-card"><div class="mp-body-label">COSTAS</div>',
-    '<svg viewBox="0 0 180 340" role="group" aria-label="Mapa muscular posterior interativo">',
-    '<g class="mp-body-base"><circle cx="90" cy="27" r="17"/>',
-    '<path d="M72 48 Q58 51 53 69 L43 111 Q40 122 48 127 L57 119 L67 84 L70 132 L66 204 L58 283 Q57 296 69 297 L78 218 L90 164 L102 218 L111 297 Q123 298 122 283 L114 204 L110 132 L113 84 L123 119 L132 127 Q140 122 137 111 L127 69 Q122 51 108 48 Z"/>',
-    '<path d="M70 48 Q90 42 110 48 L108 131 Q90 142 72 131 Z"/></g>',
-    '<g class="mp-muscle-regions">',
-    '<path data-muscle="costas" d="M72 55 L88 63 L87 116 L69 105 L65 74 Z M108 55 L92 63 L93 116 L111 105 L115 74 Z"/>',
-    '<path data-muscle="ombros" d="M70 53 Q55 52 52 70 L65 82 L76 68 Z M110 53 Q125 52 128 70 L115 82 L104 68 Z"/>',
-    '<path data-muscle="triceps" d="M53 78 L65 85 L58 119 L48 119 Z M127 78 L115 85 L122 119 L132 119 Z"/>',
-    '<path data-muscle="gluteos" d="M69 132 Q90 143 111 132 L109 165 Q90 174 71 165 Z"/>',
-    '<path data-muscle="posteriores" d="M70 169 L88 171 L82 226 L67 267 L61 263 Z M92 171 L110 169 L119 263 L113 267 L98 226 Z"/>',
-    '<path data-muscle="panturrilhas" d="M66 268 L81 270 L77 292 L68 292 Z M99 270 L114 268 L112 292 L103 292 Z"/>',
-    '</g></svg></div></div>',
-    '<div class="mp-muscle-legend"><span><i class="level-0"></i>Sem séries</span><span><i class="level-1"></i>1–5</span><span><i class="level-2"></i>6–10</span><span><i class="level-3"></i>11+</span></div>',
+    '<p class="mp-muscle-intro">Distribuição das séries previstas no seu plano semanal. Selecione um grupo muscular para ver os exercícios.</p>',
+    '<div class="mp-muscle-picker" role="group" aria-label="Grupos musculares">',
+    '<button type="button" data-muscle="peito">Peito</button><button type="button" data-muscle="costas">Costas</button>',
+    '<button type="button" data-muscle="ombros">Ombros</button><button type="button" data-muscle="biceps">Bíceps</button>',
+    '<button type="button" data-muscle="triceps">Tríceps</button><button type="button" data-muscle="abdomen">Abdômen</button>',
+    '<button type="button" data-muscle="quadriceps">Quadríceps</button><button type="button" data-muscle="posteriores">Posteriores</button>',
+    '<button type="button" data-muscle="gluteos">Glúteos</button><button type="button" data-muscle="panturrilhas">Panturrilhas</button>',
+    '</div>',
     '<div class="mp-muscle-detail" id="mpMuscleDetail" aria-live="polite"></div>',
     '<div class="mp-muscle-footnote">Leitura baseada nas séries previstas no treino semanal atual. É uma estimativa de distribuição do volume planejado; não mede ativação, recuperação ou crescimento muscular.</div>'
   ].join('');
@@ -728,70 +705,41 @@ document.head.appendChild(premium);
   muscleMapStyle.textContent = [
     '#mpMuscleMap{margin:22px 0 8px;padding:16px;border:1px solid rgba(216,201,168,.3);border-radius:18px;background:radial-gradient(ellipse at 50% 0%,rgba(216,201,168,.1),transparent 48%),linear-gradient(145deg,#292119,#17120e)}',
     '#mpMuscleMap .mp-muscle-intro{margin:8px 0 16px;color:#bdae98;font-size:11px;line-height:1.55}',
-    '#mpMuscleMap .mp-body-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}',
-    '#mpMuscleMap .mp-body-card{min-width:0;padding:10px 6px 6px;border:1px solid #d8c9a82b;border-radius:14px;background:linear-gradient(160deg,#30271f,#17120e)}',
-    '#mpMuscleMap .mp-body-label{text-align:center;color:#d8c9a8;font-size:9px;letter-spacing:.2em}',
-    '#mpMuscleMap svg{display:block;width:100%;height:auto;max-height:270px;margin:6px auto 0;overflow:visible}',
-    '#mpMuscleMap .mp-body-base circle,#mpMuscleMap .mp-body-base path{fill:#756958;stroke:#b7a88f;stroke-width:1.2;stroke-linejoin:round}',
-    '#mpMuscleMap .mp-muscle-regions path{fill:#4a4034;stroke:#b7a88f;stroke-width:1;stroke-linejoin:round;cursor:pointer;transition:fill .2s,filter .2s}',
-    '#mpMuscleMap .mp-muscle-regions path.level-1{fill:#98764d}#mpMuscleMap .mp-muscle-regions path.level-2{fill:#c2a477}#mpMuscleMap .mp-muscle-regions path.level-3{fill:#e4d3b2}',
-    '#mpMuscleMap .mp-muscle-regions path.selected{stroke:#fff0cf;stroke-width:2.5;filter:drop-shadow(0 0 5px #e4d3b2)}',
-    '#mpMuscleMap .mp-muscle-legend{display:flex;justify-content:center;flex-wrap:wrap;gap:10px 13px;margin:14px 0;color:#bdae98;font-size:9px}',
-    '#mpMuscleMap .mp-muscle-legend span{display:flex;align-items:center;gap:5px}#mpMuscleMap .mp-muscle-legend i{display:inline-block;width:10px;height:10px;border-radius:3px;background:#4a4034}',
-    '#mpMuscleMap .mp-muscle-legend .level-1{background:#98764d}#mpMuscleMap .mp-muscle-legend .level-2{background:#c2a477}#mpMuscleMap .mp-muscle-legend .level-3{background:#e4d3b2}',
+    '#mpMuscleMap .mp-muscle-picker{display:flex;flex-wrap:wrap;gap:7px;margin:0 0 14px}',
+    '#mpMuscleMap .mp-muscle-picker button{border:1px solid rgba(216,201,168,.28);border-radius:999px;padding:8px 11px;background:#211a14;color:#c8b99f;font-size:10px}',
+    '#mpMuscleMap .mp-muscle-picker button.selected{background:linear-gradient(145deg,#e3d2b2,#a99576);border-color:#e3d2b2;color:#17110b}',
     '#mpMuscleMap .mp-muscle-detail{padding:13px;border:1px solid #d8c9a83b;border-radius:13px;background:#15110e;min-height:90px}',
     '#mpMuscleMap .mp-detail-head{display:flex;justify-content:space-between;align-items:baseline;gap:8px}#mpMuscleMap .mp-detail-name{color:#f1e9dc;font:19px Georgia,serif}#mpMuscleMap .mp-detail-sets{color:#e3d2b2;font-size:11px;white-space:nowrap}',
     '#mpMuscleMap .mp-detail-ex{margin-top:9px;color:#bdae98;font-size:10px;line-height:1.7}#mpMuscleMap .mp-muscle-footnote{margin:11px 1px 0;color:#9f907c;font-size:9px;line-height:1.55}',
-    '@media(max-width:350px){#mpMuscleMap{padding:11px}#mpMuscleMap .mp-body-grid{gap:6px}}'
+    '@media(max-width:350px){#mpMuscleMap{padding:11px}}'
   ].join('');
   document.head.appendChild(muscleMapStyle);
   const mapAnchor = document.getElementById('mpStats');
   if (mapAnchor) mapAnchor.insertAdjacentElement('afterend', muscleMap);
-
   const muscleAliases = [
-    {id:'peito',label:'Peito',match:/peito/},
-    {id:'ombros',label:'Ombros',match:/ombro|deltoide posterior/},
-    {id:'biceps',label:'Bíceps',match:/bíceps?/i},
-    {id:'triceps',label:'Tríceps',match:/tríceps?/i},
-    {id:'abdomen',label:'Abdômen e core',match:/abdômen|core|oblíquos/i},
-    {id:'costas',label:'Costas',match:/costas/},
-    {id:'gluteos',label:'Glúteos',match:/glúteos?/i},
-    {id:'quadriceps',label:'Quadríceps',match:/quadríceps?/i},
-    {id:'posteriores',label:'Posteriores de coxa',match:/posteriores/},
-    {id:'panturrilhas',label:'Panturrilhas',match:/panturrilhas?|sóleo/i}
+    {id:'peito',label:'Peito',match:/peito/},{id:'ombros',label:'Ombros',match:/ombro|deltoide posterior/},
+    {id:'biceps',label:'Bíceps',match:/bíceps?/i},{id:'triceps',label:'Tríceps',match:/tríceps?/i},
+    {id:'abdomen',label:'Abdômen e core',match:/abdômen|core|oblíquos/i},{id:'costas',label:'Costas',match:/costas/},
+    {id:'gluteos',label:'Glúteos',match:/glúteos?/i},{id:'quadriceps',label:'Quadríceps',match:/quadríceps?/i},
+    {id:'posteriores',label:'Posteriores de coxa',match:/posteriores/},{id:'panturrilhas',label:'Panturrilhas',match:/panturrilhas?|sóleo/i}
   ];
   const mapGroups = Object.fromEntries(muscleAliases.map(x=>[x.id,{...x,sets:0,exercises:[]}]));
   (Array.isArray(WORKOUTS)?WORKOUTS:[]).forEach(day=>{
     (day.exercises||[]).forEach(ex=>{
-      const muscleText=String(ex.muscle||'');
-      const targets=muscleAliases.filter(group=>group.match.test(muscleText));
+      const targets=muscleAliases.filter(group=>group.match.test(String(ex.muscle||'')));
       targets.forEach(group=>{
-        const item=mapGroups[group.id];
-        const sets=Math.max(0,parseInt(ex.sets,10)||0);
-        item.sets+=sets;
-        item.exercises.push({name:ex.name,day:day.name,sets});
+        const item=mapGroups[group.id], sets=Math.max(0,parseInt(ex.sets,10)||0);
+        item.sets+=sets; item.exercises.push({name:ex.name,day:day.name,sets});
       });
     });
   });
-  const muscleLevel=sets=>sets===0?0:sets<=5?1:sets<=10?2:3;
   const detail=document.getElementById('mpMuscleDetail');
   function selectMuscle(id){
-    const group=mapGroups[id];
-    if(!group||!detail)return;
+    const group=mapGroups[id]; if(!group||!detail)return;
     muscleMap.querySelectorAll('[data-muscle]').forEach(el=>el.classList.toggle('selected',el.dataset.muscle===id));
-    const exerciseLines=group.exercises.length
-      ? group.exercises.map(x=>safe(x.name)+' · '+safe(x.day)+' · '+x.sets+' séries').join('<br>')
-      : 'Nenhum exercício do plano atual está associado a esta região.';
+    const exerciseLines=group.exercises.length?group.exercises.map(x=>safe(x.name)+' · '+safe(x.day)+' · '+x.sets+' séries').join('<br>'):'Nenhum exercício do plano atual está associado a esta região.';
     detail.innerHTML='<div class="mp-detail-head"><span class="mp-detail-name">'+safe(group.label)+'</span><strong class="mp-detail-sets">'+group.sets+' séries planejadas</strong></div><div class="mp-detail-ex">'+exerciseLines+'</div>';
   }
-  Object.values(mapGroups).forEach(group=>{
-    const level=muscleLevel(group.sets);
-    if(level) muscleMap.querySelectorAll('[data-muscle="'+group.id+'"]').forEach(el=>el.classList.add('level-'+level));
-  });
-  muscleMap.addEventListener('click',event=>{
-    const region=event.target.closest('[data-muscle]');
-    if(region)selectMuscle(region.dataset.muscle);
-  });
+  muscleMap.addEventListener('click',event=>{const region=event.target.closest('[data-muscle]');if(region)selectMuscle(region.dataset.muscle);});
   selectMuscle('peito');
-
-    drawChart();})();
+  drawChart();})();
