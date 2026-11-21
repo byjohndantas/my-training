@@ -1645,7 +1645,7 @@ function selectRadio(index){const audio=document.getElementById('radioAudio');co
  const norm=s=>(s||'').toLocaleLowerCase('pt-BR').normalize('NFD').replace(/[\u0300-\u036f]/g,'');
  function stats(g){
   let sets=0,items=[];
-  (window.WORKOUTS||[]).forEach(day=>(day.exercises||[]).forEach(ex=>{
+  (typeof WORKOUTS!=='undefined'?WORKOUTS:[]).forEach(day=>(day.exercises||[]).forEach(ex=>{
    const muscle=norm(ex.muscle),name=norm(ex.name);
    if(g.terms.some(t=>muscle.includes(norm(t)) || (t==='costas'&&muscle.includes('costas')))){
     const n=parseInt(ex.sets,10)||0;sets+=n;items.push(ex.name+' ('+day.day+')');
