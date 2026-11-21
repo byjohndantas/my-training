@@ -1668,4 +1668,37 @@ function selectRadio(index){const audio=document.getElementById('radioAudio');co
 })();
 </script>
 
+
+<style id="muscle-map-motion-upgrade">
+/* MUSCLE MAP — PREMIUM MOTION LAYER */
+.muscle-map{isolation:isolate;overflow:hidden;box-shadow:0 18px 42px rgba(0,0,0,.24),inset 0 1px rgba(255,245,225,.045)}
+.muscle-map:before,.muscle-map:after{content:"";position:absolute;z-index:-1;pointer-events:none;border-radius:50%;filter:blur(2px)}
+.muscle-map:before{width:180px;height:180px;top:5%;left:-70px;background:radial-gradient(circle,rgba(227,208,173,.13),rgba(227,208,173,0) 70%);animation:mapAuraDrift 11s ease-in-out infinite alternate}
+.muscle-map:after{width:210px;height:210px;right:-95px;bottom:4%;background:radial-gradient(circle,rgba(181,138,90,.14),rgba(181,138,90,0) 70%);animation:mapAuraDrift 14s ease-in-out infinite alternate-reverse}
+.muscle-map-views figure{position:relative;overflow:hidden;border-radius:12px}
+.muscle-map-views figure:after{content:"";position:absolute;inset:0;pointer-events:none;background:linear-gradient(115deg,transparent 25%,rgba(239,221,187,.10) 48%,transparent 68%);transform:translateX(-130%);animation:anatomyLightSweep 9s ease-in-out infinite}
+.muscle-map-views figure:nth-child(2):after{animation-delay:2.8s}
+.muscle-map-views img{transition:filter .5s ease,transform .7s cubic-bezier(.2,.7,.2,1);filter:drop-shadow(0 5px 14px rgba(0,0,0,.2))}
+.muscle-map-views figure:active img{transform:scale(1.025);filter:drop-shadow(0 0 12px rgba(227,208,173,.3))}
+.muscle-map-controls button{position:relative;overflow:hidden;transition:transform .28s ease,box-shadow .35s ease,border-color .35s ease,background .35s ease}
+.muscle-map-controls button.active{box-shadow:0 0 0 1px rgba(239,221,187,.2),0 0 18px rgba(216,201,168,.23),inset 0 1px rgba(255,255,255,.35);transform:translateY(-1px)}
+.muscle-map-controls button.active:after{content:"";position:absolute;inset:-30% auto -30% -65%;width:42%;pointer-events:none;background:linear-gradient(90deg,transparent,rgba(255,255,255,.5),transparent);transform:skewX(-20deg);animation:muscleButtonShine 2.8s ease-in-out infinite}
+.muscle-map-detail{position:relative;overflow:hidden;transition:border-color .35s ease,box-shadow .35s ease}
+.muscle-map-detail.is-updating{animation:musclePanelReveal .48s cubic-bezier(.2,.7,.2,1) both;border-color:rgba(227,208,173,.4);box-shadow:0 0 22px rgba(216,201,168,.11)}
+.muscle-map-detail>img{animation:muscleBreathing 5.5s ease-in-out infinite;filter:drop-shadow(0 0 9px rgba(216,201,168,.13));transform-origin:50% 55%}
+.muscle-map-detail h3{animation:muscleTextReveal .42s ease both}
+.muscle-map-detail strong{ text-shadow:0 0 12px rgba(227,208,173,.22)}
+@keyframes mapAuraDrift{from{transform:translate3d(0,-8px,0) scale(.92);opacity:.55}to{transform:translate3d(24px,16px,0) scale(1.12);opacity:1}}
+@keyframes anatomyLightSweep{0%,60%{transform:translateX(-130%);opacity:0}72%{opacity:1}100%{transform:translateX(130%);opacity:0}}
+@keyframes muscleButtonShine{0%,35%{left:-65%;opacity:0}48%{opacity:.9}78%,100%{left:135%;opacity:0}}
+@keyframes muscleBreathing{0%,100%{transform:scale(1);filter:drop-shadow(0 0 7px rgba(216,201,168,.10))}50%{transform:scale(1.035);filter:drop-shadow(0 0 15px rgba(216,201,168,.26))}}
+@keyframes musclePanelReveal{from{opacity:.55;transform:translateY(7px) scale(.99)}to{opacity:1;transform:translateY(0) scale(1)}}
+@keyframes muscleTextReveal{from{opacity:0;transform:translateY(5px)}to{opacity:1;transform:translateY(0)}}
+@media(hover:hover){.muscle-map-controls button:hover{transform:translateY(-2px);box-shadow:0 7px 18px rgba(0,0,0,.2)}}
+@media(prefers-reduced-motion:reduce){.muscle-map:before,.muscle-map:after,.muscle-map-views figure:after,.muscle-map-controls button.active:after,.muscle-map-detail>img,.muscle-map-detail h3{animation:none!important}.muscle-map-controls button,.muscle-map-views img,.muscle-map-detail{transition:none!important}}
+</style>
+<script id="muscle-map-motion-controller">
+(()=>{const panel=document.getElementById('muscleMapDetail');if(!panel||panel.dataset.motionReady)return;panel.dataset.motionReady='1';let last='';const observer=new MutationObserver(()=>{const now=panel.innerHTML;if(now===last)return;last=now;panel.classList.remove('is-updating');void panel.offsetWidth;panel.classList.add('is-updating');});observer.observe(panel,{childList:true,subtree:true,characterData:true});})();
+</script>
+
 </body></html>
