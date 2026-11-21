@@ -1138,12 +1138,21 @@ body::before{
 <div class="evolution-subtitle">MAPA MUSCULAR · TREINO SEMANAL</div>
 <p class="muted">Explore os grupos musculares e veja o volume planejado no seu treino.</p>
 <div id="muscleMap" class="muscle-map">
- <div class="muscle-map-views">
-  <figure><img src="./assets/body-front.jpg" alt="Anatomia muscular — vista frontal"><figcaption>VISTA FRONTAL</figcaption></figure>
-  <figure><img src="./assets/body-back.jpg" alt="Anatomia muscular — vista posterior"><figcaption>VISTA POSTERIOR</figcaption></figure>
+ <div class="muscle3d-shell">
+  <div class="muscle3d-topbar"><span>ANATOMIA 3D · INTERATIVA</span><span id="muscle3dStatus">CARREGANDO MODELO</span></div>
+  <div id="muscle3dStage" class="muscle3d-stage" role="application" aria-label="Modelo anatômico 3D interativo">
+   <div class="muscle3d-loading"><span class="muscle3d-spinner"></span><b>Preparando anatomia</b><small>Carregando estruturas musculares em 3D</small></div>
+  </div>
+  <div class="muscle3d-controls">
+   <button type="button" data-view="front">FRENTE</button><button type="button" data-view="back">COSTAS</button><button type="button" data-view="reset">RESETAR</button><button type="button" id="muscle3dRotate">ROTAÇÃO AUTO · OFF</button>
+  </div>
+  <p class="muscle3d-hint">Arraste para girar · use dois dedos para aproximar · toque diretamente em um músculo</p>
+  <div id="muscle3dDetail" class="muscle3d-detail" aria-live="polite"><div><span class="muscle3d-kicker">SELECIONE UMA REGIÃO</span><h3>Explore sua musculatura</h3><p>Toque em qualquer músculo do modelo para ver os exercícios, séries planejadas e frequência semanal.</p></div></div>
+  <div class="muscle3d-legend"><span><i class="legend-dot"></i> Músculos</span><span><i class="legend-dot selected"></i> Região selecionada</span></div>
+  <p class="muscle3d-credit">Modelo anatômico Open Anatomy 3D · CC BY 4.0 · Adaptado de BodyParts3D, HuBMAP e MakeHuman.</p>
  </div>
- <div class="muscle-map-controls" id="muscleMapControls"></div>
- <div class="muscle-map-detail" id="muscleMapDetail" aria-live="polite"></div>
+ <div class="muscle-map-controls" id="muscleMapControls" hidden></div>
+ <div class="muscle-map-detail" id="muscleMapDetail" aria-live="polite" hidden></div>
 </div>
 <style>
 .muscle-map{position:relative;margin-top:12px;padding:12px;border:1px solid rgba(216,201,168,.22);border-radius:17px;background:linear-gradient(145deg,rgba(42,32,24,.88),rgba(18,14,11,.96))}
@@ -1702,3 +1711,140 @@ function selectRadio(index){const audio=document.getElementById('radioAudio');co
 </script>
 
 </body></html>
+
+<style id="muscle3d-premium">
+.muscle3d-shell{margin-top:12px;padding:12px;border:1px solid rgba(216,201,168,.24);border-radius:19px;background:radial-gradient(ellipse at 50% 12%,rgba(195,158,105,.16),transparent 54%),linear-gradient(155deg,rgba(43,33,25,.96),rgba(13,10,8,.98));box-shadow:0 18px 44px #0005,inset 0 1px #fff1}
+.muscle3d-topbar{display:flex;justify-content:space-between;gap:8px;align-items:center;color:#d8c9a8;font-size:8px;letter-spacing:.19em;padding:2px 3px 9px}
+#muscle3dStatus{color:#b6a58e;font-size:8px;letter-spacing:.12em}
+.muscle3d-stage{height:min(66vh,570px);min-height:390px;position:relative;overflow:hidden;border:1px solid rgba(216,201,168,.15);border-radius:15px;background:radial-gradient(ellipse at 50% 42%,#493a2b 0%,#211911 47%,#100c09 80%);touch-action:pan-y}
+.muscle3d-stage canvas{display:block;width:100%;height:100%;outline:none;touch-action:none}
+.muscle3d-loading{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;color:#e8dcc8;text-align:center;pointer-events:none}
+.muscle3d-loading b{font:500 19px Georgia,serif}.muscle3d-loading small{font-size:10px;color:#bdae98;letter-spacing:.06em}
+.muscle3d-spinner{width:28px;height:28px;border:2px solid #d8c9a833;border-top-color:#e3d0ad;border-radius:50%;animation:muscle3dSpin .9s linear infinite}
+@keyframes muscle3dSpin{to{transform:rotate(360deg)}}
+.muscle3d-controls{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:6px;margin-top:10px}
+.muscle3d-controls button{padding:10px 4px;min-height:39px;font-size:8px;letter-spacing:.07em;border-radius:10px}
+.muscle3d-controls button.active{background:linear-gradient(135deg,#e3d0ad,#a99576);color:#1b140e;border-color:#e3d0ad}
+.muscle3d-hint{text-align:center;color:#bdae98;font-size:10px;line-height:1.5;margin:10px 4px}
+.muscle3d-detail{position:relative;padding:15px;border:1px solid rgba(216,201,168,.2);border-radius:14px;background:linear-gradient(140deg,rgba(53,41,29,.8),rgba(19,14,10,.95));min-height:120px;animation:muscle3dReveal .35s ease both}
+.muscle3d-detail.is-selected{border-color:rgba(227,208,173,.52);box-shadow:0 0 24px rgba(216,201,168,.12),inset 0 0 22px rgba(216,201,168,.035)}
+.muscle3d-detail h3{font:500 23px Georgia,serif;color:#f1e6d5;margin:5px 0 8px}
+.muscle3d-detail p{font-size:11px;color:#c7b69f;line-height:1.6;margin:5px 0}
+.muscle3d-kicker{font-size:8px;letter-spacing:.2em;color:#d8c9a8}
+.muscle3d-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:7px;margin-top:12px}
+.muscle3d-stat{padding:10px 8px;border-radius:10px;background:rgba(0,0,0,.25);border:1px solid rgba(216,201,168,.12)}
+.muscle3d-stat strong{display:block;font:500 23px Georgia,serif;color:#e3d0ad}.muscle3d-stat span{display:block;font-size:8px;color:#bdae98;letter-spacing:.08em;margin-top:3px}
+.muscle3d-exercises{margin-top:10px;padding-top:9px;border-top:1px solid rgba(216,201,168,.13)}
+.muscle3d-exercises b{font-size:9px;letter-spacing:.13em;color:#d8c9a8}.muscle3d-exercises ul{margin:7px 0 0;padding-left:17px;color:#d5c7b4;font-size:10px;line-height:1.7}
+.muscle3d-legend{display:flex;justify-content:center;gap:16px;margin:11px 0 2px;color:#bdae98;font-size:8px;letter-spacing:.06em}
+.legend-dot{display:inline-block;width:7px;height:7px;border-radius:50%;background:#b58a5a;margin-right:5px}.legend-dot.selected{background:#f0d9a8;box-shadow:0 0 9px #f0d9a8}
+.muscle3d-credit{text-align:center;color:#8f7c66;font-size:8px;line-height:1.5;margin:10px 4px 0}
+@keyframes muscle3dReveal{from{opacity:.5;transform:translateY(7px)}to{opacity:1;transform:translateY(0)}}
+@media(max-width:380px){.muscle3d-stage{min-height:350px;height:54vh}.muscle3d-controls button{font-size:7px}.muscle3d-detail{padding:12px}}
+@media(prefers-reduced-motion:reduce){.muscle3d-spinner{animation:none}.muscle3d-detail{animation:none}}
+</style>
+<script>
+/* Bridge the existing workout plan into the 3D viewer without changing saved progress. */
+(()=>{try{window.__MY_TRAINING_WORKOUTS__=typeof WORKOUTS!=='undefined'?WORKOUTS:[];}catch(e){window.__MY_TRAINING_WORKOUTS__=[];}})();
+</script>
+<script type="module" id="muscle3d-engine">
+import * as THREE from 'https://cdn.jsdelivr.net/npm/three@0.170.0/build/three.module.js';
+import {GLTFLoader} from 'https://cdn.jsdelivr.net/npm/three@0.170.0/examples/jsm/loaders/GLTFLoader.js';
+import {OrbitControls} from 'https://cdn.jsdelivr.net/npm/three@0.170.0/examples/jsm/controls/OrbitControls.js';
+import {MeshoptDecoder} from 'https://cdn.jsdelivr.net/npm/three@0.170.0/examples/jsm/libs/meshopt_decoder.module.js';
+(()=>{
+ const stage=document.getElementById('muscle3dStage');if(!stage||stage.dataset.ready)return;stage.dataset.ready='1';
+ const status=document.getElementById('muscle3dStatus'),detail=document.getElementById('muscle3dDetail'),rotateBtn=document.getElementById('muscle3dRotate');
+ const scene=new THREE.Scene();scene.background=null;
+ const camera=new THREE.PerspectiveCamera(32,1,.1,100);camera.position.set(0,1.05,4.7);
+ const renderer=new THREE.WebGLRenderer({antialias:true,alpha:true,powerPreference:'high-performance'});
+ renderer.setPixelRatio(Math.min(window.devicePixelRatio||1,1.7));renderer.outputColorSpace=THREE.SRGBColorSpace;renderer.toneMapping=THREE.ACESFilmicToneMapping;renderer.toneMappingExposure=1.12;stage.appendChild(renderer.domElement);
+ const controls=new OrbitControls(camera,renderer.domElement);controls.enableDamping=true;controls.dampingFactor=.075;controls.enablePan=false;controls.minDistance=2.2;controls.maxDistance=7;controls.target.set(0,.92,0);controls.autoRotate=false;controls.autoRotateSpeed=.65;
+ scene.add(new THREE.HemisphereLight(0xf5e7d0,0x24170e,2.0));
+ const key=new THREE.DirectionalLight(0xffe2b5,3.0);key.position.set(3,4,4);scene.add(key);
+ const rim=new THREE.DirectionalLight(0xc18b4d,2.4);rim.position.set(-3,2,-4);scene.add(rim);
+ const fill=new THREE.PointLight(0xe5cda5,18,8);fill.position.set(0,1.6,3);scene.add(fill);
+ const floor=new THREE.Mesh(new THREE.CircleGeometry(1.1,64),new THREE.MeshBasicMaterial({color:0x8c6842,transparent:true,opacity:.09}));floor.rotation.x=-Math.PI/2;floor.position.y=-.02;floor.scale.set(1.2,1,1);scene.add(floor);
+ let model=null,selected=null,originalMaterials=new Map(),meshes=[],raf=0;
+ const raycaster=new THREE.Raycaster(),pointer=new THREE.Vector2();
+ const workouts=window.__MY_TRAINING_WORKOUTS__||[];
+ const norm=s=>(s||'').toString().toLocaleLowerCase('pt-BR').normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/[^a-z0-9]+/g,' ');
+ const groups=[
+  {label:'Peitoral',keys:['chest','pector','peitoral','peito']},
+  {label:'Ombros',keys:['deltoid','shoulder','ombro']},
+  {label:'Bíceps',keys:['biceps','bíceps']},
+  {label:'Tríceps',keys:['triceps','tríceps']},
+  {label:'Antebraços',keys:['forearm','antebraco']},
+  {label:'Abdômen',keys:['abdom','rectus abdominis','oblique','obl']},
+  {label:'Trapézio',keys:['trapezius','trapezoid','trapezio']},
+  {label:'Dorsais',keys:['latissimus','lat dorsi','dorsal']},
+  {label:'Lombar',keys:['lumbar','lower back','erector spinae','lombar']},
+  {label:'Glúteos',keys:['glute','gluteo']},
+  {label:'Quadríceps',keys:['quadriceps','rectus femoris','vastus']},
+  {label:'Posteriores',keys:['hamstring','biceps femoris','semitendinosus','semimembranosus']},
+  {label:'Panturrilhas',keys:['gastrocnemius','soleus','calf','calves']},
+  {label:'Adutores',keys:['adductor','gracilis']}
+ ];
+ function groupFor(name){const n=norm(name);return groups.find(g=>g.keys.some(k=>n.includes(norm(k))))||null;}
+ function statsFor(g){
+  let sets=0,days=new Set(),items=[];
+  workouts.forEach(day=>(day.exercises||[]).forEach(ex=>{
+   const m=norm(ex.muscle||''),n=norm(ex.name||'');
+   if(g.keys.some(k=>m.includes(norm(k))||n.includes(norm(k)))){
+    sets+=parseInt(ex.sets,10)||0;days.add(day.day||day.name||'');items.push({name:ex.name||'Exercício',day:day.day||day.name||'Treino',sets:parseInt(ex.sets,10)||0});
+   }
+  }));
+  return {sets,days:days.size,items};
+ }
+ function renderDetail(label,meshName){
+  const g=groups.find(x=>x.label===label)||{label,keys:[norm(label)]},s=statsFor(g);
+  detail.classList.remove('is-selected');void detail.offsetWidth;detail.classList.add('is-selected');
+  detail.innerHTML='<span class="muscle3d-kicker">REGIÃO SELECIONADA</span><h3>'+label+'</h3><p>'+meshName+'</p><div class="muscle3d-stats"><div class="muscle3d-stat"><strong>'+s.sets+'</strong><span>SÉRIES / SEMANA</span></div><div class="muscle3d-stat"><strong>'+s.days+'</strong><span>DIAS DE ESTÍMULO</span></div><div class="muscle3d-stat"><strong>'+s.items.length+'</strong><span>EXERCÍCIOS</span></div></div><div class="muscle3d-exercises"><b>EXERCÍCIOS DO SEU PLANO</b><ul>'+(s.items.length?s.items.map(x=>'<li>'+x.name+' · '+x.day+' · '+x.sets+' séries</li>').join(''):'<li>Nenhum exercício associado automaticamente a esta região no plano atual.</li>')+'</ul></div>';
+ }
+ function setSelected(mesh){
+  if(selected&&originalMaterials.has(selected))selected.material=originalMaterials.get(selected);
+  selected=mesh||null;
+  if(!selected)return;
+  const mat=selected.material.clone();mat.color.set(0xf0d9a8);mat.emissive=new THREE.Color(0x9b6b2d);mat.emissiveIntensity=.48;mat.metalness=.22;mat.roughness=.36;selected.material=mat;
+  const g=groupFor(selected.name);renderDetail(g?g.label:selected.name,selected.name);
+ }
+ function resize(){const w=stage.clientWidth,h=stage.clientHeight;if(!w||!h)return;camera.aspect=w/h;camera.updateProjectionMatrix();renderer.setSize(w,h,false);}
+ const ro=new ResizeObserver(resize);ro.observe(stage);resize();
+ function animate(){raf=requestAnimationFrame(animate);controls.update();renderer.render(scene,camera);}
+ animate();
+ const loader=new GLTFLoader().setMeshoptDecoder(MeshoptDecoder);
+ const url='https://cdn.jsdelivr.net/npm/open-anatomy-3d@0.1.0/models/anatomy-male.glb';
+ loader.load(url,gltf=>{
+  model=gltf.scene;scene.add(model);
+  const muscles=model.getObjectByName('muscles');
+  model.traverse(o=>{
+   if(o.isMesh){meshes.push(o);originalMaterials.set(o,o.material);o.material=o.material.clone();o.material.color.lerp(new THREE.Color(0xc6a276),.42);o.material.metalness=.18;o.material.roughness=.58;o.castShadow=false;o.receiveShadow=false;}
+   if(o.name==='skin'||o.name==='skeleton'||o.name==='organs'||o.name==='vessels'||o.name==='nerves')o.visible=false;
+  });
+  if(muscles)muscles.visible=true;
+  const box=new THREE.Box3().setFromObject(model),size=box.getSize(new THREE.Vector3()),center=box.getCenter(new THREE.Vector3());
+  model.position.sub(center);model.position.y+=size.y*.5;
+  controls.target.set(0,0,0);camera.position.set(0,size.y*.08,size.y*2.75);controls.minDistance=size.y*1.1;controls.maxDistance=size.y*4.2;controls.update();
+  stage.querySelector('.muscle3d-loading')?.remove();status.textContent=meshes.length+' ESTRUTURAS CARREGADAS';
+  const first=meshes.find(m=>groupFor(m.name));if(first)setSelected(first);
+ },undefined,error=>{
+  console.error('Muscle Map 3D load error',error);status.textContent='MODELO INDISPONÍVEL';
+  const loading=stage.querySelector('.muscle3d-loading');if(loading)loading.innerHTML='<b>Não foi possível carregar o modelo 3D</b><small>Verifique a conexão e atualize a página. O restante do My Training continua disponível.</small>';
+ });
+ function onPick(e){
+  const rect=renderer.domElement.getBoundingClientRect();pointer.x=((e.clientX-rect.left)/rect.width)*2-1;pointer.y=-((e.clientY-rect.top)/rect.height)*2+1;raycaster.setFromCamera(pointer,camera);
+  const hits=raycaster.intersectObjects(meshes,true);if(!hits.length)return;
+  let obj=hits[0].object;while(obj&&!obj.isMesh)obj=obj.parent;if(obj)setSelected(obj);
+ }
+ renderer.domElement.addEventListener('click',onPick);
+ document.querySelectorAll('.muscle3d-controls [data-view]').forEach(btn=>btn.addEventListener('click',()=>{
+  document.querySelectorAll('.muscle3d-controls [data-view]').forEach(b=>b.classList.toggle('active',b===btn));
+  const size=model?new THREE.Box3().setFromObject(model).getSize(new THREE.Vector3()):new THREE.Vector3(0,1,0),dist=Math.max(size.y*2.75,2.8);
+  const dir=btn.dataset.view==='back'?-1:1;if(btn.dataset.view==='reset'){camera.position.set(0,size.y*.08,dist);controls.target.set(0,0,0);controls.autoRotate=false;rotateBtn.textContent='ROTAÇÃO AUTO · OFF';}
+  else{camera.position.set(0,size.y*.08,dist*dir);controls.target.set(0,0,0);}
+  controls.update();
+ }));
+ rotateBtn.addEventListener('click',()=>{controls.autoRotate=!controls.autoRotate;rotateBtn.textContent='ROTAÇÃO AUTO · '+(controls.autoRotate?'ON':'OFF');rotateBtn.classList.toggle('active',controls.autoRotate);});
+ window.addEventListener('pagehide',()=>{cancelAnimationFrame(raf);ro.disconnect();renderer.dispose();},{once:true});
+})();
+</script>
