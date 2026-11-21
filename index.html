@@ -1457,9 +1457,9 @@ document.getElementById('notes').onchange=e=>{state.notes[WORKOUTS[selected].id]
 <script src="./progress.js?v=10"></script>
 
 <style>
-.app-page{display:none;min-height:55vh;padding-bottom:88px}
+.app-page{display:none;min-height:55vh;padding-bottom:104px}
 .app-page.active{display:block}
-.app-nav{position:fixed;z-index:9999;left:0;right:0;bottom:calc(48px + env(safe-area-inset-bottom));padding:8px 12px 8px;display:grid;grid-template-columns:repeat(3,1fr);gap:8px;background:rgba(15,11,8,.94);border-top:1px solid rgba(216,201,168,.28);backdrop-filter:blur(18px)}
+.app-nav{position:fixed;z-index:9999;left:0;right:0;bottom:env(safe-area-inset-bottom);padding:8px 12px 8px;display:grid;grid-template-columns:repeat(3,1fr);gap:8px;background:rgba(15,11,8,.94);border-top:1px solid rgba(216,201,168,.28);backdrop-filter:blur(18px)}
 .app-nav button{border:1px solid rgba(216,201,168,.18);border-radius:13px;background:linear-gradient(145deg,#30271f,#17120f);color:#bdae98;padding:11px 5px;font-size:9px;letter-spacing:.12em}
 .app-nav button[aria-current="page"]{color:#17110b;background:linear-gradient(145deg,#e3d2b2,#a99576);border-color:#e3d2b2;box-shadow:0 0 18px rgba(216,201,168,.2)}
 .app-page .hero{margin-bottom:8px}
@@ -1500,19 +1500,6 @@ let selectedRadio=0;
 };
 nav.innerHTML=pages.map((p,i)=>'<button type="button" data-page="'+p.id+'" aria-current="'+(i===0?'page':'false')+'">'+navIcons[p.id]+'<span>'+p.label+'</span></button>').join('');
  main.appendChild(nav);
- const radioDock=document.createElement('div');radioDock.id='radioDock';radioDock.innerHTML='<span class="radio-station-name" id="radioDockName">Cardio Mix</span><button type="button" class="radio-skip" id="radioDockPrev" aria-label="Rádio anterior"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 5v14M19 6 9 12l10 6z"/></svg></button><button type="button" class="radio-toggle" id="radioDockToggle" aria-label="Tocar rádio"><svg id="radioPlayIcon" viewBox="0 0 24 24" aria-hidden="true"><path d="m8 5 12 7-12 7z"/></svg></button><button type="button" class="radio-skip" id="radioDockNext" aria-label="Próxima rádio"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M18 5v14M5 6l10 6-10 6z"/></svg></button>';
- document.body.appendChild(radioDock);
- const radioAudio=document.createElement('audio');radioAudio.id='radioAudio';radioAudio.preload='none';radioAudio.setAttribute('playsinline','');radioAudio.playsInline=true;document.body.appendChild(radioAudio);
- const updateRadioIcon=playing=>{document.getElementById('radioPlayIcon').innerHTML=playing?'<path d="M8 5v14M16 5v14"/>':'<path d="m8 5 12 7-12 7z"/>';document.getElementById('radioDockToggle').setAttribute('aria-label',playing?'Pausar rádio':'Tocar rádio');};
- const loadRadio=(autoplay=false)=>{const station=RADIO_STATIONS[selectedRadio];document.getElementById('radioDockName').textContent=station.name;radioAudio.pause();if(station.external){radioAudio.removeAttribute('src');radioAudio.load();updateRadioIcon(false);document.getElementById('radioDockName').textContent=station.name+' · abrir no iHeart';return;}radioAudio.src=station.url;radioAudio.load();updateRadioIcon(false);if(autoplay){const p=radioAudio.play();if(p&&p.catch)p.catch(()=>{document.getElementById('radioDockName').textContent=station.name+' · toque para tentar novamente';});}};
- radioAudio.addEventListener('playing',()=>{updateRadioIcon(true);document.getElementById('radioDockName').textContent=RADIO_STATIONS[selectedRadio].name;});
- radioAudio.addEventListener('pause',()=>updateRadioIcon(false));
- radioAudio.addEventListener('error',()=>{updateRadioIcon(false);document.getElementById('radioDockName').textContent=RADIO_STATIONS[selectedRadio].name+' · indisponível';});
- document.getElementById('radioDockToggle').addEventListener('click',()=>{if(!radioAudio.paused){radioAudio.pause();return;}const station=RADIO_STATIONS[selectedRadio];if(station.external){window.open(station.url,'_blank','noopener,noreferrer');return;}if(radioAudio.getAttribute('src')!==station.url){radioAudio.src=station.url;}const p=radioAudio.play();if(p&&p.catch)p.catch(()=>{document.getElementById('radioDockName').textContent=station.name+' · toque para tentar novamente';});});
- const changeRadio=step=>{const wasPlaying=!radioAudio.paused;selectedRadio=(selectedRadio+step+RADIO_STATIONS.length)%RADIO_STATIONS.length;loadRadio(wasPlaying);if('mediaSession' in navigator && typeof MediaMetadata!=='undefined'){try{navigator.mediaSession.metadata=new MediaMetadata({title:RADIO_STATIONS[selectedRadio].name,artist:'iHeartRadio',album:'My Training'});}catch(e){}}};
- document.getElementById('radioDockPrev').addEventListener('click',()=>changeRadio(-1));
- document.getElementById('radioDockNext').addEventListener('click',()=>changeRadio(1));
- if('mediaSession' in navigator && typeof MediaMetadata!=='undefined'){try{navigator.mediaSession.metadata=new MediaMetadata({title:'Cardio Mix',artist:'iHeartRadio',album:'My Training'});navigator.mediaSession.setActionHandler('play',()=>radioAudio.play());navigator.mediaSession.setActionHandler('pause',()=>radioAudio.pause());navigator.mediaSession.setActionHandler('previoustrack',()=>changeRadio(-1));navigator.mediaSession.setActionHandler('nexttrack',()=>changeRadio(1));}catch(e){}}
  nav.addEventListener('click',e=>{
   const button=e.target.closest('button[data-page]');
   if(!button)return;
