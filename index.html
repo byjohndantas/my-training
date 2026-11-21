@@ -1824,7 +1824,7 @@ import {MeshoptDecoder} from 'https://cdn.jsdelivr.net/npm/three@0.170.0/example
   if(muscles)muscles.visible=true;
   const box=new THREE.Box3().setFromObject(model),size=box.getSize(new THREE.Vector3()),center=box.getCenter(new THREE.Vector3());
   model.position.sub(center);model.position.y+=size.y*.5;
-  controls.target.set(0,0,0);camera.position.set(0,size.y*.08,size.y*2.75);controls.minDistance=size.y*1.1;controls.maxDistance=size.y*4.2;controls.update();
+  controls.target.set(0,size.y*.5,0);camera.position.set(0,size.y*.58,size.y*2.75);controls.minDistance=size.y*1.1;controls.maxDistance=size.y*4.2;controls.update();
   stage.querySelector('.muscle3d-loading')?.remove();status.textContent=meshes.length+' ESTRUTURAS CARREGADAS';
   const first=meshes.find(m=>groupFor(m.name));if(first)setSelected(first);
  },undefined,error=>{
@@ -1840,8 +1840,8 @@ import {MeshoptDecoder} from 'https://cdn.jsdelivr.net/npm/three@0.170.0/example
  document.querySelectorAll('.muscle3d-controls [data-view]').forEach(btn=>btn.addEventListener('click',()=>{
   document.querySelectorAll('.muscle3d-controls [data-view]').forEach(b=>b.classList.toggle('active',b===btn));
   const size=model?new THREE.Box3().setFromObject(model).getSize(new THREE.Vector3()):new THREE.Vector3(0,1,0),dist=Math.max(size.y*2.75,2.8);
-  const dir=btn.dataset.view==='back'?-1:1;if(btn.dataset.view==='reset'){camera.position.set(0,size.y*.08,dist);controls.target.set(0,0,0);controls.autoRotate=false;rotateBtn.textContent='ROTAÇÃO AUTO · OFF';}
-  else{camera.position.set(0,size.y*.08,dist*dir);controls.target.set(0,0,0);}
+  const dir=btn.dataset.view==='back'?-1:1;if(btn.dataset.view==='reset'){camera.position.set(0,size.y*.58,dist);controls.target.set(0,size.y*.5,0);controls.autoRotate=false;rotateBtn.textContent='ROTAÇÃO AUTO · OFF';}
+  else{camera.position.set(0,size.y*.58,dist*dir);controls.target.set(0,size.y*.5,0);}
   controls.update();
  }));
  rotateBtn.addEventListener('click',()=>{controls.autoRotate=!controls.autoRotate;rotateBtn.textContent='ROTAÇÃO AUTO · '+(controls.autoRotate?'ON':'OFF');rotateBtn.classList.toggle('active',controls.autoRotate);});
